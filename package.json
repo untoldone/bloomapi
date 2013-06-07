@@ -9,7 +9,10 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "shelljs": "~0.1.4"
+    "shelljs": "~0.1.4",
+  },
+  "scripts": {
+    "test": "jasmine-node spec"
   },
   "license": "MIT",
   "version": "v0.0.1"
