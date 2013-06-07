@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/untoldone/bloomapi.png)](http://travis-ci.org/untoldone/bloomapi)
+
 An open source library for maintaining an updated mirror of http://nppes.viva-it.com/NPI_Files.html and making it queriable via API
 
 Testing
