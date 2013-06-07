@@ -7,8 +7,7 @@
     "type": "git",
     "url": "git://github.com/untoldone/bloomapi.git"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "shelljs": "~0.1.4"
   },
