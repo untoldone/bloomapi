@@ -1,0 +1,17 @@
+{
+  "name": "bloomapi",
+  "description": "Datastore and API for for NPIs (US Healthcare National Provider Identifier)",
+  "author": "Michael M. Wasser <michael.m.wasser@gmail.com>",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/untoldone/bloomapi.git"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "shelljs": "~0.1.4"
+  },
+  "license": "MIT",
+  "version": "v0.0.1"
+}
