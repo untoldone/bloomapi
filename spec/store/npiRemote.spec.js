@@ -8,7 +8,7 @@ describe('NPIRemote', function () {
 
   beforeEach(function () {
     get = http.get;
-    fakeGet.content = "<one>http://something/NPPES_Data_Dissemination_j_1.zip</one>";
+    fakeGet.content = "<one>http://something/NPPES_Data_Dissemination_j_1.zip</one><two>http://something/NPPES_Data_Dissemination_112233_223344_Weekly.zip</two><two>http://something/NPPES_Data_Dissemination_334455_667788_Weekly.zip</two>";
     http.get = fakeGet;
   });
 
@@ -19,20 +19,24 @@ describe('NPIRemote', function () {
   describe('currentFullID', function () {
     it('should describe the current Full remote dissemination', function (done) {
       remote.currentFullID().then(function (value) {
-        http.get = get;
-        expect(value).toNotEqual(null); 
+        expect(value).toEqual('j_1'); 
         done();
       }).fail(function (error) {
-        http.get = get;
-        expect(error).toEqual(null);
+        expect(false).toEqual(true);
         done();
       });
     });
   });
 
   describe('currentWeeklyIDs', function () {
-    xit('should describe the current Weekly disseminations', function (done) {
-      throw 'pending';
+    it('should describe the current Weekly disseminations', function (done) {
+      remote.currentWeeklyIDs().then(function (value) {
+        expect(value).toEqual(['112233_223344', '334455_667788']);
+        done();
+      }).fail(function (error) {
+        expect(false).toEqual(true);
+        done();
+      });
     });
   });
 
