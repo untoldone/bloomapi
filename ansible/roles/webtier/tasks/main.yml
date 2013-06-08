@@ -1,0 +1,13 @@
+---
+# file: roles/webtier/tasks/main.yml
+
+- name: be sure nginx is installed
+  apt: pkg=nginx state=installed
+
+- name: be sure website source is checked out
+  git: repo=git://github.com/untoldone/bloomapi.git dest=/home/ubuntu/bloomapi
+
+- name: be sure nginx is configured
+  template: src=nginx_default_site dest=/etc/nginx/sites-available/default
+  notify:
+    - restart nginx
