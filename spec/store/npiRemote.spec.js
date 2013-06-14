@@ -41,8 +41,21 @@ describe('NPIRemote', function () {
   });
 
   describe('fetchFull', function () {
-    xit('should fetch the current full dissemination', function (done) {
-      throw 'pending';
+    it('should fetch the current full dissemination', function (done) {
+      var progress = false;
+      remote.fetchFull().then(function () {}, 
+      function () {}, // error
+      function (complete) {
+        if (!progress) {
+          expect(complete).toEqual(0.5);
+        }
+        progress = true;
+      }).fail(function (error) {
+        expect(false).toEqual(true); 
+      }).done(function () {
+        expect(progress).toEqual(true); 
+        done();
+      });
     });
   });
 
