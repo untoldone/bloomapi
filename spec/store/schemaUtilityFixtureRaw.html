@@ -1,0 +1,1482 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><HTML>
+<HEAD>
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+<A name=1></a>National Plan and Provider Enumeration System<br>
+(NPPES)<br>
+Data Dissemination ­ Readme<br>
+Prepared For<br>
+Centers for Medicare and Medicaid Services<br>
+Updated: March 2013<br>
+Effective Date: April, 2013<br>
+<hr>
+<A name=2></a>This page intentionally left blank.<br>
+<hr>
+<A name=3></a>NPPES<br>
+Table of Contents<br>
+Table of Contents.........................................................................................................................i<br>
+List of Exhibits............................................................................................................................. ii<br>
+1<br>
+Introduction ........................................................................................................................1<br>
+1.1<br>
+About the Data File.......................................................................................................1<br>
+1.2<br>
+Monthly Data File..........................................................................................................2<br>
+1.3<br>
+Contents of the Download Bundle ................................................................................2<br>
+2<br>
+Data File Layout .................................................................................................................3<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+i<br>
+<hr>
+<A name=4></a>NPPES<br>
+List of Exhibits<br>
+Exhibit 2-1 Data File Layout ........................................................................................................3<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+ii<br>
+<hr>
+<A name=5></a>NPPES<br>
+1<br>
+Introduction<br>
+Per the NPPES Data Dissemination Notice, CMS-6060-N, posted on the Federal Register on May 30,<br>
+2007, FOIA-disclosable NPPES health care provider data will be provided in a downloadable file format.<br>
+1.1<br>
+About the Data File<br>
+Each NPI record (i.e., the record of an enumerated and deactivated health care provider) is stored in the<br>
+file as comma separated values (CSV) in a single row. A new row is created for each NPI record. Starting<br>
+October 2012, NPI records in the downloadable file will also include deactivated health care provider<br>
+data. But for these deactivated providers, only the NPI and its deactivation date will be visible in the<br>
+downloadable file.<br>
+Every data value (between the commas) is enclosed within double quotes. For example,<br>
+"data value 1","data value 2","data value 3",...<br>
+If the data value itself contains double quotes, these double quotes will be replaced by single quote to<br>
+avoid confusing them the enclosing double quotes.<br>
+For example, if the original data value 1 is sam"ple da"ta 1 it will be converted to sam'ple da'ta 1 and<br>
+stored in the file as depicted below.<br>
+"sam'ple da'ta 1", "data value 2", "data value 3",...<br>
+This CSV file can be viewed using a variety of third-party software. Due to large volume of the data and<br>
+the nature of the file, it is recommended that this file be handled by personnel with technical expertise.<br>
+The data file contains the fields identified in the NPPES Data Dissemination Notice and certain sub-fields<br>
+related to those fields will be disclosed in the downloadable file. The sub-fields are:<br>
+1. For Other Provider Identifiers, the downloadable file will include the Issuer (the name of the<br>
+health plan that issued the Other Provider Identifier), and the State (if furnished, the State of the<br>
+Medicaid plan when Medicaid is the issuer).<br>
+2. For Taxonomy Code, the downloadable file will denote the Primary Taxonomy with the Primary<br>
+Taxonomy Flag.<br>
+3. For the Other Name, the downloadable file will include the Other Name Prefix Text, the Other<br>
+Name Suffix Text, and the Other Name Credentials text if any of that information was furnished<br>
+by the provider.<br>
+Some health care providers reported their SSNs, IRS ITINs or EINs in sections of the NPI application that<br>
+contain information that is required to be disclosed under FOIA. For example,<br>
+1. Providers who are individuals may have reported SSNs or IRS ITINs in FOIA-disclosable fields<br>
+(such as in the &quot;Other Provider Identifiers&quot; or &quot;License Number&quot; fields).<br>
+2. An incorporated individual, when applying for an NPI for the corporation, may have reported<br>
+his/her SSN as the EIN of the corporation.<br>
+CMS has urged health care providers to review their NPPES FOIA-disclosable data to ensure that it is<br>
+correct and to remove any inappropriate or sensitive information that they may have reported in any of<br>
+those fields that are &quot;optional&quot; (i.e., not required to be furnished) and /or replace the inappropriate or<br>
+sensitive information that they may have reported in required fields with the appropriate information. If<br>
+health care providers did not remove SSNs, IRS ITINs or EINs from FOIA-disclosable fields, CMS took<br>
+action to not disclose any SSNs or IRS ITINs that were entered in those fields. CMS also took action to<br>
+temporarily suppress reported EINs, even though they are disclosable under FOIA, because providers<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+1<br>
+<hr>
+<A name=6></a>NPPES<br>
+reported SSNs in the EIN field. After April 21, 2008, CMS will mask SSNs, IRS ITINs, and EINs when<br>
+these numbers are entered in the Other Provider Identifier Number and License Number fields as follows:<br>
+SSNs to "$$$$$$$$$", IRS ITINs to "*********", and EINs to "=========". This action also includes<br>
+the continued suppression of the EINs and the suppression of the Subpart Parent Organization TINs of all<br>
+Organizations in the downloadable file. CMS expects to lift the suppression of EINs and Parent<br>
+Organization TINs in the future.<br>
+1.2<br>
+Monthly Data File<br>
+Each month, a file will be available for download. This file will contain all of the FOIA-disclosable active<br>
+provider data in NPPES. This file will replace the file provided the previous month and will contain:<br>
+1. FOIA-disclosable NPPES health care provider information for health care providers.<br>
+2. Updates and changes to the FOIA-disclosable NPPES health care provider information of<br>
+enumerated health care providers.<br>
+3. NPI and deactivation date for the deactivated health care providers.<br>
+A new file will be available for download 30 days after the availability of the initial file, and each month<br>
+thereafter.<br>
+1.3<br>
+Contents of the Download Bundle<br>
+This data file is provided in a ZIP archive to compress the size and facilitate easier downloading. The<br>
+contents of this ZIP file are listed below:<br>
+1. Data File ­ this is the file containing the FOIA-disclosable NPPES provider data.<br>
+2. Header File ­ this file contains a comma separated list of the column headers for the Data file.<br>
+3. Data Dissemination File - Code Value document ­ this document provides the descriptions of the<br>
+various reference codes used in the Data file.<br>
+4. This document (Data Dissemination File - Readme) is also part of the ZIP archive.<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+2<br>
+<hr>
+<A name=7></a>NPPES<br>
+2<br>
+Data File Layout<br>
+Each line in the data file represents an NPI record. The following is the list of the column headers in the order as present in the data file.<br>
+Exhibit 2-1 Data File Layout<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+NPI<br>
+10<br>
+NUMBER<br>
+NPI<br>
+Entity Type Code<br>
+1<br>
+NUMBER<br>
+Entity Type Code<br>
+Replacement NPI<br>
+10<br>
+NUMBER<br>
+Replacement NPI<br>
+Employer Identification Number (EIN)<br>
+9<br>
+VARCHAR<br>
+Employer Identification Number (EIN)<br>
+Provider Organization Name (Legal Business Name)<br>
+70<br>
+VARCHAR<br>
+Provider Organization Name (Legal Business<br>
+Name)<br>
+Provider Last Name (Legal Name)<br>
+35<br>
+VARCHAR<br>
+Provider Last Name (Legal Name)<br>
+Provider First Name<br>
+20<br>
+VARCHAR<br>
+Provider First Name<br>
+Provider Middle Name<br>
+20<br>
+VARCHAR<br>
+Provider Middle Name<br>
+Provider Name Prefix Text<br>
+5<br>
+VARCHAR<br>
+Provider Name Prefix Text<br>
+Provider Name Suffix Text<br>
+5<br>
+VARCHAR<br>
+Provider Name Suffix Text<br>
+Provider Credential Text<br>
+20<br>
+VARCHAR<br>
+Provider Credential Text<br>
+Provider Other Organization Name<br>
+70<br>
+VARCHAR<br>
+Provider Other Organization Name<br>
+Provider Other Organization Name Type Code<br>
+1<br>
+VARCHAR<br>
+Provider Other Organization Name Type Code<br>
+Provider Other Last Name<br>
+35<br>
+VARCHAR<br>
+Provider Other Last Name<br>
+Provider Other First Name<br>
+20<br>
+VARCHAR<br>
+Provider Other First Name<br>
+Provider Other Middle Name<br>
+20<br>
+VARCHAR<br>
+Provider Other Middle Name<br>
+Provider Other Name Prefix Text<br>
+5<br>
+VARCHAR<br>
+Provider Other Name Prefix Text<br>
+Provider Other Name Suffix Text<br>
+5<br>
+VARCHAR<br>
+Provider Other Name Suffix Text<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+3<br>
+<hr>
+<A name=8></a>NPPES<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+Provider Other Credential Text<br>
+20<br>
+VARCHAR<br>
+Provider Other Name Credential Text<br>
+Provider Other Last Name Type Code<br>
+1<br>
+NUMBER<br>
+Provider Other Last Name Type Code<br>
+Provider First Line Business Mailing Address<br>
+55<br>
+VARCHAR<br>
+Provider First Line Business Mailing Address<br>
+Provider Second Line Business Mailing Address<br>
+55<br>
+VARCHAR<br>
+Provider Second Line Business Mailing Address<br>
+Provider Business Mailing Address City Name<br>
+40<br>
+VARCHAR<br>
+Provider Business Mailing Address City Name<br>
+Provider Business Mailing Address State Name<br>
+40<br>
+VARCHAR<br>
+Provider Business Mailing Address State Name<br>
+Provider Business Mailing Address Postal Code<br>
+20<br>
+VARCHAR<br>
+Provider Business Mailing Address Postal Code<br>
+Provider Business Mailing Address Country Code (If outside U.S.)<br>
+2<br>
+VARCHAR<br>
+Provider Business Mailing Address Country Code<br>
+(If outside U.S.)<br>
+Provider Business Mailing Address Telephone Number<br>
+20<br>
+VARCHAR<br>
+Provider Business Mailing Address Telephone<br>
+Number<br>
+Provider Business Mailing Address Fax Number<br>
+20<br>
+VARCHAR<br>
+Provider Business Mailing Address Fax Number<br>
+Provider First Line Business Practice Location Address<br>
+55<br>
+VARCHAR<br>
+Provider First Line Business Location Address<br>
+Provider Second Line Business Practice Location Address<br>
+55<br>
+VARCHAR<br>
+Provider Second Line Business Location Address<br>
+Provider Business Practice Location Address City Name<br>
+40<br>
+VARCHAR<br>
+Provider Business Location Address City Name<br>
+Provider Business Practice Location Address State Name<br>
+40<br>
+VARCHAR<br>
+Provider Business Location Address State Name<br>
+Provider Business Practice Location Address Postal Code<br>
+20<br>
+VARCHAR<br>
+Provider Business Location Address Postal Code<br>
+Provider Business Practice Location Address Country Code (If<br>
+2<br>
+VARCHAR<br>
+Provider Business Location Address Country<br>
+outside U.S.)<br>
+Code (If outside U.S.)<br>
+Provider Business Practice Location Address Telephone Number<br>
+20<br>
+VARCHAR<br>
+Provider Business Location Address Telephone<br>
+Number<br>
+Provider Business Practice Location Address Fax Number<br>
+20<br>
+VARCHAR<br>
+Provider Business Location Address Fax Number<br>
+Provider Enumeration Date<br>
+10 (MM/DD/YYYY)<br>
+DATE<br>
+Provider Enumeration Date<br>
+Last Update Date<br>
+10 (MM/DD/YYYY)<br>
+DATE<br>
+Last Update Date<br>
+NPI Deactivation Reason Code<br>
+2<br>
+VARCHAR<br>
+NPI Deactivation Reason Code<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+4<br>
+<hr>
+<A name=9></a>NPPES<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+NPI Deactivation Date<br>
+10 (MM/DD/YYYY)<br>
+DATE<br>
+NPI Deactivation Date<br>
+NPI Reactivation Date<br>
+10 (MM/DD/YYYY)<br>
+DATE<br>
+NPI Reactivation Date<br>
+Provider Gender Code<br>
+1<br>
+VARCHAR<br>
+Provider Gender Code<br>
+Authorized Official Last Name<br>
+35<br>
+VARCHAR<br>
+Authorized Official Last Name<br>
+Authorized Official First Name<br>
+20<br>
+VARCHAR<br>
+Authorized Official First Name<br>
+Authorized Official Middle Name<br>
+20<br>
+VARCHAR<br>
+Authorized Official Middle Name<br>
+Authorized Official Title or Position<br>
+35<br>
+VARCHAR<br>
+Authorized Official Title or Position<br>
+Authorized Official Telephone Number<br>
+20<br>
+VARCHAR<br>
+Authorized Official Telephone Number<br>
+Healthcare Provider Taxonomy Code_1<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_1<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+Provider License Number State Code_1<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+Healthcare Provider Primary Taxonomy Switch_1<br>
+1<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code_2<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_2<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+Provider License Number State Code_2<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+Healthcare Provider Primary Taxonomy Switch_2<br>
+1<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code_3<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_3<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+Provider License Number State Code_3<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+Healthcare Provider Primary Taxonomy Switch_3<br>
+1<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code_4<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_4<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+Provider License Number State Code_4<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+5<br>
+<hr>
+<A name=10></a>NPPES<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+Healthcare Provider Primary Taxonomy Switch_4<br>
+1<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code_5<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_5<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+Provider License Number State Code_5<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+Healthcare Provider Primary Taxonomy Switch_5<br>
+1<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code_6<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_6<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+Provider License Number State Code_6<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+Healthcare Provider Primary Taxonomy Switch_6<br>
+1<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code_7<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_7<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+Provider License Number State Code_7<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+Healthcare Provider Primary Taxonomy Switch_7<br>
+1<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code_8<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_8<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+Provider License Number State Code_8<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+Healthcare Provider Primary Taxonomy Switch_8<br>
+1<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code_9<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_9<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+Provider License Number State Code_9<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+Healthcare Provider Primary Taxonomy Switch_9<br>
+1<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code_10<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_10<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+6<br>
+<hr>
+<A name=11></a>NPPES<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+Provider License Number State Code_10<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+Healthcare Provider Primary Taxonomy Switch_10<br>
+1<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code_11<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_11<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+Provider License Number State Code_11<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+Healthcare Provider Primary Taxonomy Switch_11<br>
+1<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code_12<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_12<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+Provider License Number State Code_12<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+Healthcare Provider Primary Taxonomy Switch_12<br>
+1<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code_13<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_13<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+Provider License Number State Code_13<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+Healthcare Provider Primary Taxonomy Switch_13<br>
+1<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code_14<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_14<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+Provider License Number State Code_14<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+Healthcare Provider Primary Taxonomy Switch_14<br>
+1<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code_15<br>
+10<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Code<br>
+Provider License Number_15<br>
+20<br>
+VARCHAR<br>
+Provider License Number<br>
+Provider License Number State Code_15<br>
+2<br>
+VARCHAR<br>
+Provider License Number State Code<br>
+Healthcare Provider Primary Taxonomy Switch_15<br>
+1<br>
+VARCHAR<br>
+Other Provider Identifier_1<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+7<br>
+<hr>
+<A name=12></a>NPPES<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+Other Provider Identifier Type Code_1<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_1<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_1<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_2<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_2<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_2<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_2<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_3<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_3<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_3<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_3<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_4<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_4<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_4<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_4<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_5<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_5<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_5<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_5<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_6<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_6<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_6<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_6<br>
+80<br>
+VARCHAR<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+8<br>
+<hr>
+<A name=13></a>NPPES<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+Other Provider Identifier_7<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_7<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_7<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_7<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_8<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_8<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_8<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_8<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_9<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_9<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_9<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_9<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_10<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_10<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_10<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_10<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_11<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_11<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_11<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_11<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_12<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_12<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_12<br>
+2<br>
+VARCHAR<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+9<br>
+<hr>
+<A name=14></a>NPPES<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+Other Provider Identifier Issuer_12<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_13<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_13<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_13<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_13<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_14<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_14<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_14<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_14<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_15<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_15<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_15<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_15<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_16<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_16<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_16<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_16<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_17<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_17<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_17<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_17<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_18<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_18<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+10<br>
+<hr>
+<A name=15></a>NPPES<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+Other Provider Identifier State_18<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_18<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_19<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_19<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_19<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_19<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_20<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_20<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_20<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_20<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_21<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_21<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_21<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_21<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_22<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_22<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_22<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_22<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_23<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_23<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_23<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_23<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_24<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+11<br>
+<hr>
+<A name=16></a>NPPES<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+Other Provider Identifier Type Code_24<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_24<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_24<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_25<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_25<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_25<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_25<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_26<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_26<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_26<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_26<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_27<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_27<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_27<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_27<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_28<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_28<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_28<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_28<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_29<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_29<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_29<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_29<br>
+80<br>
+VARCHAR<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+12<br>
+<hr>
+<A name=17></a>NPPES<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+Other Provider Identifier_30<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_30<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_30<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_30<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_31<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_31<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_31<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_31<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_32<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_32<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_32<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_32<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_33<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_33<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_33<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_33<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_34<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_34<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_34<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_34<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_35<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_35<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_35<br>
+2<br>
+VARCHAR<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+13<br>
+<hr>
+<A name=18></a>NPPES<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+Other Provider Identifier Issuer_35<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_36<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_36<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_36<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_36<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_37<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_37<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_37<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_37<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_38<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_38<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_38<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_38<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_39<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_39<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_39<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_39<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_40<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_40<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_40<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_40<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_41<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+14<br>
+<hr>
+<A name=19></a>NPPES<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+Other Provider Identifier Type Code_41<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_41<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_41<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_42<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_42<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_42<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_42<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_43<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_43<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_43<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_43<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_44<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_44<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_44<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_44<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_45<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_45<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_45<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_45<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_46<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_46<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_46<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_46<br>
+80<br>
+VARCHAR<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+15<br>
+<hr>
+<A name=20></a>NPPES<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+Other Provider Identifier_47<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_47<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_47<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_47<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_48<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_48<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_48<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_48<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_49<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_49<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_49<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_49<br>
+80<br>
+VARCHAR<br>
+Other Provider Identifier_50<br>
+20<br>
+VARCHAR<br>
+Other Provider Identifier<br>
+Other Provider Identifier Type Code_50<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Type Code<br>
+Other Provider Identifier State_50<br>
+2<br>
+VARCHAR<br>
+Other Provider Identifier Issuer_50<br>
+80<br>
+VARCHAR<br>
+Is Sole Proprietor<br>
+1<br>
+VARCHAR<br>
+Provider Sole Proprietor Flag<br>
+Is Organization Subpart<br>
+1<br>
+VARCHAR<br>
+Provider Organization Subpart Flag<br>
+Parent Organization LBN<br>
+70<br>
+VARCHAR<br>
+Provider Organization Subpart Legal Business<br>
+Name<br>
+Parent Organization TIN<br>
+9<br>
+VARCHAR<br>
+Provider Organization Subpart TIN<br>
+Authorized Official Name Prefix Text<br>
+5<br>
+VARCHAR<br>
+Authorized Official Name Prefix Text<br>
+Authorized Official Name Suffix Text<br>
+5<br>
+VARCHAR<br>
+Authorized Official Name Suffix Text<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+16<br>
+<hr>
+<A name=21></a>NPPES<br>
+Column Name<br>
+Max Length<br>
+Data Type<br>
+Corresponding Field in the<br>
+Data Dissemination Notice<br>
+Authorized Official Credential Text<br>
+20<br>
+VARCHAR<br>
+Authorized Official Credential Text<br>
+Healthcare Provider Taxonomy Group_1<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+Healthcare Provider Taxonomy Group_2<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+Healthcare Provider Taxonomy Group_3<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+Healthcare Provider Taxonomy Group_4<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+Healthcare Provider Taxonomy Group_5<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+Healthcare Provider Taxonomy Group_6<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+Healthcare Provider Taxonomy Group_7<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+Healthcare Provider Taxonomy Group_8<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+Healthcare Provider Taxonomy Group_9<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+Healthcare Provider Taxonomy Group_10<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+Healthcare Provider Taxonomy Group_11<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+Healthcare Provider Taxonomy Group_12<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+Healthcare Provider Taxonomy Group_13<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+Healthcare Provider Taxonomy Group_14<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+Healthcare Provider Taxonomy Group_15<br>
+70<br>
+VARCHAR<br>
+Healthcare Provider Taxonomy Group<br>
+NPPES Data Dissemination - Readme<br>
+Sept 2012<br>
+17<br>
+<hr>
+</BODY>
+</HTML>
