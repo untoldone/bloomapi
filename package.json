@@ -8,7 +8,8 @@
     "url": "git://github.com/untoldone/bloomapi.git"
   },
   "dependencies": {
-    "q": "~0.9.4"
+    "q": "~0.9.4",
+    "pdftohtmljs": "~0.2.1"
   },
   "devDependencies": {
     "shelljs": "~0.1.4"
