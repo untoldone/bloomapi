@@ -64,11 +64,16 @@ describe('SchemaToPostgreSQL', function () {
       //  convert '(', ')', '.' and white space to '_'
       //  shorten multiple '_' in a row to single '_'
       //  trim _ from beginning and end
-      demo.name = " Hello (World.U.S.) Something.";
+      demo.name = " Hello (World.U.S.) Something.)";
       var result = converter.importSchema([demo]);
       var match = /\(([^\s]+).+\)/.exec(result);
       var name = match[1];
       expect(name).toEqual('hello_world_u_s_something');
+      demo.name = "Employer Identification Number (EIN)";
+      var result = converter.importSchema([demo]);
+      var match = /\(([^\s]+).+\)/.exec(result);
+      var name = match[1];
+      expect(name).toEqual('employer_identification_number_ein');
     });
   });
 });
