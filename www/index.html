@@ -3,16 +3,89 @@
 <head>
   <title>BloomAPI: an open National Provider Identifier (NPI) API</title>
   <style>
-    .content {
+    body {
       font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
       font-weight: 300;
+    }
+
+    .content {
       width: 500px;
-      margin: 100px auto;
+      margin: 50px auto 0 auto;
       text-align: center;
+    }
+
+    .full-content {
+      width: 500px;
+      margin: 50px auto 20px;
+      text-align: center;
+    }
+
+    .error {
+      color: #C21111;
     }
 
     p {
       line-height: 27px;
+    }
+
+    /* input fields */
+    input {
+      padding: 10px;
+      font-size: 15px;
+    }
+
+    button {
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+      background-repeat: repeat-x;
+      cursor: pointer;
+    }
+
+    button:active {
+      background-image: linear-gradient(to bottom, #ddd, #e6e6e6);
+    }
+
+    .search-block {
+      float: left;
+      margin: 0 10px 10px 0;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    h5 {
+      margin-top: 5px;
+    }
+
+    pre {
+      outline: 1px solid #ccc;
+      padding: 5px;
+      margin: 5px;
+      overflow-y: auto;
+      height: 500px;
+    }
+
+    .string { 
+      color: green;
+    }
+
+    .number {
+      color: darkorange;
+    }
+
+    .boolean {
+      color: blue;
+    }
+
+    .null {
+      color: magenta;
+    }
+
+    .key {
+      color: red;
     }
   </style>
 </head>
@@ -27,6 +100,83 @@
       non-stale, API for this datasource.
       If you'd like to contribute, checkout the <a href="https://github.com/untoldone/bloomapi" target="_blank">github project</a>.
   </div>
+  <div class="full-content">
+    <div class="left">
+      <h2>Preview BloomAPI</h2>
+      <p>Use BloomAPI to query for all available NPI data on healthcare providers.</p>
+      <div class="search-block" style="margin-left: 50px">
+        <h5>By Zip Code</h5>
+        <input type="text" placeholder="Zip Code" id="zip" />
+      </div>
+      <div class="search-block">
+        <h5>By Last Name</h5>
+        <input type="text" placeholder="Last Name" id="last" />
+      </div>
+      <button>Query BloomAPI</button>
+      <p class="error"></p>
+    </div>
+  </div>
+  <div class="results">
+    <h2></h2>
+    <code></code>
+  </div>
+
+<script src="js/vendor/jquery-1.10.1.min.js"></script>
+<script>
+  function syntaxHighlight(json) {
+    if (typeof json != 'string') {
+         json = JSON.stringify(json, undefined, 2);
+    }
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+  }
+
+
+  $(function () {
+    $('button').click(function () {
+      var zip = $('#zip').val(),
+          last = $('#last').val(),
+          $resultsHeader = $('.results h2'),
+          $resultsUri = $('.results code'),
+          $results = $('.results'),
+          $resultsPre = $('.results pre'),
+          $error = $('.error');
+
+      if ($resultsPre.length === 0) $resultsPre = $('<pre></pre>');
+ 
+      $error.html('');
+      if (!zip && !last) {
+        $error.html('You must specify a zip code or last name to continue');
+      } else {
+        var params = "?";
+        if (zip) params += "zip=" + zip;
+        if (zip && last) params += "&last_name=" + last.toUpperCase();
+        if (!zip && last) params += "last_name=" + last.toUpperCase();
+        $.getJSON('/api/search' + params, function (data) {
+          var s = JSON.stringify(data, undefined, 4);
+          $resultsHeader.html('Results of Query');
+          $resultsUri.html('GET: ' + location.protocol + '//' + location.host + this.url);
+          $results.append($resultsPre);
+          $resultsPre.html(syntaxHighlight(s));
+        });
+      }
+    });
+  });
+</script>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
