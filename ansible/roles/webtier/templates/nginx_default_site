@@ -1,3 +1,7 @@
+upstream app_bloomapi {
+  server 127.0.0.1:3000;
+}
+
 server {
   listen 80;
   listen [::]:80 default_server ipv6only=on;
@@ -7,6 +11,16 @@ server {
 
   # Make site accessible from http://localhost/
   server_name localhost;
+
+  location /api {
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded_For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-NginX-Proxy true;
+
+    proxy_pass http://app_bloomapi/api;
+    proxy_redirect off;
+  }
 
   location / {
     # First attempt to serve request as file, then
