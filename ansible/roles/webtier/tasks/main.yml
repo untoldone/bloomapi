@@ -11,3 +11,26 @@
   template: src=nginx_default_site dest=/etc/nginx/sites-available/default
   notify:
     - restart nginx
+
+# Setup PostgreSQL
+- name: be sure python setup tools/ postgreSQL are installed
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - python-setuptools
+    - python-dev
+    - postgresql-9.1
+    - postgresql-server-dev-9.1
+- name: be sure postgreSQL python package is installed
+  easy_install: name=psycopg2
+- name: be sure postgres user config present
+  copy: src={{ item }} dest=/etc/postgresql/9.1/main/{{ item }} owner=postgres group=postgres mode=644
+  with_items:
+    - pg_hba.conf
+    - pg_ident.conf
+  register: result
+- name: if configuration changed, restart postgres
+  service: name=postgresql state=restarted
+  when_changed: $result
+# TODO: create configuration that is not checked in with postgres password
+- name: be sure postgres user is setup
+  postgresql_user: login_user=postgres name=postgres password={{ postgres_password }}
