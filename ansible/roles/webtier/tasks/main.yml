@@ -49,3 +49,12 @@
 # Install BloomAPI Dependencies
 - name: be sure BloomAPI Nodejs dependencies are installed
   npm: path=/home/ubuntu/bloomapi
+- name: be sure p7zip and pdftohtml are installed
+  apt: pkg={{ item }} state=present
+  with_items:
+    - p7zip-full
+    - poppler-utils
+
+# Create Bloom API Database
+- name: be sure bloomapi database exists
+  postgresql_db: login_user=postgres login_password={{ postgres_password }} db=blooomapi owner=postgres
