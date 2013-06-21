@@ -62,5 +62,6 @@
 # Create init script for BloomAPI
 - name: be sure bloomapi init script exists
   copy: src=bloomapi-init dest=/etc/init.d/bloomapi owner=root group=root mode=755
+  notify: restart bloomapi
 - name: be sure bloomapi init script has proper runlevels
-  service: name=bloomapi state=started enabled=yes
+  shell: creates=/etc/rc5.d/S20bloomapi update-rc.d bloomapi defaults
