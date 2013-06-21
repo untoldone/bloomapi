@@ -2,3 +2,5 @@
 # file: roles/webtier/handlers/main.yml
 - name: restart nginx
   service: name=nginx state=restarted
+- name: restart bloomapi
+  service: name=bloomapi state=restarted
