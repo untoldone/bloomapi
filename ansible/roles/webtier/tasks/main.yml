@@ -31,6 +31,17 @@
 - name: if configuration changed, restart postgres
   service: name=postgresql state=restarted
   when_changed: $result
-# TODO: create configuration that is not checked in with postgres password
 - name: be sure postgres user is setup
   postgresql_user: login_user=postgres name=postgres password={{ postgres_password }}
+
+# Setup  Nodejs
+- name: be sure nodejs apt repository exists
+  apt_repository: repo=ppa:chris-lea/node.js
+- name: be sure to install node and all dependencies
+  apt: update_cache=yes state=present pkg={{ item }}
+  with_items:
+    - python-software-properties
+    - python
+    - g++
+    - make
+    - nodejs
