@@ -55,6 +55,12 @@
     - p7zip-full
     - poppler-utils
 
-# Create Bloom API Database
+# Create BloomAPI Database
 - name: be sure bloomapi database exists
-  postgresql_db: login_user=postgres login_password={{ postgres_password }} db=blooomapi owner=postgres
+  postgresql_db: db=bloomapi login_user=postgres login_password={{ postgres_password }} owner=postgres state=present
+
+# Create init script for BloomAPI
+- name: be sure bloomapi init script exists
+  copy: src=bloomapi-init dest=/etc/init.d/bloomapi owner=root group=root mode=755
+- name: be sure bloomapi init script has proper runlevels
+  service: name=bloomapi state=started enabled=yes
