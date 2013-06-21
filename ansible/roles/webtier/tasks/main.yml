@@ -65,3 +65,11 @@
   notify: restart bloomapi
 - name: be sure bloomapi init script has proper runlevels
   shell: creates=/etc/rc5.d/S20bloomapi update-rc.d bloomapi defaults
+
+# Create BloomAPI configuration
+- name: be sure that blooomapi's config.js is installed
+  template: src=bloom-config dest=/home/ubuntu/bloomapi/config.js owner=root group=root mode=644
+
+# Bootstrap BloomAPI
+- name: be sure bloomapi has been bootstrapped
+  shell: creates=/home/ubuntu/bloomapi/data/NPPES_Data_Dissemination_CodeValues.pdf chdir=/home/ubuntu/bloomapi node make bootstrap

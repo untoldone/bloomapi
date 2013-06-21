@@ -1,0 +1,11 @@
+var config = {
+  sql: {
+    host: 'localhost',
+    port: '5432',
+    username: 'postgres',
+    password: '{{ postgres_password }}',
+    dbname: 'bloomapi'
+  }
+};
+
+module.exports = config;
