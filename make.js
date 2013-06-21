@@ -30,8 +30,8 @@ target.check = function () {
       valid = false;
     }
 
-    if (!which('pdftohtml')) {
-      console.log('ERROR: pdftohtml is required for bootstrap task');
+    if (!which('pdftotext')) {
+      console.log('ERROR: pdftotext is required for bootstrap task');
       valid = false;
     }
 
