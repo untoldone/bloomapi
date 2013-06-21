@@ -45,3 +45,7 @@
     - g++
     - make
     - nodejs
+
+# Install BloomAPI Dependencies
+- name: be sure BloomAPI Nodejs dependencies are installed
+  npm: path=/home/ubuntu/bloomapi
