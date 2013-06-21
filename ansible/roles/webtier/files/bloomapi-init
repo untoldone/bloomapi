@@ -1,0 +1,43 @@
+#! /bin/sh
+
+### BEGIN INIT INFO
+# Provides:   bloomapi
+# Required-Start: $remote_fs $syslog
+# Required-Stop:  $remote_fs $syslog
+# Default-Start:  2 3 4 5
+# Default-Stop:
+# Short-Description:  BloomAPI health data API
+### END INIT INFO
+
+set -e
+
+# /etc/init.d/bloomapi: start and stop the BloomAPI daemon
+
+test /home/ubuntu/bloomapi/make.js || exit 0
+
+umask 022
+
+export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
+
+case "$1" in
+  start)
+    echo "Starting BloomAPI server" "bloomapi"
+    start-stop-daemon --start --background --quiet -d /home/ubuntu/bloomapi --oknodo --pidfile /var/run/bloomapi.pid -m --exec /usr/bin/node -- /home/ubuntu/bloomapi/make.js server
+  ;;
+  stop)
+    echo "Stopping BloomAPI server"
+    start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/bloomapi.pid
+  ;;
+
+  restart)
+    echo "Restarting BloomAPI server"
+    start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile /var/run/bloomapi.pid
+    start-stop-daemon --start --background --quiet -d /home/ubuntu/bloomapi --oknodo --pidfile /var/run/bloomapi.pid -m --exec /usr/bin/node -- /home/ubuntu/bloomapi/make.js server
+  ;;
+
+  *)
+  echo "Usage: /etc/init.d/bloomapi {start|stop|restart}" >&2
+  exit 1
+esac
+
+exit 0
