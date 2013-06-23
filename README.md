@@ -74,8 +74,8 @@ Once ansible is installed.
 
 1. Create a clean installation of Ubuntu 13.04. The machine should have at least 12GB of free disk space for the dissemination
    file downloads/ extraction
-1. Ensure your user has sudo access without requiring a password
-1. You should also have setup an ssh authorized_keys on the new machine with your ssh public key
+1. Ensure a user named 'ubuntu' has sudo access without requiring a password
+1. You should also have setup an ssh authorized\_keys on the new machine with your ssh public key in the ubuntu account's `.ssh/authorized_keys` file
 1. Edit the file at `ansible/stage` and replace `www-01.bloomapi.com` with the uri of your new Ubuntu installation
 1. From the source directory, run `ansible-playbook ansible/site.yml`
 
