@@ -8,6 +8,12 @@ target.bootstrap = function () {
   capture().done();
 };
 
+target.process = function () {
+  var capture = require('./lib/store/capture');
+  
+  capture('process').done();
+};
+
 target.server = function () {
   require('./lib/api/server');
 };
