@@ -98,10 +98,9 @@ The current featureset is very minimal but in time more will be added based on r
 - For use by CMS or others in identifying low quality NPI data and correcting it
 - Detecting noteworthy changes and historical values of NPI data over time such as doctors's affiliations with payers
 
-In addition, there are a number of tactical/ implementation changes that can be made to improve the quality of the API itself:
+In addition, there are a number of tactical/ implementation changes that can be made to improve the quality of the API itself. This is the task list for the first release (0.1.0):
 
 **High Priority**
-- Currently dissemination files used are hardcoded -- e.g. next month from (June 2013), the automated data population will fail unless this is fixed
 - Automated importing of new dissemination files as they are available. Bonus points if this can be done with no down time
 - Add indexing on searchable fields to increase performance
 
