@@ -34,7 +34,7 @@ Tools option enabled to complete the following instructions.
 
 Using [homebrew](https://github.com/mxcl/homebrew):
 
-    sudo brew install nodejs p7zip pdf postgresql
+    brew install nodejs p7zip xpdf postgresql
     cd <bloomapi source dir>
     npm install
 
@@ -58,7 +58,7 @@ deploy BloomAPI and all of its dependencies on top of a clean installation of Ub
 
 To install Ansbile on mac OSX:
 
-    sudo brew install python --framework
+    brew install python --framework
     sudo easy_install pip
     sudo pip install ansible
 
