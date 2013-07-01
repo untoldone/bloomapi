@@ -59,7 +59,6 @@ deploy BloomAPI and all of its dependencies on top of a clean installation of Ub
 To install Ansbile on mac OSX:
 
     brew install python --framework
-    sudo easy_install pip
     sudo pip install ansible
 
 To install Ansible on Ubuntu
