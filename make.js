@@ -1,5 +1,12 @@
 require('shelljs/make');
 
+// default target
+target.all = function () {
+  console.log("Available commands:");
+  console.log(" node make bootstrap     # fetch, process, and insert NPI data into database")
+  console.log(" node make server        # run web/API server")
+}
+
 target.bootstrap = function () {
   var capture = require('./lib/store/capture');
   
