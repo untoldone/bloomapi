@@ -59,7 +59,6 @@ deploy BloomAPI and all of its dependencies on top of a clean installation of Ub
 To install Ansbile on mac OSX:
 
     brew install python --framework
-    sudo easy_install pip
     sudo pip install ansible
 
 To install Ansible on Ubuntu
@@ -112,6 +111,7 @@ In addition, there are a number of tactical/ implementation changes that can be 
 - Currently can only search by 'zip' and 'last\_name' -- add more accepted query terms
 - Result paging to ensure lower query times (like 'skip first 40 records and take the next 20')
 - User documentation of API
+- User documentation of how to set up local environment (for now, look in the `ansible/` folder/create a `config.js`, `node make.js bootstrap`, and then `node make.js server`
 
 **In spare time...**
 - API performance metrics to ensure API slowness does not hurt usability of applications that depend on API
