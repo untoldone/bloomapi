@@ -3,3 +3,5 @@ node_modules
 config.js
 
 ansible/group_vars/webservers
+
+.idea
