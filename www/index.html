@@ -108,11 +108,11 @@
 	      <p>Use BloomAPI to query for all available NPI data on healthcare providers.</p>
 	      <div class="search-block" style="margin-left: 50px">
 	        <h5>By Zip Code</h5>
-	        <input type="text" placeholder="Zip Code" id="zip" />
+	        <input type="text" placeholder="Zip Code" id="provider_business_practice_location_address_postal_code" />
 	      </div>
 	      <div class="search-block">
 	        <h5>By Last Name</h5>
-	        <input type="text" placeholder="Last Name" id="last" />
+	        <input type="text" placeholder="Last Name" id="provider_last_name_legal_name" />
 	      </div>
 			  <input type="submit" value="Query BloomAPI" />
 	      <p class="error"></p>
@@ -151,8 +151,8 @@
 
   $(function () {
     $('#form').submit(function () {
-      var zip = $('#zip').val(),
-          last = $('#last').val(),
+      var provider_business_practice_location_address_postal_code = $('#provider_business_practice_location_address_postal_code').val(),
+				      provider_last_name_legal_name = $('#provider_last_name_legal_name').val(),
           $resultsHeader = $('.results h2'),
           $resultsUri = $('.results code'),
           $results = $('.results'),
@@ -162,13 +162,13 @@
       if ($resultsPre.length === 0) $resultsPre = $('<pre></pre>');
  
       $error.html('');
-      if (!zip && !last) {
+      if (!provider_business_practice_location_address_postal_code && !last) {
         $error.html('You must specify a zip code or last name to continue');
       } else {
         var params = "?";
-        if (zip) params += "zip=" + zip;
-        if (zip && last) params += "&last_name=" + last.toUpperCase();
-        if (!zip && last) params += "last_name=" + last.toUpperCase();
+        if (provider_business_practice_location_address_postal_code) params += "provider_business_practice_location_address_postal_code=" + provider_business_practice_location_address_postal_code;
+        if (provider_business_practice_location_address_postal_code && provider_last_name_legal_name) params += "&provider_last_name_legal_name=" + provider_last_name_legal_name.toUpperCase();
+        if (!provider_business_practice_location_address_postal_code && provider_last_name_legal_name) params += "provider_last_name_legal_name=" + provider_last_name_legal_name.toUpperCase();
         $.getJSON('/api/search' + params, function (data) {
           var s = JSON.stringify(data, undefined, 4);
           $resultsHeader.html('Results of Query');
