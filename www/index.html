@@ -35,7 +35,7 @@
       font-size: 15px;
     }
 
-    button {
+    input[type=submit] {
       padding: 10px;
       border-radius: 4px;
       border: 1px solid #ccc;
@@ -102,20 +102,22 @@
       If you'd like to contribute, checkout the <a href="https://github.com/untoldone/bloomapi" target="_blank">github project</a>.
   </div>
   <div class="full-content">
-    <div class="left">
-      <h2>Preview BloomAPI</h2>
-      <p>Use BloomAPI to query for all available NPI data on healthcare providers.</p>
-      <div class="search-block" style="margin-left: 50px">
-        <h5>By Zip Code</h5>
-        <input type="text" placeholder="Zip Code" id="zip" />
-      </div>
-      <div class="search-block">
-        <h5>By Last Name</h5>
-        <input type="text" placeholder="Last Name" id="last" />
-      </div>
-      <button>Query BloomAPI</button>
-      <p class="error"></p>
-    </div>
+	  <form id="form" action="#">
+		  <div class="left">
+	      <h2>Preview BloomAPI</h2>
+	      <p>Use BloomAPI to query for all available NPI data on healthcare providers.</p>
+	      <div class="search-block" style="margin-left: 50px">
+	        <h5>By Zip Code</h5>
+	        <input type="text" placeholder="Zip Code" id="provider_business_practice_location_address_postal_code" name="provider_business_practice_location_address_postal_code" />
+	      </div>
+	      <div class="search-block">
+	        <h5>By Last Name</h5>
+	        <input type="text" placeholder="Last Name" id="provider_last_name_legal_name" name="provider_last_name_legal_name" />
+	      </div>
+			  <input type="submit" value="Query BloomAPI" />
+	      <p class="error"></p>
+	    </div>
+	  </form>
   </div>
   <div class="results">
     <h2></h2>
@@ -148,9 +150,21 @@
 
 
   $(function () {
-    $('button').click(function () {
-      var zip = $('#zip').val(),
-          last = $('#last').val(),
+
+	  function query_param_from_serialized_array(array){
+		  // only add non-blank fields to params
+		  array = $.map(array, function(obj){
+			  if(obj["value"] != ""){
+				  return obj['name']+'='+obj['value'].toUpperCase()
+			  }
+		  })
+		  return array.join('&');
+	  }
+
+	  $('#form').submit(function (e) {
+	    e.preventDefault();
+      var provider_business_practice_location_address_postal_code = $('#provider_business_practice_location_address_postal_code').val(),
+		      provider_last_name_legal_name = $('#provider_last_name_legal_name').val(),
           $resultsHeader = $('.results h2'),
           $resultsUri = $('.results code'),
           $results = $('.results'),
@@ -160,14 +174,12 @@
       if ($resultsPre.length === 0) $resultsPre = $('<pre></pre>');
  
       $error.html('');
-      if (!zip && !last) {
+      if (!provider_business_practice_location_address_postal_code && !provider_last_name_legal_name) {
         $error.html('You must specify a zip code or last name to continue');
       } else {
-        var params = "?";
-        if (zip) params += "zip=" + zip;
-        if (zip && last) params += "&last_name=" + last.toUpperCase();
-        if (!zip && last) params += "last_name=" + last.toUpperCase();
-        $.getJSON('/api/search' + params, function (data) {
+	      var params = '?';
+	      params += query_param_from_serialized_array($(this).serializeArray())
+	      $.getJSON('/api/search' + params, function (data) {
           var s = JSON.stringify(data, undefined, 4);
           $resultsHeader.html('Results of Query');
           $resultsUri.html('GET: ' + location.protocol + '//' + location.host + this.url);
