@@ -101,7 +101,7 @@ In addition, there are a number of tactical/ implementation changes that can be 
 
 **High Priority**
 - Automated importing of new dissemination files as they are available. Bonus points if this can be done with no down time
-- ~~Add indexing on searchable fields to increase performance~~ (started in https://github.com/untoldone/bloomapi/pull/2, completed in marks/master)
+- ~~Add indexing on searchable fields to increase performance~~ (see pr #2)
 
 **Medium Priority**
 - Metadata and code to automatically denormalize npi database. Clearest cases are when there's a index numbers at the ends of the NPI column names, less
