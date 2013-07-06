@@ -1,5 +1,15 @@
 require('shelljs/make');
 
+// default target
+target.all = function () {
+  console.log("\nAvailable commands:\n-------------------");
+  console.log(" node make bootstrap     # fetch, process, and insert NPI data into database")
+  console.log(" node make process       # like 'bootstrap' but assumes you have already downloaded the NPI data into data/")
+  console.log(" node make server        # run web/API server")
+  console.log(" node make check         # checks your environment for configuration files and some dependencies")
+  console.log("\n For more information, visit the project README file on github at https://github.com/untoldone/bloomapi\n")
+}
+
 target.bootstrap = function () {
   var capture = require('./lib/store/capture');
   
