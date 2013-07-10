@@ -157,24 +157,24 @@ healthcare_provider_primary_taxonomy_switch_{1-15}:
     Y: yes
     N: no
 other_provider_identifier_{1-50}:
-  key: other_indentifiers
+  key: other_identifiers
   rename: identifier
 other_provider_identifier_type_code_{1-50}:
-  key: other_indentifiers
+  key: other_identifiers
   rename: type
   map:
-    01: other
-    02: medicare upin
-    04: meicare id-type unspecified
-    05: medicaid
-    06: medicare oscar/certification
-    07: medicare nsc
-    08: medicare pin
+    "01": other
+    "02": medicare upin
+    "04": meicare id-type unspecified
+    "05": medicaid
+    "06": medicare oscar/certification
+    "07": medicare nsc
+    "08": medicare pin
 other_provider_identifier_state_{1-50}:
-  key: other_indentifiers
+  key: other_identifiers
   rename: state
 other_provider_identifier_issuer_{1-50}:
-  key: other_indentifiers
+  key: other_identifiers
   rename: issuer
 is_sole_proprietor:
   rename: sole_proprietor
