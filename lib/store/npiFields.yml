@@ -49,7 +49,7 @@ provider_other_last_name_type_code:
 provider_first_line_business_mailing_address:
   key: business_address
   rename: address_line
-provider_second_line_business_mailling_address:
+provider_second_line_business_mailing_address:
   key: business_address
   rename: address_details_line
 provider_business_mailing_address_city_name:
