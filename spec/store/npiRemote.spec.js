@@ -43,7 +43,7 @@ describe('NPIRemote', function () {
   describe('fetchFull', function () {
     it('should fetch the current full dissemination', function (done) {
       var progress = false;
-      remote.fetchFull().then(function () {}, 
+      remote.fetchFull('./data/').then(function () {}, 
       function () {}, // error
       function (complete) {
         if (!progress) {
