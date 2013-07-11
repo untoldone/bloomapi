@@ -14,7 +14,7 @@ describe('Unzip', function () {
   });
 
   it('should unzip', function (done) {
-    fakeChildProcessExec.command = "7z e data/hello.zip -odata/test";
+    fakeChildProcessExec.command = "7z e data/hello.zip -y -odata/test";
     z.unzip('data/hello.zip', 'data/test')
       .fail(function (error) {
         console.log(error.message);
