@@ -15,6 +15,7 @@ describe('NPIFields', function () {
     },
     'entity_type_code': {
       'rename': 'type',
+      'index': 'test_index',
       'map': {
         1: 'individual'
       }
@@ -23,6 +24,12 @@ describe('NPIFields', function () {
       'rename': 'first_name'
     }
   };
+
+  it('should return all indices', function () {
+    var f = new npiFields(metadata),
+        idxs = f.indices();
+    expect(idxs).toEqual({'test_index': 'entity_type_code'});
+  });
 
   it('should transform a record', function () {
     var f = new npiFields(metadata),
