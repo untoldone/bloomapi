@@ -9,6 +9,7 @@ provider_organization_name_legal_business_name:
   rename: business_name
 provider_last_name_legal_name:
   rename: last_name
+  index: provider_last_name_legal_name_idx
 provider_first_name:
   rename: first_name
 provider_name_prefix_text:
@@ -85,6 +86,7 @@ provider_business_practice_location_address_state_name:
 provider_business_practice_location_address_postal_code:
   key: practice_address
   rename: zip
+  index: provider_business_practice_location_address_postal_code_idx
 provider_business_practice_location_address_country_code_if_out:
   key: practice_address
   rename: country_code
