@@ -53,12 +53,42 @@
       margin: 0 10px 10px 0;
     }
 
+    #settings{
+      display: none;
+      border: thin #CCC dashed;
+      padding:10px;
+      margin-bottom:10px;
+    }
+
+    #settings label {
+      display: inline-block;
+      float: none;
+      width: 150px;
+      padding: 0;
+      margin: 5px 0 0;
+      text-align: left;
+      font-size:0.9em;
+    }
+
+    #settings input {
+      display: inline-block;
+      float: none;
+      width:auto;
+      margin:5px 0 0 10px;
+      padding:5px 5px;
+    }
+
+    #settings span {
+      vertical-align: middle;
+      display: block;
+    }
+
     p {
       margin-bottom: 10px;
     }
 
     h5 {
-      margin-top: 5px;
+      margin-top: 15px;
     }
 
     pre {
@@ -106,14 +136,25 @@
 		  <div class="left">
 	      <h2>Preview BloomAPI</h2>
 	      <p>Use BloomAPI to query for all available NPI data on healthcare providers.</p>
-	      <div class="search-block" style="margin-left: 50px">
-	        <h5>By Zip Code</h5>
-	        <input type="text" placeholder="Zip Code" id="provider_business_practice_location_address_postal_code" name="provider_business_practice_location_address_postal_code" />
-	      </div>
-	      <div class="search-block">
-	        <h5>By Last Name</h5>
-	        <input type="text" placeholder="Last Name" id="provider_last_name_legal_name" name="provider_last_name_legal_name" />
-	      </div>
+        <div class="search-block" style="margin-left: 50px">
+          <h5>By Zip Code</h5>
+          <input type="text" placeholder="Zip Code" id="provider_business_practice_location_address_postal_code" name="provider_business_practice_location_address_postal_code" />
+        </div>
+        <div class="search-block">
+          <h5>By Last Name</h5>
+          <input type="text" placeholder="Last Name" id="provider_last_name_legal_name" name="provider_last_name_legal_name" />
+        </div>
+        <p><a id="settings_toggle" href="#">Show/hide advanced settings</a></p>
+        <div id="settings">
+          <span>
+            <label for="limit">Rows to return</label>
+            <input type="text" placeholder="100 (default)" id="limit" name="limit" />
+          </span>
+          <span>
+            <label>Start at row #</label>
+            <input type="text" placeholder="0 (default)" id="offset" name="offset" />
+          </span>
+        </div>
 			  <input type="submit" value="Query BloomAPI" />
 	      <p class="error"></p>
 	    </div>
@@ -160,6 +201,10 @@
 		  })
 		  return array.join('&');
 	  }
+
+    $("#settings_toggle").click(function(e){
+      $("#settings").toggle();
+    })
 
 	  $('#form').submit(function (e) {
 	    e.preventDefault();
