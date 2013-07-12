@@ -138,11 +138,11 @@
 	      <p>Use BloomAPI to query for all available NPI data on healthcare providers.</p>
         <div class="search-block" style="margin-left: 50px">
           <h5>By Zip Code</h5>
-          <input type="text" placeholder="Zip Code" id="provider_business_practice_location_address_postal_code" name="provider_business_practice_location_address_postal_code" />
+          <input type="text" placeholder="Zip Code" id="provider_business_practice_location_address_postal_code" name="value1" />
         </div>
         <div class="search-block">
           <h5>By Last Name</h5>
-          <input type="text" placeholder="Last Name" id="provider_last_name_legal_name" name="provider_last_name_legal_name" />
+          <input type="text" placeholder="Last Name" id="provider_last_name_legal_name" name="value2" />
         </div>
         <p><a id="settings_toggle" href="#">Show/hide advanced settings</a></p>
         <div id="settings">
@@ -196,7 +196,7 @@
 		  // only add non-blank fields to params
 		  array = $.map(array, function(obj){
 			  if(obj["value"] != ""){
-				  return obj['name']+'='+obj['value'].toUpperCase()
+				  return obj['name']+'='+obj['value'];
 			  }
 		  })
 		  return array.join('&');
@@ -222,8 +222,17 @@
       if (!provider_business_practice_location_address_postal_code && !provider_last_name_legal_name) {
         $error.html('You must specify a zip code or last name to continue');
       } else {
-	      var params = '?';
-	      params += query_param_from_serialized_array($(this).serializeArray())
+	      var params = '?',
+            serializedArray = [];
+        if (provider_business_practice_location_address_postal_code) serializedArray = serializedArray.concat([
+              {name: 'op1', value: 'eq'},
+              {name: 'key1', value: 'practice_address.zip'},
+              {name: 'value1', value: provider_business_practice_location_address_postal_code}]);
+        if (provider_last_name_legal_name) serializedArray = serializedArray.concat([
+              {name: 'op2', value: 'eq'}, 
+              {name: 'key2', value: 'last_name'},
+              {name: 'value2', value: provider_last_name_legal_name.toUpperCase()}]);
+	      params += query_param_from_serialized_array(serializedArray);
 	      $.getJSON('/api/search' + params, function (data) {
           var s = JSON.stringify(data, undefined, 4);
           $resultsHeader.html('Results of Query');
