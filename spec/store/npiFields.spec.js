@@ -6,12 +6,16 @@ describe('NPIFields', function () {
       'key': 'provider_details',
       'rename': 'healthcare_taxonomy_code'
     },
-    'other_provider_identifier_type_code_{1-15}': {
+    'other_provider_identifier_type_code_{1-2}': {
       'key': 'other_identifiers',
       'rename': 'type',
       'map': {
         '02': 'medicare upin'
       }
+    },
+    'something_something': {
+      'key': 'something',
+      'rename': 'specific'
     },
     'entity_type_code': {
       'rename': 'type',
@@ -24,6 +28,23 @@ describe('NPIFields', function () {
       'rename': 'first_name'
     }
   };
+
+  it('should identify a key from a field', function () {
+    var f = new npiFields(metadata),
+        r;
+
+    r = f.nameToInfo('first_name');
+    expect(r).toEqual('provider_first_name');
+
+    r = f.nameToInfo('something.specific')
+    expect(r).toEqual('something_something');
+
+    r = f.nameToInfo('non.existent');
+    expect(r).toEqual(undefined);
+
+    r = f.nameToInfo('other_identifiers.type');
+    expect(r).toEqual(['other_provider_identifier_type_code_1', 'other_provider_identifier_type_code_2']);
+  });
 
   it('should return all indices', function () {
     var f = new npiFields(metadata),
