@@ -29,6 +29,26 @@ describe('NPIFields', function () {
     }
   };
 
+  it('should resolve a mapped/ non-mapped value to its db value', function () {
+    var f = new npiFields(metadata),
+        r;
+
+    r = f.unmappedValue('type', 'individual');
+    expect(r).toEqual('1');
+
+    r = f.unmappedValue('other_identifiers.type', 'medicare upin');
+    expect(r).toEqual('02');
+
+    r = f.unmappedValue('other_identifiers.type', 'hello');
+    expect(r).toEqual(undefined);
+
+    r = f.unmappedValue('first_name', 'hello');
+    expect(r).toEqual('hello');
+
+    r = f.unmappedValue('hello_word', 'hello');
+    expect(r).toEqual(undefined);
+  });
+
   it('should identify a key from a field', function () {
     var f = new npiFields(metadata),
         r;
