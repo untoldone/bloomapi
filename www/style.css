@@ -1,0 +1,109 @@
+/* Reset */
+a:hover,
+a:active {
+  outline: 0;
+}
+
+/* Typography */
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 200;
+}
+
+/* Header */
+/* --Navigation */
+
+nav {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  display: inline;
+  border-right: dotted 1px #CECECE;
+  padding: 0 10px;
+}
+
+nav ul li:last-child {
+  border-right: none;
+}
+
+nav ul li.active a {
+  font-weight: 500;
+}
+
+nav ul li a {
+  font-weight: 100;
+}
+
+/* --Hero */
+.hero {
+  width: 500px;
+  margin: 150px 200px 100px;
+  padding: 40px 40px;
+  border-left: dotted 1px #CECECE;
+}
+
+.hero h1 {
+  font-weight: 400;
+  font-size: 60px;
+  line-height: 50px;
+  margin: 0;
+}
+
+.hero h2 {
+  color: #CECECE;
+  font-weight: 100;
+  font-size: 60px;
+  line-height: 50px;
+  margin: 0;
+}
+
+.value-props {
+  border-top: dotted 1px #CCC;
+  height: 270px;
+}
+
+.value-prop {
+  float: left;
+  width: 235px;
+  margin: 0 15px;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.value-prop p {
+  margin-top: 10px;
+  line-height: 20px;
+}
+
+.value-prop h3 {
+  font-size: 16px;
+  margin: 20px 0;
+  line-height: 18px;
+}
+
+/* link styling */
+a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a,
+a:active,
+a:visited {
+  color: #000;
+}
+
+a:hover,
+a:active {
+  text-decoration: underline;
+}
+
