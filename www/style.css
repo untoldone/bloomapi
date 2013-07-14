@@ -4,6 +4,14 @@ a:active {
   outline: 0;
 }
 
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+
 /* Typography */
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -15,14 +23,35 @@ body {
 
 nav {
   position: fixed;
-  top: 10px;
-  right: 10px;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+nav.cover {
+  background-color: #FFF;
+  zoom: 1;
+  filter: alpha(opacity=95);
+  opacity: 0.95;
+  -moz-box-shadow:    0 2px 6px 0 #ddd;
+  -webkit-box-shadow: 0 2px 6px 0 #ddd;
+  box-shadow:         0 2px 6px 0 #ddd;
+}
+
+nav h1 {
+  margin: 16px 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+nav > * {
+  width: 960px;
+  margin: 0 auto;
 }
 
 nav ul {
   list-style-type: none;
   padding: 0;
-  margin: 0;
 }
 
 nav ul li {
@@ -66,17 +95,30 @@ nav ul li a {
   margin: 0;
 }
 
+.hero h3 {
+  font-weight: 100;
+  font-size: 40px;
+  line-height: 40px;
+  margin-top: 0;
+}
+
 .value-props {
   border-top: dotted 1px #CCC;
   height: 270px;
+  width: 960px;
+  margin: 0 auto;
 }
 
 .value-prop {
   float: left;
-  width: 235px;
-  margin: 0 15px;
+  width: 228px;
+  margin: 0 16px 0 0;
   font-size: 14px;
   line-height: 16px;
+}
+
+.value-prop:last-child {
+  margin: 0;
 }
 
 .value-prop p {
@@ -107,3 +149,18 @@ a:active {
   text-decoration: underline;
 }
 
+/* search */
+.search {
+  border: dotted 1px #333;
+  height: 34px;
+  width: 570px;
+  color: #ccc;
+  line-height: 34px;
+  padding-left: 10px;
+}
+
+/* content */
+.main {
+  width: 960px;
+  margin: 55px auto 0;
+}
