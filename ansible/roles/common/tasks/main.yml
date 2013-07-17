@@ -1,4 +1,7 @@
 ---
 # file: roles/common/tasks/main.yml
-- name: be sure that git is installed
-  apt: pkg=git
+- name: be sure that git, add-apt-repositories are installed
+  apt: update_cache=yes pkg={{ item }}
+  with_items:
+    - git
+    - software-properties-common
