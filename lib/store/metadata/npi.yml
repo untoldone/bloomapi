@@ -1,4 +1,3 @@
-npi:
 entity_type_code:
   rename: type
   map:
@@ -99,7 +98,6 @@ provider_business_practice_location_address_fax_number:
   rename: fax
 provider_enumeration_date:
   rename: enumeration_date
-last_update_date:
 npi_deactivation_reason_code:
   rename: deactivation_reason
   map:
