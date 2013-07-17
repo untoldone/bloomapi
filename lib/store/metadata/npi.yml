@@ -1,0 +1,200 @@
+entity_type_code:
+  rename: type
+  map:
+    1: individual
+    2: organization
+employer_identification_number_ein:
+  rename: employer_identification_number
+provider_organization_name_legal_business_name:
+  rename: business_name
+provider_last_name_legal_name:
+  rename: last_name
+  index: provider_last_name_legal_name_idx
+provider_first_name:
+  rename: first_name
+provider_name_prefix_text:
+  rename: name_prefix
+provider_name_suffix_text:
+  rename: name_suffix
+provider_credential_text:
+  rename: credential
+provider_other_organization_name:
+  rename: other_name
+provider_other_organization_name_type_code:
+  map:
+    1: individual
+    2: individual
+    3: organization
+    4: organization
+    5: individual+organization
+  rename: other_name_type
+provider_other_last_name:
+  rename: other_last_name
+provider_other_first_name:
+  rename: other_first_name
+provider_other_middle_name:
+  rename: other_middle_name
+provider_other_name_prefix_text:
+  rename: other_name_prefix
+provider_other_name_suffix_text:
+  rename: other_name_suffix
+provider_other_credential_text:
+  rename: other_credential
+provider_other_last_name_type_code:
+  map:
+    1: former name
+    2: professional name
+    3: doing business as
+    4: former legal business name
+    5: other name
+provider_first_line_business_mailing_address:
+  key: business_address
+  rename: address_line
+provider_second_line_business_mailing_address:
+  key: business_address
+  rename: address_details_line
+provider_business_mailing_address_city_name:
+  key: business_address
+  rename: city
+provider_business_mailing_address_state_name:
+  key: business_address
+  rename: state
+provider_business_mailing_address_postal_code:
+  key: business_address
+  rename: zip
+provider_business_mailing_address_country_code_if_outside_u_s:
+  key: business_address
+  rename: country_code
+provider_business_mailing_address_telephone_number:
+  key: business_address
+  rename: phone
+provider_business_mailing_address_fax_number:
+  key: business_address
+  rename: fax
+provider_first_line_business_practice_location_address:
+  key: practice_address
+  rename: address_line
+provider_second_line_business_practice_location_address:
+  key: practice_address
+  rename: address_details_line
+provider_business_practice_location_address_city_name:
+  key: practice_address
+  rename: city
+provider_business_practice_location_address_state_name:
+  key: practice_address
+  rename: state
+provider_business_practice_location_address_postal_code:
+  key: practice_address
+  rename: zip
+  index: provider_business_practice_location_address_postal_code_idx
+provider_business_practice_location_address_country_code_if_out:
+  key: practice_address
+  rename: country_code
+provider_business_practice_location_address_telephone_number:
+  key: practice_address
+  rename: phone
+provider_business_practice_location_address_fax_number:
+  key: practice_address
+  rename: fax
+provider_enumeration_date:
+  rename: enumeration_date
+npi_deactivation_reason_code:
+  rename: deactivation_reason
+  map:
+    DT: death
+    DB: disbandment
+    FR: fraud
+    OT: other
+npi_deactivation_date:
+  rename: deactivation_date
+npi_reactivation_date:
+  rename: reactivation_date
+provider_gender_code:
+  rename: gender
+  map:
+    M: male
+    F: female
+authorized_official_last_name:
+  key: organization_official
+  rename: last_name
+authorized_official_first_name:
+  key: organization_official
+  rename: first_name
+authorized_official_middle_name:
+  key: organization_official
+  rename: middle_name
+authorized_official_title_or_position:
+  key: organization_official
+  rename: title
+authorized_official_telephone_number:
+  key: organization_official
+  rename: phone
+authorized_official_name_prefix_text:
+  key: organization_official
+  rename: name_prefix
+authorized_official_name_suffix_text:
+  key: organization_official
+  rename: name_suffix
+authorized_official_credential_text:
+  key: organization_official
+  rename: credential
+healthcare_provider_taxonomy_code_{1-15}:
+  key: provider_details
+  rename: healthcare_taxonomy_code
+provider_license_number_{1-15}:
+  key: provider_details
+  rename: license_number
+provider_license_number_state_code_{1-15}:
+  key: provider_details
+  rename: license_number_state
+  map:
+    S: state
+    T: territory
+healthcare_provider_primary_taxonomy_switch_{1-15}:
+  key: provider_details
+  rename: taxonomy_switch
+  map:
+    X: not answered
+    Y: yes
+    N: no
+other_provider_identifier_{1-50}:
+  key: other_identifiers
+  rename: identifier
+other_provider_identifier_type_code_{1-50}:
+  key: other_identifiers
+  rename: type
+  map:
+    "01": other
+    "02": medicare upin
+    "04": meicare id-type unspecified
+    "05": medicaid
+    "06": medicare oscar/certification
+    "07": medicare nsc
+    "08": medicare pin
+other_provider_identifier_state_{1-50}:
+  key: other_identifiers
+  rename: state
+other_provider_identifier_issuer_{1-50}:
+  key: other_identifiers
+  rename: issuer
+is_sole_proprietor:
+  rename: sole_proprietor
+  map:
+    X: not answered
+    Y: yes
+    N: no
+is_organization_subpart:
+  rename: organization_subpart
+  map:
+    X: not answered
+    Y: yes
+    N: no
+parent_organization_lbn:
+  key: parent_org
+  rename: business_name
+parent_organization_tin:
+  key: parent_org
+  rename: tax_identification_number
+healthcare_provider_taxonomy_group_{1-15}:
+  key: taxonomy_groups
+  rename: taxonomy
