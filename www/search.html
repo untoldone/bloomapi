@@ -2,9 +2,16 @@
 <html>
   <head>
     <title>BloomAPI - Find and Compare Physicians</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script src="app.js"></script>
+    <script src="js/angular-1.0.7.js"></script>
+    <script>
+      angular.directive('tj:focus', function () {
+        return function (scope, element) {
+          element[0].focus();
+        }
+      });
+    </script>
   </head>
   <body>
     <nav class="cover">
@@ -22,7 +29,7 @@
       <div class="hero">
         <h3>search by last name, full name, zip code, address, or npi.</h3>
         <div class="search">
-          search by last name, full name, zip code, address, or NPI
+          <input type="text" placeholder="search by last name, full name, zip code, address, or NPI" ng:model="model" tj:focus /><i class="icon-search"></i><span>search</span>
         </div>
         <p>or checkout the <a href="documentation.html">documentation</a> to learn how to write complex queries.
       </div>
