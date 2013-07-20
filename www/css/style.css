@@ -4,6 +4,7 @@ a:active {
   outline: 0;
 }
 
+/* Utilities */
 .pull-right {
   float: right;
 }
@@ -18,8 +19,12 @@ body {
   font-weight: 200;
 }
 
-/* Header */
-/* --Navigation */
+h1 small {
+  color: #CECECE;
+  font-size: 20px;
+}
+
+/* Navigation */
 
 nav {
   position: fixed;
@@ -72,10 +77,10 @@ nav ul li a {
   font-weight: 100;
 }
 
-/* --Hero */
+/* Hero */
 .hero {
   width: 500px;
-  margin: 150px 200px 100px;
+  margin: 150px 50px 100px;
   padding: 40px 40px;
   border-left: dotted 1px #CECECE;
 }
@@ -102,6 +107,8 @@ nav ul li a {
   line-height: 40px;
   margin-top: 0;
 }
+
+/* Marketing */
 
 .value-props {
   border-top: dotted 1px #CCC;
@@ -155,7 +162,7 @@ a:active {
 .search {
   border: dotted 1px #333;
   height: 34px;
-  width: 570px;
+  width: 520px;
   padding-left: 10px;
 }
 
@@ -163,7 +170,7 @@ a:active {
   font-weight: 100;
   font-size: 15px;
   border: 0;
-  width: 480px;
+  width: 430px;
   height: 32px;
 }
 
@@ -176,8 +183,85 @@ a:active {
   font-weight: 900;
 }
 
+.search-results {
+  list-style-type: none;
+  padding: 0;
+}
+
+.search-results li {
+  padding: 10px 10px;
+  height: 20px;
+  border-bottom: dotted 1px;
+}
+
+.search-results li:first-child {
+  border-top: dotted 1px;
+}
+
+.search-results li:hover {
+  background-color: #f6f6f6;
+  cursor: pointer;
+}
+
+.search-results .name {
+  width: 180px;
+  font-weight: 500;
+  float: left;
+}
+
+.search-results .taxonomy {
+  width: 150px;
+  float: left;
+}
+
+.search-results .phone {
+  width: 160px;
+  float: left;
+}
+
+.search-results .address {
+  width: 450px;
+  float: left;
+}
+
+.pages a {
+  font-weight: 300;
+}
+
+/* details */
+.details {
+  padding: 0 20px 10px;
+  border-left: dotted 1px;
+  margin-bottom: 30px;
+}
+
+
+.details .pair {
+  height: 25px;
+  clear: both;
+}
+
+.details .key {
+  float: left;
+  font-weight: 500;
+  line-height: 19px;
+  width: 100px;
+  text-align: right;
+}
+
+.details .value {
+  float: left;
+  padding-left: 20px;
+  line-height: 19px;
+}
+
 /* content */
-.main {
+.row {
+  width: 960px;
+  margin: 0 auto 0;
+}
+
+.row-skipnav {
   width: 960px;
   margin: 75px auto 0;
 }
