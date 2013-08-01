@@ -1,0 +1,40 @@
+<div class="row-skipnav">
+  <h1>Michael Wasser <small>({{result.npi}})</small></h1>
+  <div>
+    <a href="#"><i class="icon-arrow-left"></i> Return to search results</a>
+  </div>
+  <section class="details">
+    <h2>Demographics</h2>
+    <div class="pair">
+      <div class="key">First Name</div>
+      <div class="value">{{result.first_name}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Last Name</div>
+      <div class="value">{{result.last_name}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Gender</div>
+      <div class="value">{{result.gender}}</div>
+    </div>
+  </section>
+  <section class="details">
+    <h2>Practice Location</h2>
+    <div class="pair">
+      <div class="key">Street</div>
+      <div class="value">{{result.practice_address.address_line}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">City</div>
+      <div class="value">{{result.practice_address.city}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">State</div>
+      <div class="value">{{result.practice_address.state}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Zip</div>
+      <div class="value">{{result.practice_address.zip}}</div>
+    </div>
+  </section>
+</div>
