@@ -1,0 +1,24 @@
+<div class="row-skipnav">
+  <div class="search">
+    <input type="text" placeholder="search by last name, full name, zip code, address, or NPI" /><i class="icon-search"></i>
+  </div>
+</div>
+<div class="row">
+  <p>
+    <code style="padding-left: 10px">{{apiuri}}</code>
+  </p>
+  <ul class="search-results">
+    <li ng-repeat="result in results">
+      <a href="#/npi/{{result.npi}}">
+        <div class="name" ng-show="{{result.last_name != null}}">{{result.last_name}}, {{result.first_name}}</div>
+        <div class="name" ng-hide="{{result.last_name}}">{{result.business_name}}</div>
+        <div class="taxonomy">{{result.taxonomy}}</div>
+        <div class="phone">{{result.practice_address.phone}}</div>
+        <div class="address">{{result.practice_address.address_line}}, {{result.practice_address.city}}, {{result.practice_address.state}} {{result.practice_address.zip}}</div>
+      </a>
+    </li>
+  </ul>
+  <div class="pages">
+    <a href="#">1</a>, <strong>2</strong>, <a href="#">3</a> ... <a href="#">14</a>
+  </div>
+</div>

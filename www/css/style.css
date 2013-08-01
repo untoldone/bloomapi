@@ -224,6 +224,10 @@ a:active {
   float: left;
 }
 
+.search-results a {
+  font-weight: inherit;
+}
+
 .pages a {
   font-weight: 300;
 }
