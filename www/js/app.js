@@ -42,15 +42,22 @@ function discoverAPI(term, page) {
   return root + part;
 }
 
-function SearchCtrl() {
-
+function SearchCtrl($scope, $location) {
+  $scope.submit = function () {
+    $location.path($scope.term);
+  }
 }
 
-function ResultsCtrl($scope, $routeParams, $http) {
+function ResultsCtrl($scope, $routeParams, $http, $location) {
   $scope.apiuri = discoverAPI($routeParams.term, 0);
   $http.get($scope.apiuri).success(function (data) {
     $scope.results = data.result;
   });
+
+  $scope.term = $routeParams.term;
+  $scope.submit = function () {
+    $location.path($scope.term);
+  }
 }
 
 function ResultCtrl($scope, $routeParams, $http) {
