@@ -28,6 +28,10 @@ code {
   white-space: pre;
 }
 
+.error {
+  color: rgb(191, 48, 48);
+}
+
 /* Navigation */
 
 nav {
@@ -230,6 +234,10 @@ a:active {
   white-space: nowrap;
   width: 550px;
   float: left;
+}
+
+div.search-results {
+  padding-left: 10px;
 }
 
 .search-results a {
