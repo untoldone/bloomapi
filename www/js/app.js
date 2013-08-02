@@ -38,6 +38,8 @@ function discoverAPI(term, page) {
            "&key2=practice_address.city&op2=eq&value2=" + city +
            "&key3=practice_address.state&op3=eq&value3=" + state +
            "&key4=practice_address.zip&op4=eq&value4=" + zip;
+  } else {
+    return null;
   }
 
   return root + part;
@@ -53,11 +55,16 @@ function ResultsCtrl($scope, $routeParams, $http, $location) {
   $scope.term = $routeParams.term;
   $scope.currentPage = $routeParams.page || 1;
   $scope.apiuri = discoverAPI($routeParams.term, $scope.currentPage);
-  
-  $http.get($scope.apiuri).success(function (data) {
-    $scope.rowCount = data.meta.rowCount;
-    $scope.results = data.result;
-  });
+ 
+  if ($scope.apiuri !== null) {
+    $scope.error = null;
+    $http.get($scope.apiuri).success(function (data) {
+      $scope.rowCount = data.meta.rowCount;
+      $scope.results = data.result;
+    });
+  } else {
+    $scope.error = "Sorry, we didn't understand your query";
+  }
 
   $scope.submit = function () {
     $location.path($scope.term);
