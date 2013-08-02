@@ -1,13 +1,67 @@
 <div class="row-skipnav">
-  <h1>Michael Wasser <small>({{result.npi}})</small></h1>
+  <h1>{{result.business_name}}{{result.first_name}} {{result.last_name}} <small>({{result.npi}})</small></h1>
   <div>
     <a href="#"><i class="icon-arrow-left"></i> Return to search results</a>
   </div>
-  <section class="details">
-    <h2>Demographics</h2>
+  <section class="details" ng-show="result.type == 'organization'">
+    <h2>Organization</h2>
+    <div class="pair">
+      <div class="key">Business Name</div>
+      <div class="value">{{result.business_name}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Other Name</div>
+      <div class="value">{{result.other_name}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Other Name Type</div>
+      <div class="value">{{result.other_name_type}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Enumerated</div>
+      <div class="value">{{result.enumeration_date}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Updated</div>
+      <div class="value">{{result.last_update_date}}</div>
+    </div>
+  </section>
+  <section class="details" ng-show="result.type == 'organization'">
+    <h2>Organization Official</h2>
+    <div class="pair">
+      <div class="key">Name Prefix</div>
+      <div class="value">{{result.organization_official.name_prefix}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">First Name</div>
+      <div class="value">{{result.organization_official.first_name}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Middle Name</div>
+      <div class="value">{{result.organization_official.middle_name}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Last Name</div>
+      <div class="value">{{result.organization_official.last_name}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Credential</div>
+      <div class="value">{{result.organization_official.credential}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Phone</div>
+      <div class="value">{{result.organization_official.phone}}</div>
+    </div>
+  </section>
+  <section class="details" ng-show="result.type == 'individual'">
+    <h2>Provider Demographics</h2>
     <div class="pair">
       <div class="key">First Name</div>
       <div class="value">{{result.first_name}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Middle Name</div>
+      <div class="value">{{result.middle_name}}</div>
     </div>
     <div class="pair">
       <div class="key">Last Name</div>
@@ -17,12 +71,32 @@
       <div class="key">Gender</div>
       <div class="value">{{result.gender}}</div>
     </div>
+    <div class="pair">
+      <div class="key">Credential</div>
+      <div class="value">{{result.credential}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Sole Proprietor</div>
+      <div class="value">{{result.sole_proprietor}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Enumerated</div>
+      <div class="value">{{result.enumeration_date}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Updated</div>
+      <div class="value">{{result.last_update_date}}</div>
+    </div>
   </section>
   <section class="details">
     <h2>Practice Location</h2>
     <div class="pair">
       <div class="key">Street</div>
       <div class="value">{{result.practice_address.address_line}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Street (line two)</div>
+      <div class="value">{{result.practice_address.address_details_line}}</div>
     </div>
     <div class="pair">
       <div class="key">City</div>
@@ -36,5 +110,90 @@
       <div class="key">Zip</div>
       <div class="value">{{result.practice_address.zip}}</div>
     </div>
+    <div class="pair">
+      <div class="key">Country</div>
+      <div class="value">{{result.practice_address.country_code}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Phone</div>
+      <div class="value">{{result.practice_address.phone}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Fax</div>
+      <div class="value">{{result.practice_address.fax}}</div>
+    </div>
+  </section>
+  <section class="details">
+    <h2>Business Location</h2>
+    <div class="pair">
+      <div class="key">Street</div>
+      <div class="value">{{result.business_address.address_line}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Street (line two)</div>
+      <div class="value">{{result.business_address.address_details_line}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">City</div>
+      <div class="value">{{result.business_address.city}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">State</div>
+      <div class="value">{{result.business_address.state}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Zip</div>
+      <div class="value">{{result.business_address.zip}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Country</div>
+      <div class="value">{{result.business_address.country_code}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Phone</div>
+      <div class="value">{{result.business_address.phone}}</div>
+    </div>
+    <div class="pair">
+      <div class="key">Fax</div>
+      <div class="value">{{result.business_address.fax}}</div>
+    </div>
+  </section>
+  <section class="details">
+    <h2>Taxonomy</h2>
+    <section class="details" ng-repeat="taxonomy in result.provider_details">
+      <div class="pair">
+        <div class="key">Code</div>
+        <div class="value">{{taxonomy.healthcare_taxonomy_code}}</div>
+      </div>
+      <div class="pair">
+        <div class="key">License</div>
+        <div class="value">{{taxonomy.license_number}}</div>
+      </div>
+      <div class="pair">
+        <div class="key">Primary</div>
+        <div class="value">{{taxonomy.taxonomy_switch}}</div>
+      </div>
+    </section>
+  </section>
+  <section class="details">
+    <h2>Affiliations</h2>
+    <section class="details" ng-repeat="id in result.other_identifiers">
+      <div class="pair">
+        <div class="key">Identifier</div>
+        <div class="value">{{id.identifier}}</div>
+      </div>
+      <div class="pair">
+        <div class="key">Type</div>
+        <div class="value">{{id.type}}</div>
+      </div>
+      <div class="pair">
+        <div class="key">Issuing State</div>
+        <div class="value">{{id.state}}</div>
+      </div>
+      <div class="pair">
+        <div class="key">Issuer</div>
+        <div class="value">{{id.issuer}}</div>
+      </div>
+    </section>
   </section>
 </div>
