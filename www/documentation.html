@@ -51,30 +51,28 @@
         <li><strong>500</strong>: Server error. Likely caused by a bug in BloomAPI</li>
       </ul>
       <p>200 Structure</p>
-      <code>
-        {
-          meta: {
-            count: <i>Total count without limit</i>
-          },
-          result: [
-            {
-              npi: 1111111111,
-              type: "individual",
-              ...
-            },
-            ...
-          ]
-        }
+      <code>{
+  meta: {
+    count: <i>Total count without limit</i>
+  },
+  result: [
+    {
+      npi: 1111111111,
+      type: "individual",
+      ...
+    },
+    ...
+  ]
+}
       </code>
       <p>400/500 Structure</p>
-      <code>
-        {
-          error: "Error message",
-          type: "parameter|fatal",
-          details: {
-            <i>An object that represents this error type</i>
-          }
-        }
+      <code>{
+  error: "Error message",
+  type: "parameter|fatal",
+  details: {
+    <i>An object that represents this error type</i>
+  }
+}
       </code>
     <h2>Fields</h2>
       <p>Coming Soon (July 2013)</p>
@@ -83,12 +81,12 @@
       <p>BloomAPI provides a set of <a href="http://www.ansible.cc/" target="_blank">Ansible</a> playbooks that can be used to automatically deploy BloomAPI and all of its dependencies on top of a clean installation of Ubuntu 13.04.</p>
       <p>To install Ansible on mac OSX:</p>
       <code>brew install python --framework
-      sudo pip install ansible
+sudo pip install ansible
       </code>
       <p>To install Ansible on Ubuntu</p>
       <code>sudo apt-get install python
-      sudo easy_install pip
-      sudo pip install ansible
+sudo easy_install pip
+sudo pip install ansible
       </code>
       <p>To see more details on installing Ansible, see the <a href="http://www.ansibleworks.com/docs/gettingstarted.html" target="_blank">Ansible Getting Started</a> page.</p>
       <p>Once ansible is installed:</p>
