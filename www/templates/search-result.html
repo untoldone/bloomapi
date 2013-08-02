@@ -1,7 +1,7 @@
 <div class="row-skipnav">
   <h1>{{result.business_name}}{{result.first_name}} {{result.last_name}} <small>({{result.npi}})</small></h1>
-  <div>
-    <a href="#"><i class="icon-arrow-left"></i> Return to search results</a>
+  <div ng-click="goBack()">
+    <a href ng-click="goBack()"><i class="icon-arrow-left"></i> Return to search results</a>
   </div>
   <section class="details" ng-show="result.type == 'organization'">
     <h2>Organization</h2>
