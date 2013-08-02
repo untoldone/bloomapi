@@ -14,6 +14,8 @@ provider_first_name:
   rename: first_name
 provider_name_prefix_text:
   rename: name_prefix
+provider_middle_name:
+  rename: middle_name
 provider_name_suffix_text:
   rename: name_suffix
 provider_credential_text:
