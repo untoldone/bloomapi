@@ -3,13 +3,14 @@ angular.module('search', []).
     $routeProvider.
       when('/', {controller: SearchCtrl, templateUrl: 'templates/search.html'}).
       when('/npi/:npi', {controller: ResultCtrl, templateUrl: 'templates/search-result.html'}).
+      when('/:term/:page', {controller: ResultsCtrl, templateUrl: 'templates/search-results.html'}).
       when('/:term', {controller: ResultsCtrl, templateUrl: 'templates/search-results.html'}).
       otherwise({redirectTo: '/'});
   });
 
 function discoverAPI(term, page) {
   var root = window.location.protocol + "//" + window.location.host + "/api/search?",
-      skip = page * 10,
+      skip = (page - 1) * 10,
       part,
       match;
 
@@ -49,19 +50,52 @@ function SearchCtrl($scope, $location) {
 }
 
 function ResultsCtrl($scope, $routeParams, $http, $location) {
-  $scope.apiuri = discoverAPI($routeParams.term, 0);
+  $scope.term = $routeParams.term;
+  $scope.currentPage = $routeParams.page || 1;
+  $scope.apiuri = discoverAPI($routeParams.term, $scope.currentPage);
+  
   $http.get($scope.apiuri).success(function (data) {
+    $scope.rowCount = data.meta.rowCount;
     $scope.results = data.result;
   });
 
-  $scope.term = $routeParams.term;
   $scope.submit = function () {
     $location.path($scope.term);
+  }
+
+  $scope.pages = function () {
+    if ($scope.rowCount) {
+      var i = 1,
+          pageCount = Math.ceil($scope.rowCount / 10),
+          result = [],
+          cpage = parseInt($scope.currentPage),
+          cur;
+
+      if (pageCount < 8) {
+        // non-dotted
+        for (; i <= pageCount; i++) {
+          result.push(i);
+        }
+      } else if (cpage < 3) {
+        // dotted-right
+        result = [1,2,3,4, '...', pageCount];
+      } else if (pageCount - cpage < 3) {
+        // dotted-left
+        result = [1, '...', pageCount - 3,  pageCount - 2, pageCount - 1, pageCount];
+      } else {
+        // dotted-both
+        result = [1, '...', cpage - 1, cpage, cpage + 1, '...', pageCount];
+      }
+
+      return result;
+    } else {
+      return [1];
+    }
   }
 }
 
 function ResultCtrl($scope, $routeParams, $http) {
-  $scope.apiuri = discoverAPI($routeParams.npi, 0);
+  $scope.apiuri = discoverAPI($routeParams.npi, 1);
   $http.get($scope.apiuri).success(function (data) {
     $scope.result = data.result[0];
   });
