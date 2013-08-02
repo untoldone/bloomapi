@@ -204,23 +204,27 @@ a:active {
 }
 
 .search-results .name {
-  width: 180px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 230px;
   font-weight: 500;
   float: left;
 }
 
-.search-results .taxonomy {
-  width: 150px;
-  float: left;
-}
-
 .search-results .phone {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   width: 160px;
   float: left;
 }
 
 .search-results .address {
-  width: 450px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 550px;
   float: left;
 }
 

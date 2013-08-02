@@ -14,7 +14,6 @@
       <a href="#/npi/{{result.npi}}">
         <div class="name" ng-show="{{result.last_name != null}}">{{result.last_name}}, {{result.first_name}}</div>
         <div class="name" ng-hide="{{result.last_name}}">{{result.business_name}}</div>
-        <div class="taxonomy">{{result.taxonomy}}</div>
         <div class="phone">{{result.practice_address.phone}}</div>
         <div class="address">{{result.practice_address.address_line}}, {{result.practice_address.city}}, {{result.practice_address.state}} {{result.practice_address.zip}}</div>
       </a>
