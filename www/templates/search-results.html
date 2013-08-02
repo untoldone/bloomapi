@@ -21,6 +21,10 @@
     </li>
   </ul>
   <div class="pages">
-    <a href="#">1</a>, <strong>2</strong>, <a href="#">3</a> ... <a href="#">14</a>
+    <span ng-repeat="page in pages() track by $index">
+      <a href="#{{term}}/{{page}}" ng-show="currentPage != page && page != '...'">{{page}}</a>
+      <span ng-show="page == '...'">...</span>
+      <strong ng-show="currentPage == page">{{page}}</a>
+    </span>
   </div>
 </div>
