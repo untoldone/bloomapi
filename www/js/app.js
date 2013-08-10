@@ -58,9 +58,14 @@ function ResultsCtrl($scope, $routeParams, $http, $location) {
  
   if ($scope.apiuri !== null) {
     $scope.error = null;
+    $scope.spinner = true;
     $http.get($scope.apiuri).success(function (data) {
+      $scope.spinner = false;
       $scope.rowCount = data.meta.rowCount;
       $scope.results = data.result;
+    })
+    .error(function () {
+      $scope.spinner = false;
     });
   } else {
     $scope.error = "Sorry, we didn't understand your query";
