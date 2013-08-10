@@ -36,6 +36,7 @@ code {
 
 nav {
   position: fixed;
+  z-index: 200;
   width: 100%;
   top: 0;
   left: 0;
@@ -246,6 +247,23 @@ div.search-results {
 
 .pages a {
   font-weight: 300;
+}
+
+.spinner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  filter: alpha(opacity=50);
+  opacity: 0.5;
+}
+
+.spinner img {
+  position: absolute;
+  left: 49%;
+  top: 49%;
 }
 
 /* details */
