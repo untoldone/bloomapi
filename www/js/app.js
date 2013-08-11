@@ -107,9 +107,10 @@ function ResultsCtrl($scope, $routeParams, $http, $location) {
 }
 
 function ResultCtrl($scope, $routeParams, $http, $window) {
-  $scope.apiuri = discoverAPI($routeParams.npi, 1);
-  $http.get($scope.apiuri).success(function (data) {
-    $scope.result = data.result[0];
+  var uri = window.location.protocol + "//" + window.location.host + "/api/npi/" + $routeParams.npi;
+
+  $http.get(uri).success(function (data) {
+    $scope.result = data.result;
   });
 
   $scope.goBack = function () {
