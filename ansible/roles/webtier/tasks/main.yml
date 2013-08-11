@@ -6,6 +6,8 @@
 
 - name: be sure website source is checked out
   git: repo=git://github.com/untoldone/bloomapi.git dest=/home/ubuntu/bloomapi
+  notify:
+    - restart bloomapi
 
 - name: be sure nginx is configured
   template: src=nginx_default_site dest=/etc/nginx/sites-available/default

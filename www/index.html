@@ -1,259 +1,78 @@
-<!DOCTTYPE HTML>
+<!DOCTYPE HTML>
 <html>
-<head>
-  <title>BloomAPI: an open National Provider Identifier (NPI) API</title>
-  <style>
-    body {
-      font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-      font-weight: 300;
-    }
-
-    .content {
-      width: 500px;
-      margin: 50px auto 0 auto;
-      text-align: center;
-    }
-
-    .full-content {
-      width: 500px;
-      margin: 50px auto 20px;
-      text-align: center;
-    }
-
-    .error {
-      color: #C21111;
-    }
-
-    p {
-      line-height: 27px;
-    }
-
-    /* input fields */
-    input {
-      width: 200px;
-      padding: 10px;
-      font-size: 15px;
-    }
-
-    input[type=submit] {
-      padding: 10px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-      background-repeat: repeat-x;
-      cursor: pointer;
-    }
-
-    button:active {
-      background-image: linear-gradient(to bottom, #ddd, #e6e6e6);
-    }
-
-    .search-block {
-      float: left;
-      margin: 0 10px 10px 0;
-    }
-
-    #settings{
-      display: none;
-      border: thin #CCC dashed;
-      padding:10px;
-      margin-bottom:10px;
-    }
-
-    #settings label {
-      display: inline-block;
-      float: none;
-      width: 150px;
-      padding: 0;
-      margin: 5px 0 0;
-      text-align: left;
-      font-size:0.9em;
-    }
-
-    #settings input {
-      display: inline-block;
-      float: none;
-      width:auto;
-      margin:5px 0 0 10px;
-      padding:5px 5px;
-    }
-
-    #settings span {
-      vertical-align: middle;
-      display: block;
-    }
-
-    p {
-      margin-bottom: 10px;
-    }
-
-    h5 {
-      margin-top: 15px;
-    }
-
-    pre {
-      outline: 1px solid #ccc;
-      padding: 5px;
-      margin: 5px;
-      overflow-y: auto;
-      height: 500px;
-    }
-
-    .string { 
-      color: green;
-    }
-
-    .number {
-      color: darkorange;
-    }
-
-    .boolean {
-      color: blue;
-    }
-
-    .null {
-      color: magenta;
-    }
-
-    .key {
-      color: red;
-    }
-  </style>
-</head>
-<body>
-  <div class="content">
-    <h1>BloomAPI</h1>
-    <p>
-      We are currently building the first version of BloomAPI. BloomAPI will be a self-sustaining API for
-      the National Provider Identifier (NPI) data from the <a href="http://nppes.viva-it.com/NPI_Files.html" target="_blank">CMS NPI Data Dissemination</a>.
-      It is motivated by the current lack of a free
-      (<a href="http://en.wikipedia.org/wiki/Gratis_versus_libre" target="_blank">libre/ as in free speech</a>),
-      non-stale, API for this datasource.
-      If you'd like to contribute, checkout the <a href="https://github.com/untoldone/bloomapi" target="_blank">github project</a>.
-  </div>
-  <div class="full-content">
-	  <form id="form" action="#">
-		  <div class="left">
-	      <h2>Preview BloomAPI</h2>
-	      <p>Use BloomAPI to query for all available NPI data on healthcare providers.</p>
-        <div class="search-block" style="margin-left: 50px">
-          <h5>By Zip Code</h5>
-          <input type="text" placeholder="Zip Code" id="provider_business_practice_location_address_postal_code" name="value1" />
+  <head>
+    <title>BloomAPI - Find and Compare Physicians</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <nav>
+      <div>
+        <ul class="pull-right">
+          <li class="active"><a href="/">home</a></li>
+          <li><a href="/search#">search</a></li>
+          <li><a href="/documentation">documentation</a></li>
+          <li><a href="/contribute">contribute</a></li>
+        </ul>
+      </div>
+    </nav>
+    <header>
+      <div class="row">
+        <div class="hero">
+          <h1>bloom.api</h1>
+          <h2>an api to search and compare physicians</h2>
         </div>
-        <div class="search-block">
-          <h5>By Last Name</h5>
-          <input type="text" placeholder="Last Name" id="provider_last_name_legal_name" name="value2" />
-        </div>
-        <p><a id="settings_toggle" href="#">Show/hide advanced settings</a></p>
-        <div id="settings">
-          <span>
-            <label for="limit">Rows to return</label>
-            <input type="text" placeholder="100 (default)" id="limit" name="limit" />
-          </span>
-          <span>
-            <label>Start at row #</label>
-            <input type="text" placeholder="0 (default)" id="offset" name="offset" />
-          </span>
-        </div>
-			  <input type="submit" value="Query BloomAPI" />
-	      <p class="error"></p>
-	    </div>
-	  </form>
-  </div>
-  <div class="results">
-    <h2></h2>
-    <code></code>
-  </div>
+      </div>
+    </header>
+    <section class="value-props">
+      <div class="value-prop">
+        <h3>Current</h3>
+        <p>
+        BloomAPI is updated weekly with the lastest details from
+        the Centers for Medicare and Medicaid Services (CMS). The
+        data is pulled regularly from the National Provider Identifer (NPI)
+        <a href="http://nppes.viva-it.com/NPI_Files.html" target="_blank">data dissemnation</a>.
+          Programmatically available health information ensures you're up to date.
+        </p>
+      </div>
+      <div class="value-prop">
+        <h3>Free</h3>
+        <p>
+          <a href="http://en.wikipedia.org/wiki/Gratis_versus_libre" target="_blank">Free, as in speech</a>. In addition to being hosted for free, non-commercial use,
+          BloomAPI's <a href="https://github.com/untoldone/bloomapi" target="_blank">full source code</a> is available online with a
+          MIT license so you can run your own to meet your SLA
+          requirements. Deploy it yourself for higher performance 
+          or high availability.
+        </p>
+      </div>
+      <div class="value-prop">
+        <h3>Performant</h3>
+        <p>
+          Built with high performance in mind, we strive to maintain
+          200ms or less response time on any possible NPI search.
+          We actively monitor performance and optimize as is needed
+          to ensure support for applications that need NPI data realtime.
+        </p>
+      </div>
+      <div class="value-prop">
+        <h3>Accessible</h3>
+        <p>
+          Need to leverage the full NPI dataset? Run
+          your own BloomAPI deployment for direct database access.
+          BloomAPI will ensure your NPI data is always fresh without
+          needing to regularly maintain your deployment.
+        </p>
+      </div>
+    </section>
+      <p style="text-align: center;">BloomAPI is graciously hosted by <a href="http://www.rackspace.com/" target="_blank">Rackspace</a></p>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-<script src="js/vendor/jquery-1.10.1.min.js"></script>
-<script>
-  function syntaxHighlight(json) {
-    if (typeof json != 'string') {
-         json = JSON.stringify(json, undefined, 2);
-    }
-    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-        var cls = 'number';
-        if (/^"/.test(match)) {
-            if (/:$/.test(match)) {
-                cls = 'key';
-            } else {
-                cls = 'string';
-            }
-        } else if (/true|false/.test(match)) {
-            cls = 'boolean';
-        } else if (/null/.test(match)) {
-            cls = 'null';
-        }
-        return '<span class="' + cls + '">' + match + '</span>';
-    });
-  }
-
-
-  $(function () {
-
-	  function query_param_from_serialized_array(array){
-		  // only add non-blank fields to params
-		  array = $.map(array, function(obj){
-			  if(obj["value"] != ""){
-				  return obj['name']+'='+obj['value'];
-			  }
-		  })
-		  return array.join('&');
-	  }
-
-    $("#settings_toggle").click(function(e){
-      $("#settings").toggle();
-    })
-
-	  $('#form').submit(function (e) {
-	    e.preventDefault();
-      var provider_business_practice_location_address_postal_code = $('#provider_business_practice_location_address_postal_code').val(),
-		      provider_last_name_legal_name = $('#provider_last_name_legal_name').val(),
-          $resultsHeader = $('.results h2'),
-          $resultsUri = $('.results code'),
-          $results = $('.results'),
-          $resultsPre = $('.results pre'),
-          $error = $('.error');
-
-      if ($resultsPre.length === 0) $resultsPre = $('<pre></pre>');
- 
-      $error.html('');
-      if (!provider_business_practice_location_address_postal_code && !provider_last_name_legal_name) {
-        $error.html('You must specify a zip code or last name to continue');
-      } else {
-	      var params = '?',
-            serializedArray = [];
-        if (provider_business_practice_location_address_postal_code) serializedArray = serializedArray.concat([
-              {name: 'op1', value: 'eq'},
-              {name: 'key1', value: 'practice_address.zip'},
-              {name: 'value1', value: provider_business_practice_location_address_postal_code}]);
-        if (provider_last_name_legal_name) serializedArray = serializedArray.concat([
-              {name: 'op2', value: 'eq'}, 
-              {name: 'key2', value: 'last_name'},
-              {name: 'value2', value: provider_last_name_legal_name.toUpperCase()}]);
-	      params += query_param_from_serialized_array(serializedArray);
-	      $.getJSON('/api/search' + params, function (data) {
-          var s = JSON.stringify(data, undefined, 4);
-          $resultsHeader.html('Results of Query');
-          $resultsUri.html('GET: ' + location.protocol + '//' + location.host + this.url);
-          $results.append($resultsPre);
-          $resultsPre.html(syntaxHighlight(s));
-        });
-      }
-    });
-  });
-</script>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-41572439-1', 'bloomapi.com');
-  ga('send', 'pageview');
-
-</script>
-</body>
+      ga('create', 'UA-41572439-1', 'bloomapi.com');
+      ga('send', 'pageview');
+    </script>
+  </body>
 </html>
