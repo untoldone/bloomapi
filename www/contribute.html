@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>BloomAPI - Find and Compare Physicians</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <nav class="cover">
+      <div>
+        <h1 class="pull-left"><a href="/">bloom.api</a></h1>
+        <ul class="pull-right">
+          <li><a href="/">home</a></li>
+          <li><a href="/search#">search</a></li>
+          <li><a href="/documentation">documentation</a></li>
+          <li class="active"><a href="/contribute">contribute</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="row-skipnav">
+      <h1>Contributing to BloomAPI</h1>
+      <h2>Development Environment</h2>
+      <h3>Dependencies</h3>
+      <p>BloomAPI has the following runtime dependencies</p>
+      <ul>
+        <li>nodejs 0.10+ (and a number of nodejs packages installable via npm)</li>
+        <li>postgreSQL</li>
+        <li>pdftotext (command line tool)</li>
+        <li>p7zip</li>
+      </ul>
+      <h4>Dependency installation on mac OSX</h4>
+      <p>Since several dependencies require you build source code, XCode must be installed with the Command Line Tools option enabled to complete the following instructions.</p>
+      <p>Using <a href="https://github.com/mxcl/homebrew" target="_blank">homebrew</a>:</p>
+      <code>brew install nodejs p7zip xpdf postgresql
+cd &#60bloomapi source dir&#62
+npm install
+      </code>
+      <h4>Dependency installation on ubuntu 13.04</h4>
+      <code>sudo apt-get install -y p7zip-full poppler-utils g++ make nodejs postgresql-9.1 postgresql-server-dev-9.1
+cd &#60bloomapi source dir&#62
+npm install
+      </code>
+      <h4>Dependency Troubleshooting</h4>
+      <p>If you are having trouble with the bootstrap task or running server, try running <code>node make check</code> to verify that dependencies have been properly installed.</p>
+      <h2>Testing</h2>
+      <ol>
+        <li>install jasmine-node globally with <code>npm i -g jasmine-node</code></li>
+        <li>Run tests with <code>jasmine-node spec</code> from the root of the source directory</li>
+      </ol>
+      <h2>BloomAPI Roadmap</h2>
+      <p>The current featureset is very minimal but in time more will be added based on real-life use cases. Some example use cases include:</p>
+      <ul>
+        <li>Searching for providers at a specific facility</li>
+        <li>Searching for providers by geo-coded locations (think queries like 'give me all the doctors in a 10 mile radius of this address')</li>
+        <li>Marrying with other datasource such as using Hospital Compare data to show which doctors work at facilities that meet specific quality requirements</li>
+        <li>For use as a starting point in generating new data such as a national provider-to-payer database or for running physician surveys</li>
+        <li>For use by CMS or others in identifying low quality NPI data and correcting it</li>
+        <li>Detecting noteworthy changes and historical values of NPI data over time such as doctors's affiliations with payers</li>
+      </ul>
+      <p>In addition, there are a number of tactical/ implementation changes that can be made to improve the quality of the API itself. This is the task list for the first release (0.1.0):</p>
+      <h3>High Priority</h3>
+      <ul>
+        <li>Automated importing of new dissemination files as they are available. Bonus points if this can be done with no down time</li>
+        <li>Add indexing on searchable fields to increase performance</li>
+      </ul>
+      <h3>Medium Priority</h3>
+      <ul>
+        <li>Metadata and code to automatically denormalize npi database. Clearest cases are when there's a index numbers at the ends of the NPI column names, less clear cases include business addresses etc -- this will make some of the above use cases more realistic such as finding all the physicians at one location</li>
+        <li>Importing the weekly incremental disseminations</li>
+        <li>Providing api-health information such as when the database itself was last updated and providing references to the data file each record came from</li>
+        <li>Currently can only search by 'zip' and 'last_name' -- add more accepted query terms</li>
+        <li>Result paging to ensure lower query times (like 'skip first 40 records and take the next 20')</li>
+        <li>User documentation of API</li>
+      </ul>
+      <h3>In spare time...</h3>
+      <ul>
+        <li>API performance metrics to ensure API slowness does not hurt usability of applications that depend on API</li>
+      </ul>
+    </div>
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', '', 'bloomapi.com');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

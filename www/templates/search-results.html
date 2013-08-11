@@ -1,0 +1,39 @@
+<div class="spinner" ng-show="spinner">
+  <img src="/img/loader.gif" />
+</div>
+<div class="row-skipnav">
+  <div class="search">
+    <form ng-submit="submit()">
+      <input type="text" placeholder="search by last name, full name, zip code, address, or NPI" ng-model="term" /><i class="icon-search"></i><span><a href="#{{term}}">search</a></span>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div ng-show="error" class="search-results">
+    <p class="error">
+      {{error}}
+    </p>
+  </div>
+  <div ng-hide="error">
+    <p>
+      <code style="padding-left: 10px">{{apiuri}}</code>
+    </p>
+    <ul class="search-results">
+      <li ng-repeat="result in results">
+        <a href="#/npi/{{result.npi}}">
+          <div class="name" ng-show="{{result.last_name != null}}">{{result.last_name}}, {{result.first_name}}</div>
+          <div class="name" ng-hide="{{result.last_name}}">{{result.business_name}}</div>
+          <div class="phone">{{result.practice_address.phone}}</div>
+          <div class="address">{{result.practice_address.address_line}}, {{result.practice_address.city}}, {{result.practice_address.state}} {{result.practice_address.zip}}</div>
+        </a>
+      </li>
+    </ul>
+    <div class="pages search-results">
+      <span ng-repeat="page in pages() track by $index">
+        <a href="#{{term}}/{{page}}" ng-show="currentPage != page && page != '...'">{{page}}</a>
+        <span ng-show="page == '...'">...</span>
+        <strong ng-show="currentPage == page">{{page}}</a>
+      </span>
+    </div>
+  </div>
+</div>
