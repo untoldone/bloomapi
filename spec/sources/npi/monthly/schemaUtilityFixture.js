@@ -1,7 +1,7 @@
 var fs = require('fs');
 
 module.exports = {
-  full: fs.readFileSync('./spec/store/schemaUtilityFixtureRaw.html', 'utf8'),
+  full: fs.readFileSync('./spec/sources/npi/monthly/schemaUtilityFixtureRaw.html', 'utf8'),
   toSplit: "Hello\nWorld\nTheOther",
   toSplitExpected: ["Hello", "World", "TheOther"],
   toTrim: ["Hello","Data Dissemination Notice", "data1", "data2", "NPPES Data Dissemination - Readme", "Data Dissemination Notice", "data3", "NPPES Data Dissemination - Readme", "World"],

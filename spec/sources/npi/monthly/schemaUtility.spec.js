@@ -1,6 +1,6 @@
-var schemaUtility = require('../../lib/store/schemaUtility'),
+var schemaUtility = require('../../../../lib/sources/npi/monthly/schemaUtility'),
     schemaFixture = require('./schemaUtilityFixture'),
-    fakeFSReadFile = require('../fakeFSReadFile'),
+    fakeFSReadFile = require('../../../fakeFSReadFile'),
     fs = require('fs');
 
 describe('SchemaUtility', function () {
@@ -14,17 +14,6 @@ describe('SchemaUtility', function () {
 
   afterEach(function () {
     fs.readFile = readFile;
-  });
-
-  it ('should load a file', function (done) {
-    schemaUtility.loadFile('test')
-      .then(function (data) { 
-        expect(data).toEqual(schemaFixture.full);
-      }).fail(function (err) {
-        expect(err.message).toEqual('no error');
-      }).done(function () {
-        done();
-      });
   });
 
   it ('should split a file by <br />', function () {
