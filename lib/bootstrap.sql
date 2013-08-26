@@ -12,6 +12,10 @@ CREATE TABLE npi_files (
   name    varchar(75) NOT NULL UNIQUE
 );
 
+CREATE TABLE npis (
+  npi     bigint PRIMARY KEY
+);
+
 INSERT INTO data_sources
 VALUES ('NPI', NULL, NULL, 'NEVER_RUN');
 

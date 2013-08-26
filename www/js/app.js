@@ -2,7 +2,7 @@ angular.module('search', []).
   config(function($routeProvider) {
     $routeProvider.
       when('/', {controller: SearchCtrl, templateUrl: 'templates/search.html'}).
-      when('/npi/:npi', {controller: ResultCtrl, templateUrl: 'templates/search-result.html'}).
+      when('/npis/:npi', {controller: ResultCtrl, templateUrl: 'templates/search-result.html'}).
       when('/:term/:page', {controller: ResultsCtrl, templateUrl: 'templates/search-results.html'}).
       when('/:term', {controller: ResultsCtrl, templateUrl: 'templates/search-results.html'}).
       otherwise({redirectTo: '/'});
@@ -107,7 +107,7 @@ function ResultsCtrl($scope, $routeParams, $http, $location) {
 }
 
 function ResultCtrl($scope, $routeParams, $http, $window) {
-  var uri = window.location.protocol + "//" + window.location.host + "/api/npi/" + $routeParams.npi;
+  var uri = window.location.protocol + "//" + window.location.host + "/api/npis/" + $routeParams.npi;
 
   $http.get(uri).success(function (data) {
     $scope.result = data.result;
