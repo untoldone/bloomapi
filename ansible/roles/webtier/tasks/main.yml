@@ -80,7 +80,7 @@
 
 # Add cron task to update data sources
 - name: be sure bloomapi data source update cron task exists
-  cron: name="Update Bloomapi" hour="1" job="cd /home/ubutu/bloomapi; node make fetch"
+  cron: name="Update Bloomapi" hour="1" job="cd /home/ubutu/bloomapi && node make fetch"
 
 # Ensure bloomapi and nginx are running
 - name: be sure bloomapi is running
