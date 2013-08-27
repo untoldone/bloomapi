@@ -18,7 +18,8 @@ target.fetch = function () {
       npi = require('./lib/sources/npi');
   npi.update()
     .fail(function (e) {
-      console.log("Error:\n" + e.stack); 
+      console.error("Error:\n" + e.stack); 
+      process.exit(1);
     })
     .done(function () {
       pg.end(); 
@@ -36,7 +37,8 @@ target.bootstrap = function () {
     })
     .then(npi.update)
     .fail(function (e) {
-      console.log("Error:\n", e.stack);
+      console.error("Error:\n", e.stack);
+      process.exit(1);
     })
     .done(function () {
       pg.end(); 
