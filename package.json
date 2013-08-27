@@ -14,7 +14,9 @@
     "express": "~3.2.6",
     "sql": "~0.25.0",
     "js-yaml": "~2.1.0",
-    "shelljs": "~0.1.4"
+    "shelljs": "~0.1.4",
+    "mustache": "~0.7.2",
+    "csvrow": "~0.1.0"
   },
   "scripts": {
     "test": "jasmine-node spec"
