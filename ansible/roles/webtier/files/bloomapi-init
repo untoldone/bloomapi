@@ -11,6 +11,8 @@
 
 set -e
 
+. /lib/lsb/init-functions
+
 # /etc/init.d/bloomapi: start and stop the BloomAPI daemon
 
 test /home/ubuntu/bloomapi/make.js || exit 0
@@ -28,6 +30,9 @@ case "$1" in
     echo "Stopping BloomAPI server"
     start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/bloomapi.pid
   ;;
+  status)
+    status_of_proc -p /var/run/bloomapi.pid "/usr/bin/node" bloomapi
+  ;;
 
   restart)
     echo "Restarting BloomAPI server"
@@ -36,7 +41,7 @@ case "$1" in
   ;;
 
   *)
-  echo "Usage: /etc/init.d/bloomapi {start|stop|restart}" >&2
+  echo "Usage: /etc/init.d/bloomapi {start|stop|restart|status}" >&2
   exit 1
 esac
 
