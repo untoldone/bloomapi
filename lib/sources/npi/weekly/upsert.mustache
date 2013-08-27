@@ -1,0 +1,26 @@
+WITH new_values ({{{headers}}}) AS (
+  VALUES
+    {{#lines}}
+      ({{{.}}}),
+    {{/lines}}
+    ({{{lastLine}}})
+),
+upsert AS
+(
+  UPDATE npis n
+  SET
+  {{#setHeaders}}
+    {{{.}}},
+  {{/setHeaders}}
+  {{{lastSetHeader}}}
+  FROM new_values nv
+  WHERE n.npi = nv.npi
+  RETURNING n.*
+)
+
+INSERT INTO npis ({{{headers}}})
+SELECT {{{headers}}}
+FROM new_values
+WHERE NOT EXISTS (SELECT 1
+                  FROM upsert up
+                  WHERE up.npi = new_values.npi)
