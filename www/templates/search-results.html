@@ -20,7 +20,7 @@
     </p>
     <ul class="search-results">
       <li ng-repeat="result in results">
-        <a href="#/npi/{{result.npi}}">
+        <a href="#/npis/{{result.npi}}">
           <div class="name" ng-show="{{result.last_name != null}}">{{result.last_name}}, {{result.first_name}}</div>
           <div class="name" ng-hide="{{result.last_name}}">{{result.business_name}}</div>
           <div class="phone">{{result.practice_address.phone}}</div>

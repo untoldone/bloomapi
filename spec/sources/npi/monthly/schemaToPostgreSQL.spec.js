@@ -1,4 +1,4 @@
-var stp = require('../../lib/store/schemaToPostgreSQL.js');
+var stp = require('../../../../lib/sources/npi/monthly/schemaToPostgreSQL.js');
 
 describe('SchemaToPostgreSQL', function () {
   describe('importSchema', function () {
@@ -16,32 +16,32 @@ describe('SchemaToPostgreSQL', function () {
     it('should convert varchar', function () {
       demo.type = "VARCHAR";
       var result = converter.importSchema([demo]);
-      expect(result).toEqual('CREATE TABLE npis (field  varchar(6));');
+      expect(result).toEqual('CREATE TABLE npis_temp (field  varchar(6));');
     });
 
     it('should convert smallint', function () {
       demo.length = 2;
       var result = converter.importSchema([demo]);
-      expect(result).toEqual('CREATE TABLE npis (field  smallint);');
+      expect(result).toEqual('CREATE TABLE npis_temp (field  smallint);');
     });
 
     it('should convert integer', function () {
       demo.length = 9;
       var result = converter.importSchema([demo]);
-      expect(result).toEqual('CREATE TABLE npis (field  integer);');
+      expect(result).toEqual('CREATE TABLE npis_temp (field  integer);');
     });
 
     it('should convert bigint', function () {
       demo.length = 10;
       var result = converter.importSchema([demo]);
-      expect(result).toEqual('CREATE TABLE npis (field  bigint);');
+      expect(result).toEqual('CREATE TABLE npis_temp (field  bigint);');
     });
 
     it('should convert date', function () {
       demo.length = 10;
       demo.type = "DATE";
       var result = converter.importSchema([demo]);
-      expect(result).toEqual('CREATE TABLE npis (field  date);');
+      expect(result).toEqual('CREATE TABLE npis_temp (field  date);');
     });
 
     it('should raise on unknown type', function () {
@@ -55,25 +55,8 @@ describe('SchemaToPostgreSQL', function () {
       demo.length = 10;
       demo.name = "npi";
       var result = converter.importSchema([demo]);
-      expect(result).toEqual('CREATE TABLE npis (npi  bigint PRIMARY KEY);');
+      expect(result).toEqual('CREATE TABLE npis_temp (npi  bigint PRIMARY KEY);');
     });
 
-    it('should format field name', function () {
-      // rules:
-      //  all to lower case
-      //  convert '(', ')', '.' and white space to '_'
-      //  shorten multiple '_' in a row to single '_'
-      //  trim _ from beginning and end
-      demo.name = " Hello (World.U.S.) Something.)";
-      var result = converter.importSchema([demo]);
-      var match = /\(([^\s]+).+\)/.exec(result);
-      var name = match[1];
-      expect(name).toEqual('hello_world_u_s_something');
-      demo.name = "Employer Identification Number (EIN)";
-      var result = converter.importSchema([demo]);
-      var match = /\(([^\s]+).+\)/.exec(result);
-      var name = match[1];
-      expect(name).toEqual('employer_identification_number_ein');
-    });
   });
 });
