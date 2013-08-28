@@ -60,6 +60,7 @@
 # Create BloomAPI Database
 - name: be sure bloomapi database exists
   postgresql_db: db=bloomapi login_user=postgres login_password={{ postgres_password }} owner=postgres state=present
+  register: result
 
 # Create init script for BloomAPI
 - name: be sure bloomapi init script exists
@@ -74,4 +75,15 @@
 
 # Bootstrap BloomAPI
 - name: be sure bloomapi has been bootstrapped
-  shell: creates=/home/ubuntu/bloomapi/data/NPPES_Data_Dissemination_CodeValues.pdf chdir=/home/ubuntu/bloomapi node make bootstrap
+  shell: chdir=/home/ubuntu/bloomapi node make bootstrap
+  when_changed: $result
+
+# Add cron task to update data sources
+- name: be sure bloomapi data source update cron task exists
+  cron: name="Update Bloomapi" hour="1" job="cd /home/ubutu/bloomapi && node make fetch"
+
+# Ensure bloomapi and nginx are running
+- name: be sure bloomapi is running
+  service: name=bloomapi state=started
+- name: be sure nginx is running
+  service: name=nginx state=started

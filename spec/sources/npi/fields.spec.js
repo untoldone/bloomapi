@@ -1,4 +1,4 @@
-var npiFields = require('../../lib/store/npiFields');
+var npiFields = require('../../../lib/sources/npi/fields');
 
 describe('NPIFields', function () {
   var metadata = {
@@ -30,7 +30,7 @@ describe('NPIFields', function () {
   };
 
   it('should resolve a mapped/ non-mapped value to its db value', function () {
-    var f = new npiFields(metadata),
+    var f = new npiFields([], metadata),
         r;
 
     r = f.unmappedValue('type', 'individual');
@@ -50,7 +50,7 @@ describe('NPIFields', function () {
   });
 
   it('should identify a key from a field', function () {
-    var f = new npiFields(metadata),
+    var f = new npiFields([], metadata),
         r;
 
     r = f.nameToInfo('first_name');
@@ -67,13 +67,13 @@ describe('NPIFields', function () {
   });
 
   it('should return all indices', function () {
-    var f = new npiFields(metadata),
+    var f = new npiFields([], metadata),
         idxs = f.indices();
     expect(idxs).toEqual({'test_index': 'entity_type_code'});
   });
 
   it('should transform a record', function () {
-    var f = new npiFields(metadata),
+    var f = new npiFields([], metadata),
         results = f.process([{
           'healthcare_provider_taxonomy_code_2': 'hello',
           'other_provider_identifier_type_code_2': '02',
