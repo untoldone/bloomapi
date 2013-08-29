@@ -4,4 +4,7 @@
   sudo: yes
   roles:
     - common
-    - webtier
+    - db
+- hosts: webservers
+  roles:
+    - bloomapi
