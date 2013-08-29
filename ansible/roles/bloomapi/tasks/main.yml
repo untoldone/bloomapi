@@ -1,8 +1,22 @@
 ---
-# file: roles/webtier/tasks/main.yml
+# file: roles/bloomapi/tasks/main.yml
 
-- name: be sure nginx is installed
-  apt: pkg=nginx state=installed
+# Setup Dependencies
+- name: be sure nodejs apt repository exists
+  apt_repository: repo=ppa:chris-lea/node.js
+  sudo: yes
+- name: be sure to install node, all node dependencies, p7zip, and pdftotext
+  apt: update_cache=yes state=present pkg={{ item }}
+  with_items:
+    - python-software-properties
+    - python
+    - g++
+    - make
+    - nodejs
+    - p7zip-full
+    - poppler-utils
+    - nginx
+  sudo: yes
 
 - name: be sure website source is checked out
   git: repo=git://github.com/untoldone/bloomapi.git dest=/home/ubuntu/bloomapi
@@ -13,49 +27,11 @@
   template: src=nginx_default_site dest=/etc/nginx/sites-available/default
   notify:
     - restart nginx
-
-# Setup PostgreSQL
-- name: be sure python setup tools/ postgreSQL are installed
-  apt: pkg={{ item }} state=installed
-  with_items:
-    - python-setuptools
-    - python-dev
-    - postgresql-9.1
-    - postgresql-server-dev-9.1
-- name: be sure postgreSQL python package is installed
-  easy_install: name=psycopg2
-- name: be sure postgres user config present
-  copy: src={{ item }} dest=/etc/postgresql/9.1/main/{{ item }} owner=postgres group=postgres mode=644
-  with_items:
-    - pg_hba.conf
-    - pg_ident.conf
-  register: result
-- name: if configuration changed, restart postgres
-  service: name=postgresql state=restarted
-  when_changed: $result
-- name: be sure postgres user is setup
-  postgresql_user: login_user=postgres name=postgres password={{ postgres_password }}
-
-# Setup  Nodejs
-- name: be sure nodejs apt repository exists
-  apt_repository: repo=ppa:chris-lea/node.js
-- name: be sure to install node and all dependencies
-  apt: update_cache=yes state=present pkg={{ item }}
-  with_items:
-    - python-software-properties
-    - python
-    - g++
-    - make
-    - nodejs
+  sudo: yes
 
 # Install BloomAPI Dependencies
 - name: be sure BloomAPI Nodejs dependencies are installed
   npm: path=/home/ubuntu/bloomapi
-- name: be sure p7zip and pdftotext are installed
-  apt: pkg={{ item }} state=present
-  with_items:
-    - p7zip-full
-    - poppler-utils
 
 # Create BloomAPI Database
 - name: be sure bloomapi database exists
@@ -66,12 +42,14 @@
 - name: be sure bloomapi init script exists
   copy: src=bloomapi-init dest=/etc/init.d/bloomapi owner=root group=root mode=755
   notify: restart bloomapi
+  sudo: yes
 - name: be sure bloomapi init script has proper runlevels
   shell: creates=/etc/rc5.d/S20bloomapi update-rc.d bloomapi defaults
+  sudo: yes
 
 # Create BloomAPI configuration
 - name: be sure that blooomapi's config.js is installed
-  template: src=bloom-config dest=/home/ubuntu/bloomapi/config.js owner=root group=root mode=644
+  template: src=bloom-config dest=/home/ubuntu/bloomapi/config.js owner=ubuntu group=ubuntu mode=644
 
 # Bootstrap BloomAPI
 - name: be sure bloomapi has been bootstrapped
@@ -85,5 +63,7 @@
 # Ensure bloomapi and nginx are running
 - name: be sure bloomapi is running
   service: name=bloomapi state=started
+  sudo: yes
 - name: be sure nginx is running
   service: name=nginx state=started
+  sudo: yes

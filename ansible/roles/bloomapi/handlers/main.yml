@@ -2,5 +2,7 @@
 # file: roles/webtier/handlers/main.yml
 - name: restart nginx
   service: name=nginx state=restarted
+  sudo: yes
 - name: restart bloomapi
   service: name=bloomapi state=restarted
+  sudo: yes
