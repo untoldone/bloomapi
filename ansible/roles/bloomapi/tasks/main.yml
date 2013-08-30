@@ -33,11 +33,6 @@
 - name: be sure BloomAPI Nodejs dependencies are installed
   npm: path=/home/ubuntu/bloomapi
 
-# Create BloomAPI Database
-- name: be sure bloomapi database exists
-  postgresql_db: db=bloomapi login_user=postgres login_password={{ postgres_password }} owner=postgres state=present
-  register: result
-
 # Create init script for BloomAPI
 - name: be sure bloomapi init script exists
   copy: src=bloomapi-init dest=/etc/init.d/bloomapi owner=root group=root mode=755
@@ -50,6 +45,11 @@
 # Create BloomAPI configuration
 - name: be sure that blooomapi's config.js is installed
   template: src=bloom-config dest=/home/ubuntu/bloomapi/config.js owner=ubuntu group=ubuntu mode=644
+
+# Create BloomAPI Database
+- name: be sure bloomapi database exists
+  postgresql_db: db=bloomapi login_user=postgres login_password={{ postgres_password }} owner=postgres state=present
+  register: result
 
 # Bootstrap BloomAPI
 - name: be sure bloomapi has been bootstrapped
