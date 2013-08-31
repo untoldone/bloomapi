@@ -203,7 +203,7 @@ a:active {
   border-bottom: dotted 1px;
 }
 
-.search-results li:first-child {
+ul.search-results {
   border-top: dotted 1px;
 }
 
