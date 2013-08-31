@@ -7,6 +7,7 @@ employer_identification_number_ein:
   rename: employer_identification_number
 provider_organization_name_legal_business_name:
   rename: business_name
+  index: provider_organization_name_legal_business_name_idx
 provider_last_name_legal_name:
   rename: last_name
   index: provider_last_name_legal_name_idx
@@ -64,15 +65,18 @@ provider_business_mailing_address_state_name:
 provider_business_mailing_address_postal_code:
   key: business_address
   rename: zip
+  index: provider_business_mailing_address_postal_code_idx
 provider_business_mailing_address_country_code_if_outside_u_s:
   key: business_address
   rename: country_code
 provider_business_mailing_address_telephone_number:
   key: business_address
   rename: phone
+  index: provider_business_mailing_address_telephone_number_idx
 provider_business_mailing_address_fax_number:
   key: business_address
   rename: fax
+  index: provider_business_mailing_address_fax_number_idx
 provider_first_line_business_practice_location_address:
   key: practice_address
   rename: address_line
@@ -95,9 +99,11 @@ provider_business_practice_location_address_country_code_if_out:
 provider_business_practice_location_address_telephone_number:
   key: practice_address
   rename: phone
+  index: provider_business_practice_location_address_telephone_number_idx
 provider_business_practice_location_address_fax_number:
   key: practice_address
   rename: fax
+  index: provider_business_practice_location_address_fax_number_idx
 provider_enumeration_date:
   rename: enumeration_date
 npi_deactivation_reason_code:
@@ -119,6 +125,7 @@ provider_gender_code:
 authorized_official_last_name:
   key: organization_official
   rename: last_name
+  index: authorized_official_last_name_idx
 authorized_official_first_name:
   key: organization_official
   rename: first_name
@@ -131,6 +138,7 @@ authorized_official_title_or_position:
 authorized_official_telephone_number:
   key: organization_official
   rename: phone
+  index: authorized_official_telephone_number_idx
 authorized_official_name_prefix_text:
   key: organization_official
   rename: name_prefix
