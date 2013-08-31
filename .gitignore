@@ -3,5 +3,7 @@ logs
 node_modules
 config.js
 
+www/documentation.html
+
 ansible/group_vars/webservers
 
