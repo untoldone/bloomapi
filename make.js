@@ -57,6 +57,12 @@ target.server = function () {
   require('./lib/api/server');
 };
 
+target.docs = function () {
+  logger.data.info('building documentation');
+  var docs = require('./lib/docs');
+  docs.build().done();
+};
+
 target.check = function () {
   if (!test('-f', './config.js')) {
     console.log('ERROR: no configuration file found, copy and configure ./config.js.sample to ./config.js');
