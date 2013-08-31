@@ -1,5 +1,7 @@
 require('shelljs/make');
 
+var logger = require('./lib/logger');
+
 // default target
 target.all = function () {
   console.log("\nAvailable commands:\n-------------------");
@@ -16,6 +18,9 @@ Q.longStackSupport = true;
 target.fetch = function () {
   var pg = require('./lib/sources/pg'),
       npi = require('./lib/sources/npi');
+
+  logger.data.info('attempting to sync datasources');
+
   npi.update()
     .fail(function (e) {
       console.error("Error:\n" + e.stack); 
@@ -30,6 +35,8 @@ target.bootstrap = function () {
   var pg = require('./lib/sources/pg'),
       npi = require('./lib/sources/npi'),
       fs = require('fs');
+
+  logger.data.info('bootstrapping bloomapi');
 
   Q.nfcall(fs.readFile, './lib/bootstrap.sql', {encoding: 'utf8'})
     .then(function (data) {
@@ -46,6 +53,7 @@ target.bootstrap = function () {
 }
 
 target.server = function () {
+  logger.server.info('starting bloomapi');
   require('./lib/api/server');
 };
 
