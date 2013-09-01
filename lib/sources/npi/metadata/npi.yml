@@ -93,7 +93,7 @@ provider_business_practice_location_address_postal_code:
   key: practice_address
   rename: zip
   index: provider_business_practice_location_address_postal_code_idx
-provider_business_practice_location_address_country_code_if_out:
+provider_business_practice_location_address_country_code_if_outside_u_s:
   key: practice_address
   rename: country_code
 provider_business_practice_location_address_telephone_number:
