@@ -24,7 +24,8 @@
         BloomAPI can be queried at http://www.bloomapi.com/api/ or at your own deployment.
         Here is a summary of the available APIs.
       </p>
-      <h3>GET /search</h3>
+      <h3>GET /api/search</h3>
+      <h4>Parameters</h4>
       <ul class="params">
         <li>
           <strong>key*</strong> name of field to filter by. Replace * with any number to set the 'index number'. The index number is used to associate keys with an 'op' and 'value'
@@ -42,8 +43,12 @@
           <strong>offset</strong> optional, sets a number of records to skip before returning. Default is 0
         </li>
     </ul>
+    <h4>Example</h4>
+    <p>Query for all clinitians that practice in the zipcode '98101'</p>
+    <code>GET http://www.bloomapi.com/api/search?limit=10&offset=0&key1=practice_address.zip&op1=eq&value1=98101</code>
     <h4>Response Fields</h4>
-    <p>Returns an array of NPI objects. The objects have the following fields</p>
+    <p>Returns an array of NPI objects. Each field's description is directly 
+    from the NPI dissemination documentation present in the <a href="http://nppes.viva-it.com/NPI_Files.html" target="_blank">dissemination files</a>. Source fields are the name of the column in the source CSVs before they are translated for bloomapi. The objects have the following fields</p>
     {{#search}}
     <section class="details">
       <p><strong>{{name}}</strong></p>
@@ -74,6 +79,13 @@
       {{/fields}}
     </section>
     {{/search}}
+    <h3>GET /api/npis/:npi</h3>
+    <p>
+      Returns a specific NPI's details. <em>:npi</em> should be replaced by the NPI you are searching for
+    </p>
+    <h4>Response Fields</h4>
+    <p>The response fields are the same as <code>GET /api/search</code> except that a single element is returned rather than an array</p>
+
     <h3>GET /api/sources</h3>
     <p>
       Returns the current datasources and their status. At the moment, the only datasource is 'NPI' which represents
@@ -83,9 +95,9 @@
     <p>The result will be an array of data sources. For now, the array will be of length of 1 for just the 'NPI' datasource.</p>
     <ul>
       <li><strong>source</strong> Identifier of datasource. The only datasource is 'NPI' for now</li>
-      <li><strong>updated</strong> Timestamp of the most resent data inserted. For example, if the most recent data was from a weekly NPI dissemination file marked with July 2nd, 2013 in the dissemination filename -- this will be the timestamp associated with the NPI datasource</li>
+      <li><strong>updated</strong> Timestamp of the most resent data inserted. For example, if the most recent data was from a weekly NPI dissemination file marked with July 2nd, 2013 in the dissemination filename -- this will be the timestamp of when this update is download/ applied to bloomapi from the NPI datasource (sometime after July 2nd, 2013</li>
       <li><strong>checked</strong> Timestamp of the last time BloomAPI checked for additional data for this datasource. This is not the same as <em>updated</em> since BloomAPI may not find any additional data since the last <em>updated</em> date</li>
-      <li><strong>status</strong> Will be of the value 'NEVER_RUN', 'RUNNING' or 'READY'. 'NEVER_RUN' means this datasource's initial data collection is still running or has never completed successfully, 'RUNNING' means that BloomAPI is running data collection for this source currently -- data is still available for this source while collection is running. 'READY' means that this datasource is not currently running collection and data is available.</li>
+      <li><strong>status</strong> Will be of the value 'NEVER_RUN', 'RUNNING' or 'READY'. 'NEVER_RUN' means this datasource's initial data collection has not yet run or has never completed successfully, 'RUNNING' means that BloomAPI is running data collection for this source currently -- data is still available for this source while collection is running. 'READY' means that this datasource is not currently running collection and data is available.</li>
     </ul>
     <h2>Responses</h2>
     <p>Responses are JSON formated objects that have the result set as well as additional metadata</p>
@@ -121,24 +133,25 @@
     </code>
     <h2>Deploy</h2>
     <p>Deploy your own copy of BloomAPI to gain higher performance or high availability to meet your own SLAs. Alternatively deploy it to gain an on-site database containing the lastest version of the NPI data dissemination.</p>
-    <p>BloomAPI provides a set of <a href="http://www.ansible.cc/" target="_blank">Ansible</a> playbooks that can be used to automatically deploy BloomAPI and all of its dependencies on top of a clean installation of Ubuntu 13.04.</p>
+    <p>Deployment is run on a remote machine from a machine with the source downloaded using <a href="http://www.ansible.cc/" target="_blank">Ansible</a>. BloomAPI provides a set of Ansible playbooks that can be used to automatically deploy BloomAPI and all of its dependencies on top of a clean installation of Ubuntu 13.04.</p>
     <p>To install Ansible on mac OSX:</p>
     <code>brew install python --framework
 sudo pip install ansible
     </code>
     <p>To install Ansible on Ubuntu</p>
-    <code>sudo apt-get install python
+    <code>sudo apt-get install -y python python-setuptools
 sudo easy_install pip
 sudo pip install ansible
     </code>
     <p>To see more details on installing Ansible, see the <a href="http://www.ansibleworks.com/docs/gettingstarted.html" target="_blank">Ansible Getting Started</a> page.</p>
-    <p>Once ansible is installed:</p>
+    <p>Once ansible is installed, use these steps to deploy BloomAPI to a remote machine:</p>
     <ol>
       <li>Create a clean installation of Ubuntu 13.04. The machine should have at least 12GB of free disk space for the dissemination file downloads/ extraction</li>
       <li>Ensure a user named 'ubuntu' has sudo access without requiring a password</li>
       <li>You should also have setup an ssh authorized_keys on the new machine with your ssh public key in the ubuntu account's <code>.ssh/authorized_keys</code> file</li>
-      <li>Edit the file at <code>ansible/stage</code> and replace <code>www-01.bloomapi.com</code> with the uri of your new Ubuntu installation</li>
-      <li>From the source directory, run <code>ansible-playbook ansible/site.yml</code></li>
+      <li>Edit the file at <code>ansible/stage</code> and replace <code>latest.bloomapi.com</code> with the uri of your new Ubuntu installation</li>
+      <li>Copy <code>ansible/group_vars/webservers.sample</code> to <code>ansible/group_vars/webservers</code> and edit any variables in this file to your liking</li>
+      <li>From the source directory, run <code>ansible-playbook ansible/site.yml</code> to deploy BloomAPI. Deployment can take between 20 and 50 minutes on a Rackspace small instances depending on how many NPI weekly dissemination files are being imported.</li>
     </ol>
     <p>Once the playbook is complete, your box should have a fully-functional installation of BloomAPI with a fresh copy of the data dissemination. The new server will be listening for requests at <code>&#60;hostname&#62;/</code> for the documentation website and at <code>&#60;hostname&#62;/api</code> for the API itself.</p>
   </div>
