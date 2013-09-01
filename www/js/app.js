@@ -109,6 +109,8 @@ function ResultsCtrl($scope, $routeParams, $http, $location) {
 function ResultCtrl($scope, $routeParams, $http, $window) {
   var uri = window.location.protocol + "//" + window.location.host + "/api/npis/" + $routeParams.npi;
 
+  $scope.apiuri = uri;
+
   $http.get(uri).success(function (data) {
     $scope.result = data.result;
   });
