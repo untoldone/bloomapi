@@ -44,12 +44,19 @@
           <strong>offset</strong> optional, sets a number of records to skip before returning. Default is 0
         </li>
     </ul>
+    <p>To ensure performance, one of the following fields must be included in every query</p>
+    <ul>
+    {{#indexed}}
+      <li>{{.}}</li>
+    {{/indexed}}
+    </ul>
     <h4>Example</h4>
     <p>Query for all clinitians that practice in the zipcode '98101'</p>
     <code>GET http://www.bloomapi.com/api/search?limit=10&offset=0&key1=practice_address.zip&op1=eq&value1=98101</code>
     <h4>Response Fields</h4>
     <p>Returns an array of NPI objects. Each field's description is directly 
-    from the NPI dissemination documentation present in the <a href="http://nppes.viva-it.com/NPI_Files.html" target="_blank">dissemination files</a>. Source fields are the name of the column in the source CSVs before they are translated for bloomapi. The objects have the following fields</p>
+    from the NPI dissemination documentation present in the <a href="http://nppes.viva-it.com/NPI_Files.html" target="_blank">dissemination files</a>. Source fields are the name of the column in the source CSVs before they are translated for bloomapi.</p>
+    <p>The objects have the following fields</p>
     {{#search}}
     <section class="details">
       <p><strong>{{name}}</strong></p>
