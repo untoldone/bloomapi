@@ -1,4 +1,4 @@
-angular.module('search', []).
+angular.module('search', ['ngRoute']).
   config(function($routeProvider) {
     $routeProvider.
       when('/', {controller: SearchCtrl, templateUrl: 'templates/search.html'}).
