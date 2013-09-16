@@ -5,6 +5,10 @@ var config = {
     username: 'postgres',
     password: '{{ postgres_password }}',
     dbname: 'bloomapi'
+  },
+  googleAnalytics: {
+    trackingID: '{{ ga_tracking_id }}', // Optional, leave blank to disable GA
+    domain: '{{ ga_domain }}' // Optional, leave blank to disable GA
   }
 };
 
