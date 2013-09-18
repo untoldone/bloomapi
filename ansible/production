@@ -1,2 +1,6 @@
 [webservers]
 www-01.bloomapi.com
+
+[webservers:vars]
+ga_tracking_id=UA-41572439-1
+ga_domain=bloomapi.com
