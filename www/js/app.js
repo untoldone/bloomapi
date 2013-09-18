@@ -1,4 +1,13 @@
-angular.module('search', ['ngRoute']).
+angular.module('analytics', []).service('analytics', function ($rootScope, $window, $location) {
+  var track = function () {
+    ga('send', 'pageview', $location.path());
+  };
+
+  $rootScope.$on('$viewContentLoaded', track);
+});
+
+
+angular.module('search', ['ngRoute', 'analytics']).
   config(function($routeProvider) {
     $routeProvider.
       when('/', {controller: SearchCtrl, templateUrl: 'templates/search.html'}).
@@ -51,7 +60,7 @@ function SearchCtrl($scope, $location) {
   }
 }
 
-function ResultsCtrl($scope, $routeParams, $http, $location) {
+function ResultsCtrl($scope, $routeParams, $http, $location, analytics) {
   $scope.term = $routeParams.term;
   $scope.currentPage = $routeParams.page || 1;
   $scope.apiuri = discoverAPI($routeParams.term, $scope.currentPage);
@@ -106,7 +115,7 @@ function ResultsCtrl($scope, $routeParams, $http, $location) {
   }
 }
 
-function ResultCtrl($scope, $routeParams, $http, $window) {
+function ResultCtrl($scope, $routeParams, $http, $window, analytics) {
   var uri = window.location.protocol + "//" + window.location.host + "/api/npis/" + $routeParams.npi;
 
   $scope.apiuri = uri;
