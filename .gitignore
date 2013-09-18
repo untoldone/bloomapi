@@ -6,4 +6,5 @@ config.js
 www/*.html
 
 ansible/group_vars/webservers
+ansible/production
 
