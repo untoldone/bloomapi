@@ -1,2 +1,9 @@
 ---
 postgres_password: postgres
+branch: master
+
+ga_tracking_id: UA-XXXXXXXX-1
+ga_domain: yourdomain.com
+
+machine_memory: 1024 # Used for setting performance related parameters
+
