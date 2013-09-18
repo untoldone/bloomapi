@@ -1,9 +1,10 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>BloomAPI - Find and Compare Clinicians</title>
+    <title>BloomAPI: Contribute</title>
     <link rel="stylesheet" href="css/style.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Setup a development environment, test, and contribute to BloomAPI" />
   </head>
   <body>
     <nav class="cover">
@@ -11,7 +12,7 @@
         <h1 class="pull-left"><a href="/">bloom.api</a></h1>
         <ul class="pull-right">
           <li><a href="/">home</a></li>
-          <li><a href="/search#/">search</a></li>
+          <li><a href="/search">search</a></li>
           <li><a href="/documentation">documentation</a></li>
           <li class="active"><a href="/contribute">contribute</a></li>
         </ul>
@@ -71,7 +72,7 @@ npm install
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-41572439-1', 'bloomapi.com');
+      ga('create', '{{config.googleAnalytics.trackingID}}', '{{config.googleAnalytics.domain}}');
       ga('send', 'pageview');
     </script>
   </body>

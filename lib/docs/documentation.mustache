@@ -1,9 +1,10 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>BloomAPI - Find and Compare Clinicians</title>
+    <title>BloomAPI: Documentation</title>
     <link rel="stylesheet" href="css/style.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Documentation for using BloomAPI's API or deploying your own copy from source" />
   </head>
   <body>
     <nav class="cover">
@@ -11,7 +12,7 @@
         <h1 class="pull-left"><a href="/">bloom.api</a></h1>
         <ul class="pull-right">
           <li><a href="/">home</a></li>
-          <li><a href="/search#/">search</a></li>
+          <li><a href="/search">search</a></li>
           <li class="active"><a href="/documentation">documentation</a></li>
           <li><a href="/contribute">contribute</a></li>
         </ul>
@@ -19,6 +20,9 @@
     </nav>
     <div class="row-skipnav">
       <h1>Documentation</h1>
+      <p>
+        BloomAPI is a way to search for and compare clinitians. It may be used from sites such as <a href="http://www.bloomapi.com/search">www.bloomapi.com/search</a> or, as a software developer, it may be queried for use in application development. The documentation below explains how, as a software developer, to use or deploy your own copy of BloomAPI.
+      </p>
       <h2>Querying</h2>
       <p>
         BloomAPI can be queried at http://www.bloomapi.com/api/ or at your own deployment.
@@ -43,12 +47,19 @@
           <strong>offset</strong> optional, sets a number of records to skip before returning. Default is 0
         </li>
     </ul>
+    <p>To ensure performance, one of the following fields must be included in every query</p>
+    <ul>
+    {{#indexed}}
+      <li>{{.}}</li>
+    {{/indexed}}
+    </ul>
     <h4>Example</h4>
     <p>Query for all clinitians that practice in the zipcode '98101'</p>
     <code>GET http://www.bloomapi.com/api/search?limit=10&offset=0&key1=practice_address.zip&op1=eq&value1=98101</code>
     <h4>Response Fields</h4>
     <p>Returns an array of NPI objects. Each field's description is directly 
-    from the NPI dissemination documentation present in the <a href="http://nppes.viva-it.com/NPI_Files.html" target="_blank">dissemination files</a>. Source fields are the name of the column in the source CSVs before they are translated for bloomapi. The objects have the following fields</p>
+    from the NPI dissemination documentation present in the <a href="http://nppes.viva-it.com/NPI_Files.html" target="_blank">dissemination files</a>. Source fields are the name of the column in the source CSVs before they are translated for bloomapi.</p>
+    <p>The objects have the following fields</p>
     {{#search}}
     <section class="details">
       <p><strong>{{name}}</strong></p>
@@ -62,6 +73,16 @@
         <div class="value">{{source}}</div>
       </div>
       {{/source}}
+      {{#showMap}}
+      <div class="pair">
+        <div class="key">Possible Values</div>
+        <div class="value">
+          {{#map}}
+          <div>{{.}}</div>
+          {{/map}}
+        </div>
+      </div>
+      {{/showMap}}
       {{#fields}}
         <section class="details">
           <p><strong>{{name}}</strong></p>
@@ -75,6 +96,16 @@
             <div class="value">{{source}}</div>
           </div>
           {{/source}}
+          {{#showMap}}
+          <div class="pair">
+            <div class="key">Possible Values</div>
+            <div class="value">
+              {{#map}}
+              <div>{{.}}</div>
+              {{/map}}
+            </div>
+          </div>
+          {{/showMap}}
         </section>
       {{/fields}}
     </section>
@@ -161,7 +192,7 @@ sudo pip install ansible
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-41572439-1', 'bloomapi.com');
+      ga('create', '{{config.googleAnalytics.trackingID}}', '{{config.googleAnalytics.domain}}');
       ga('send', 'pageview');
     </script>
   </body>
