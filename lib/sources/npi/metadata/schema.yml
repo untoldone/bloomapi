@@ -166,7 +166,7 @@
   type: VARCHAR
   desc: Provider Business Location Address Postal Code
   original: Provider Business Practice Location Address Postal Code
-- name: provider_business_practice_location_address_country_code_if_outside_u_s
+- name: provider_business_practice_location_address_country_code_if_out
   length: "2"
   type: VARCHAR
   desc: Provider Business Location Address Country

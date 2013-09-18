@@ -30,7 +30,7 @@
     </ul>
     <div class="pages search-results">
       <span ng-repeat="page in pages() track by $index">
-        <a href="#{{term}}/{{page}}" ng-show="currentPage != page && page != '...'">{{page}}</a>
+        <a href="#/{{term}}/{{page}}" ng-show="currentPage != page && page != '...'">{{page}}</a>
         <span ng-show="page == '...'">...</span>
         <strong ng-show="currentPage == page">{{page}}</a>
       </span>

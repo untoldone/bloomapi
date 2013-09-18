@@ -19,7 +19,7 @@
   sudo: yes
 
 - name: be sure website source is checked out
-  git: repo=git://github.com/untoldone/bloomapi.git dest=/home/ubuntu/bloomapi
+  git: repo=git://github.com/untoldone/bloomapi.git dest=/home/ubuntu/bloomapi version={{branch}}
   notify:
     - restart bloomapi
 

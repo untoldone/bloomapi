@@ -1,16 +1,17 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>BloomAPI - Find and Compare Clinicians</title>
+    <title>BloomAPI: Find and Compare Clinicians</title>
     <link rel="stylesheet" href="css/style.css" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="National Provider Identifier (NPI) tool and API to search and compare clinitians. Open source, high performance, and updated weekly from the National Plan & Provider Enumeration System's (NPPES) NPI registry" />
   </head>
   <body>
     <nav>
       <div>
         <ul class="pull-right">
           <li class="active"><a href="/">home</a></li>
-          <li><a href="/search#/">search</a></li>
+          <li><a href="/search">search</a></li>
           <li><a href="/documentation">documentation</a></li>
           <li><a href="/contribute">contribute</a></li>
         </ul>
@@ -19,7 +20,7 @@
     <header>
       <div class="row">
         <div class="hero">
-          <h1>bloom.api <small>v0.1.0</small></h1>
+          <h1>bloom.api <small>v0.1.1</small></h1>
           <h2>an api to search and compare clinicians</h2>
         </div>
       </div>
@@ -71,7 +72,7 @@
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-41572439-1', 'bloomapi.com');
+      ga('create', '{{config.googleAnalytics.trackingID}}', '{{config.googleAnalytics.domain}}');
       ga('send', 'pageview');
     </script>
   </body>
