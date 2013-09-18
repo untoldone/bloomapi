@@ -13,6 +13,16 @@
     - postgresql-server-dev-9.2
 - name: be sure postgreSQL python package is installed
   easy_install: name=psycopg2
+- name: be sure system allows enough shared memory
+  template: src=sysctl.conf dest=/etc/sysctl.conf owner=root group=root mode=644
+  register: result
+- name: be sure sysctl changes are applied
+  shell: sysctl -p
+  when_changed: $result
+- name: be sure postgres is configured
+  template: src=postgresql.conf dest=/etc/postgresql/9.2/main/postgresql.conf owner=postgres group=postgres mode=644
+  notify: 
+    - restart postgres
 - name: be sure postgres user config present
   copy: src={{ item }} dest=/etc/postgresql/9.2/main/{{ item }} owner=postgres group=postgres mode=644
   with_items:

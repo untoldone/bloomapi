@@ -60,7 +60,7 @@ target.server = function () {
 };
 
 target.docs = function () {
-  logger.data.info('building documentation');
+  logger.data.info('building website');
   var docs = require('./lib/docs');
   docs.build().done();
 };

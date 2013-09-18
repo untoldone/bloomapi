@@ -271,6 +271,8 @@ div.search-results {
   padding: 0 20px 10px;
   border-left: dotted 1px;
   margin-bottom: 30px;
+  clear: both;
+  display: table;
 }
 
 
