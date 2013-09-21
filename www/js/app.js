@@ -1,6 +1,7 @@
 angular.module('analytics', []).service('analytics', function ($rootScope, $window, $location) {
   var track = function () {
-    ga('send', 'pageview', $location.path());
+    var path = $location.absUrl().replace(/http:\/\/[^\/]*/, '');
+    ga('send', 'pageview', path);
   };
 
   $rootScope.$on('$viewContentLoaded', track);
