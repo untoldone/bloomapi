@@ -176,7 +176,7 @@ other_provider_identifier_type_code_{1-50}:
   map:
     "01": other
     "02": medicare upin
-    "04": meicare id-type unspecified
+    "04": medicare id-type unspecified
     "05": medicaid
     "06": medicare oscar/certification
     "07": medicare nsc
