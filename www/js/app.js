@@ -38,7 +38,7 @@ function discoverAPI(term, page) {
   } else if (match = /^([a-zA-Z]+)((\s+[a-zA-Z]+)+)$/.exec(term)) {
     part = "limit=10&offset=" + skip + "&key1=last_name&op1=eq&value1=" + match[2].trim().toUpperCase() +
            "&key2=first_name&op2=eq&value2=" + match[1].trim().toUpperCase();
-  } else if (match = /^([\d\w\s]+),\s*(\w+),\s*(\w+)\s*(\d+)$/.exec(term)) {
+  } else if (match = /^([\d\w\s]+),\s*([\w\s]+),\s*(\w+)\s*(\d+)$/.exec(term)) {
     var address_line = match[1].trim().toUpperCase(),
         city = match[2].trim().toUpperCase(),
         state = match[3].trim().toUpperCase(),
