@@ -44,6 +44,15 @@ target.bootstrap = function () {
     .then(function (data) {
       return Q.ninvoke(pg, 'query', data);
     })
+    .fail(function (e) {
+      if(e.code == '42710'){ // "DUPLICATE OBJECT" according to http://www.postgresql.org/docs/9.0/static/errcodes-appendix.html
+        logger.data.info("looks like you already have the database schema set up. (bootstrap assumes you don't.)")
+        logger.data.info("if you need to update the NPI data, simply run `node make fetch`")
+      } else {
+        console.error("Error:\n", e.stack);
+        process.exit(1);
+      }
+    })
     .then(npi.update)
     .fail(function (e) {
       console.error("Error:\n", e.stack);
