@@ -1,4 +1,14 @@
-0.2.0 / 2013-09-17
+0.1.2 / 2013-09-28
+==================
+
+  * Added nginx logging for request/response time + logging of x-forwarded-for to capture source ips when behind a load balancer
+  * Added error messages if trying to re-bootstrap bootstrapped deployment
+  * Fixed search code that crashed bloomAPI if searching for a string in a field whose column was typed as an number in postgres
+  * Fixed website search to allow for spaces in names of cities
+  * Fixed npi.yml typo meicare => medicare
+  * Fixed GA tracking code to track full url before and after hash-mark
+
+0.1.1 / 2013-09-17
 ==================
 
   * Added 404 page for website
