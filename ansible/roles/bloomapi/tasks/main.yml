@@ -24,6 +24,11 @@
     - restart bloomapi
 
 - name: be sure nginx is configured
+  copy: src=nginx.conf dest=/etc/nginx/nginx.conf owner=root group=root mode=644
+  notify:
+    - restart nginx
+  sudo: yes
+- name: be sure nginx default site is configured
   template: src=nginx_default_site dest=/etc/nginx/sites-available/default
   notify:
     - restart nginx
