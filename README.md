@@ -19,4 +19,4 @@ Given interest, more will be added based on real-life use cases. Some example us
 - For use as a starting point in generating new data such as a national provider-to-payer database or for running physician surveys
 - For use by CMS or others in identifying low quality NPI data and correcting it
 - Detecting noteworthy changes and historical values of NPI data over time such as doctors's affiliations with payers
-- Tools to authenticate a clinitian is who she says she is using the NPI + weekly disseminations
+- Tools to authenticate a clinician is who she says she is using the NPI + weekly disseminations
