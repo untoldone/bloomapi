@@ -59,7 +59,7 @@
 # Bootstrap BloomAPI
 - name: be sure bloomapi has been bootstrapped
   shell: chdir=/home/ubuntu/bloomapi node make bootstrap
-  when_changed: $result
+  when: result|changed
 
 # Add cron task to update data sources
 - name: be sure bloomapi data source update cron task exists
