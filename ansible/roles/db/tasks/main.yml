@@ -18,7 +18,7 @@
   register: result
 - name: be sure sysctl changes are applied
   shell: sysctl -p
-  when_changed: $result
+  when: result|changed
 - name: be sure postgres is configured
   template: src=postgresql.conf dest=/etc/postgresql/9.2/main/postgresql.conf owner=postgres group=postgres mode=644
   notify: 
@@ -31,7 +31,7 @@
   register: result
 - name: if configuration changed, restart postgres
   service: name=postgresql state=restarted
-  when_changed: $result
+  when: result|changed
 - name: be sure postgres user is setup
   sudo: no
   postgresql_user: login_user=postgres name=postgres password={{ postgres_password }}
