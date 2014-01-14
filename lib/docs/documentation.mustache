@@ -21,7 +21,7 @@
     <div class="row-skipnav">
       <h1>Documentation</h1>
       <p>
-        BloomAPI is a way to search for and compare clinitians. It may be used from sites such as <a href="http://www.bloomapi.com/search">www.bloomapi.com/search</a> or, as a software developer, it may be queried for use in application development. The documentation below explains how, as a software developer, to use or deploy your own copy of BloomAPI.
+        BloomAPI is a way to search for and compare clinicians. It may be used from sites such as <a href="http://www.bloomapi.com/search">www.bloomapi.com/search</a> or, as a software developer, it may be queried for use in application development. The documentation below explains how, as a software developer, to use or deploy your own copy of BloomAPI.
       </p>
       <h2>Querying</h2>
       <p>
@@ -38,7 +38,7 @@
           <strong>op*</strong> search operation to apply for a given index number. Currenlty 'eq' is the only possible value
         </li>
         <li>
-          <strong>value*</strong> value to search for given an index number
+          <strong>value*</strong> value to search for given an index number. String must be uppercase.
         </li>
         <li>
           <strong>limit</strong> optional, sets the maximum number of records to return. Default is 20 and maximum is 100
@@ -53,9 +53,11 @@
       <li>{{.}}</li>
     {{/indexed}}
     </ul>
-    <h4>Example</h4>
-    <p>Query for all clinitians that practice in the zipcode '98101'</p>
+    <h4>Examples</h4>
+    <p>Query for all clinicians that practice in the zipcode '98101'</p>
     <code>GET http://www.bloomapi.com/api/search?limit=10&offset=0&key1=practice_address.zip&op1=eq&value1=98101</code>
+    <p>Query for all clinicians that have a last name of 'Dennis' and practice in the zipcode '943012302'</p>
+    <code>GET http://www.bloomapi.com/api/search?limit=10&offset=0&key1=last_name&op1=eq&value1=DENNIS&key2=practice_address.zip&op2=eq&value2=943012302</code>
     <h4>Response Fields</h4>
     <p>Returns an array of NPI objects. Each field's description is directly 
     from the NPI dissemination documentation present in the <a href="http://nppes.viva-it.com/NPI_Files.html" target="_blank">dissemination files</a>. Source fields are the name of the column in the source CSVs before they are translated for bloomapi.</p>
