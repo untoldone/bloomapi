@@ -1,3 +1,9 @@
+0.1.3 / 2014-02-08
+==================
+
+  * Fixed Error with certain NPI TypeError: Cannot set property taxonomy of undefined
+  * Updated README.md
+
 0.1.2 / 2013-09-28
 ==================
 
