@@ -15,6 +15,7 @@ target.all = function () {
 var Q = require('q');
 Q.longStackSupport = true;
 
+// calls npi#update
 target.fetch = function () {
   var pg = require('./lib/sources/pg'),
       npi = require('./lib/sources/npi');
@@ -31,6 +32,8 @@ target.fetch = function () {
     });
 };
 
+// creates the database and calls
+// npi#update
 target.bootstrap = function () {
   var pg = require('./lib/sources/pg'),
       npi = require('./lib/sources/npi'),
