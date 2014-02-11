@@ -111,3 +111,44 @@ target.check = function () {
 
 };
 
+// inserts a record in the geocodes table,
+// if the record doesn't exist.
+target.geocode = function() {
+  logger.data.info('geocoding providers');
+
+  var pg = require('./lib/sources/pg'),
+      geocoderProvider = 'google',
+      httpAdapter = 'http',
+      geocoder = require('node-geocoder').getGeocoder(geocoderProvider, httpAdapter),
+      query = pg.query("SELECT * FROM npis limit 1", function (err, result) {
+
+        if(err) {
+          return console.error('error running query', err);
+        }
+
+        // for each NPI record, geocode it.
+        for (row in result.rows) {
+          // 3500 CENTRAL AVE, KEARNEY, NE
+          var address = row.provider_first_line_business_practice_location_address + ',' + 
+                        row.provider_business_practice_location_address_city_name + ',' +
+                        row.provider_business_practice_location_address_state_name +
+                        row.provider_business_practice_location_address_postal_code;
+
+          console.log("Geocoding: " + address);
+
+          geocoder.geocode(address, function(err, res) {
+            var geo = res[0];
+            console.log("Latitude: " + geo.latitude);
+            console.log("Longitude: " + geo.longitude);
+
+            console.log("Geocoded!");
+          });
+
+        }
+
+      }).done(function () {
+                logger.data.info('geocoded providers');
+                pg.end();
+      });
+
+}
