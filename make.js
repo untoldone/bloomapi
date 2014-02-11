@@ -146,9 +146,5 @@ target.geocode = function() {
 
         }
 
-      }).done(function () {
-                logger.data.info('geocoded providers');
-                pg.end();
       });
-
 }
