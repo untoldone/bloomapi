@@ -16,8 +16,11 @@
     "js-yaml": "~2.1.0",
     "shelljs": "~0.1.4",
     "mustache": "~0.7.2",
+    "node-geocoder": "~1.2.0",
     "csvrow": "~0.1.0",
-    "winston": "~0.7.2"
+    "winston": "~0.7.2",
+    "esprima": "~1.0.4",
+    "db-migrate": "~0.6.3"
   },
   "scripts": {
     "test": "jasmine-node spec"
