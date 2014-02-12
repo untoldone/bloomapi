@@ -140,8 +140,11 @@ target.geocode = function() {
         var geo = res[0];
         logger.data.info("Latitude: " + geo.latitude);
         logger.data.info("Longitud: " + geo.longitude);
-
         logger.data.info("Geocoded!");
+
+        pg.query("INSERT INTO provider_business_practice_locations(npi, latitude, longitude) VALUES($1, $2, $3)", [row.npi, geo.latitude, geo.longitude], function (err, result) {
+          logger.data.info('Inserted geolocation');
+        });
       } else {
         logger.data.info("Failed to geocode: " + address);
         logger.data.info(err);
