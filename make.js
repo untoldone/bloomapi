@@ -141,4 +141,8 @@ target.geocode = function() {
       logger.data.info("Geocoded!");
     });
   });
+
+  query.on('end', function () {
+    pg.end();
+  });
 }
