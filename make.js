@@ -117,7 +117,7 @@ target.geocode = function() {
   logger.data.info('geocoding providers');
 
   var pg = require('./lib/sources/pg'),
-      geocoderProvider = 'google',
+      geocoderProvider = 'datasciencetoolkit',
       httpAdapter = 'http',
       geocoder = require('node-geocoder').getGeocoder(geocoderProvider, httpAdapter),
       query = pg.query('SELECT npi,provider_first_line_business_practice_location_address,' + 
@@ -143,6 +143,7 @@ target.geocode = function() {
         logger.data.info("Geocoded!");
       } else {
         logger.data.info("Failed to geocode: " + address);
+        logger.data.info(err);
       }
     });
   });
