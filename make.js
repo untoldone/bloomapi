@@ -126,7 +126,7 @@ target.geocode = function() {
               'provider_business_practice_location_address_state_name,' +
               'provider_business_practice_location_address_postal_code FROM npis limit 1');
 
-  query.on('row', function (row, result) {
+  Q.ninvoke(query, 'on', 'row', function (row, result) {
     var address = row.provider_first_line_business_practice_location_address + ', ' + 
                 row.provider_business_practice_location_address_city_name + ', ' +
                 row.provider_business_practice_location_address_state_name +
@@ -142,17 +142,30 @@ target.geocode = function() {
         logger.data.info("Longitud: " + geo.longitude);
         logger.data.info("Geocoded!");
 
-        pg.query("INSERT INTO provider_business_practice_locations(npi, latitude, longitude) VALUES($1, $2, $3) RETURNING npi", [row.npi, geo.latitude, geo.longitude], function (err, result) {
-          logger.data.info('Inserted geolocation');
+        pg.query("SELECT npi from provider_business_practice_locations where npi = $1", [row.npi], function(err, result) {
+          if (result.rows[0]) {
+            var update_query = pg.query("UPDATE provider_business_practice_locations SET latitude = $1, longitude = $2 WHERE npi = $3",
+                                          [geo.latitude, geo.longitude, row.npi]);
+            update_query.on('end', function () {
+              logger.data.info('Updated location');
+            });
+
+          } else {
+            var insert_query = pg.query("INSERT INTO provider_business_practice_locations(npi, latitude, longitude) VALUES($1, $2, $3) RETURNING npi",
+                                          [row.npi, geo.latitude, geo.longitude]);
+            insert_query.on('end', function () {
+              logger.data.info('Inserted new location');
+            });  
+          }
         });
+
       } else {
         logger.data.info("Failed to geocode: " + address);
         logger.data.info(err);
       }
     });
-  });
-
-  query.on('end', function () {
+  }).done(function() {
     pg.end();
   });
+
 }
