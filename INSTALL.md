@@ -16,11 +16,11 @@ npm config set registry http://registry.npmjs.org/
 
 sudo /etc/init.d/postgresql start
 
-# Create Postgres user
+### Create Postgres user
 
 sudo -u postgres createuser -s -P -e bloomapi
 
-# Create BloomAPI database
+### Create BloomAPI database
 
 sudo su postgres -c "psql -c 'CREATE DATABASE bloomapi'"
 
@@ -29,3 +29,9 @@ sudo su postgres -c "psql -c 'CREATE DATABASE bloomapi'"
 npm install
 
 node make bootstrap
+
+# Geocoding
+ 
+./node_modules/db-migrate/bin/db-migrate up --config database.json -e development
+
+API_KEY=<your_mapquest_api> node make geocode
