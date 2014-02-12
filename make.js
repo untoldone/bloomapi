@@ -117,9 +117,10 @@ target.geocode = function() {
   logger.data.info('geocoding providers');
 
   var pg = require('./lib/sources/pg'),
-      geocoderProvider = 'openstreetmap',
+      geocoderProvider = 'mapquest',
       httpAdapter = 'http',
-      geocoder = require('node-geocoder').getGeocoder(geocoderProvider, httpAdapter),
+      extra = {apiKey: process.env.API_KEY}
+      geocoder = require('node-geocoder').getGeocoder(geocoderProvider, httpAdapter, extra),
       query = pg.query('SELECT npi,provider_first_line_business_practice_location_address,' + 
               'provider_business_practice_location_address_city_name,' +
               'provider_business_practice_location_address_state_name,' +
