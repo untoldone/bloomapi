@@ -119,7 +119,7 @@ target.geocode = function() {
   var pg = require('./lib/sources/pg'),
       geocoderProvider = 'mapquest',
       httpAdapter = 'http',
-      extra = {apiKey: process.env.API_KEY}
+      extra = {apiKey: process.env.API_KEY},
       geocoder = require('node-geocoder').getGeocoder(geocoderProvider, httpAdapter, extra),
       query = pg.query('SELECT npi,provider_first_line_business_practice_location_address,' + 
               'provider_business_practice_location_address_city_name,' +
@@ -142,7 +142,7 @@ target.geocode = function() {
         logger.data.info("Longitud: " + geo.longitude);
         logger.data.info("Geocoded!");
 
-        pg.query("INSERT INTO provider_business_practice_locations(npi, latitude, longitude) VALUES($1, $2, $3)", [row.npi, geo.latitude, geo.longitude], function (err, result) {
+        pg.query("INSERT INTO provider_business_practice_locations(npi, latitude, longitude) VALUES($1, $2, $3) RETURNING npi", [row.npi, geo.latitude, geo.longitude], function (err, result) {
           logger.data.info('Inserted geolocation');
         });
       } else {
