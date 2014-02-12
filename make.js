@@ -120,31 +120,25 @@ target.geocode = function() {
       geocoderProvider = 'google',
       httpAdapter = 'http',
       geocoder = require('node-geocoder').getGeocoder(geocoderProvider, httpAdapter),
-      query = pg.query("SELECT * FROM npis limit 1", function (err, result) {
+      query = pg.query('SELECT npi,provider_first_line_business_practice_location_address,' + 
+              'provider_business_practice_location_address_city_name,' +
+              'provider_business_practice_location_address_state_name,' +
+              'provider_business_practice_location_address_postal_code FROM npis limit 1');
 
-        if(err) {
-          return console.error('error running query', err);
-        }
+  query.on('row', function (row, result) {
+    var address = row.provider_first_line_business_practice_location_address + ', ' + 
+                row.provider_business_practice_location_address_city_name + ', ' +
+                row.provider_business_practice_location_address_state_name +
+                row.provider_business_practice_location_address_postal_code;
 
-        // for each NPI record, geocode it.
-        for (row in result.rows) {
-          // 3500 CENTRAL AVE, KEARNEY, NE
-          var address = row.provider_first_line_business_practice_location_address + ',' + 
-                        row.provider_business_practice_location_address_city_name + ',' +
-                        row.provider_business_practice_location_address_state_name +
-                        row.provider_business_practice_location_address_postal_code;
+    logger.data.info("Geocoding: " + address);
 
-          console.log("Geocoding: " + address);
+    geocoder.geocode(address, function(err, res) {
+      var geo = res[0];
+      logger.data.info("Latitude: " + geo.latitude);
+      logger.data.info("Longitud: " + geo.longitude);
 
-          geocoder.geocode(address, function(err, res) {
-            var geo = res[0];
-            console.log("Latitude: " + geo.latitude);
-            console.log("Longitude: " + geo.longitude);
-
-            console.log("Geocoded!");
-          });
-
-        }
-
-      });
+      logger.data.info("Geocoded!");
+    });
+  });
 }
