@@ -117,7 +117,7 @@ target.geocode = function() {
   logger.data.info('geocoding providers');
 
   var pg = require('./lib/sources/pg'),
-      geocoderProvider = 'datasciencetoolkit',
+      geocoderProvider = 'openstreetmap',
       httpAdapter = 'http',
       geocoder = require('node-geocoder').getGeocoder(geocoderProvider, httpAdapter),
       query = pg.query('SELECT npi,provider_first_line_business_practice_location_address,' + 
@@ -135,7 +135,7 @@ target.geocode = function() {
     logger.data.info("Geocoding: " + address);
 
     geocoder.geocode(address, function(err, res) {
-      if (res) {
+      if (res && res[0]) {
         var geo = res[0];
         logger.data.info("Latitude: " + geo.latitude);
         logger.data.info("Longitud: " + geo.longitude);
