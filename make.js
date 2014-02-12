@@ -131,14 +131,19 @@ target.geocode = function() {
                 row.provider_business_practice_location_address_state_name +
                 row.provider_business_practice_location_address_postal_code;
 
+    logger.data.info("Processing practice location for #" + row.npi);
     logger.data.info("Geocoding: " + address);
 
     geocoder.geocode(address, function(err, res) {
-      var geo = res[0];
-      logger.data.info("Latitude: " + geo.latitude);
-      logger.data.info("Longitud: " + geo.longitude);
+      if (res) {
+        var geo = res[0];
+        logger.data.info("Latitude: " + geo.latitude);
+        logger.data.info("Longitud: " + geo.longitude);
 
-      logger.data.info("Geocoded!");
+        logger.data.info("Geocoded!");
+      } else {
+        logger.data.info("Failed to geocode: " + address);
+      }
     });
   });
 
