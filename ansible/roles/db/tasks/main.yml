@@ -1,18 +1,27 @@
 ---
 # file: roles/db/tasks/main.yml
-- name: be sure postgres apt key installed
-  apt_key: id=ACCC4CF8 url=http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc
-- name: be sure postgres repository installed
-  apt_repository: repo="deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main"
-- name: be sure python setup tools/ postgreSQL are installed
+- name: be sure python setup tools are install
   apt: update_cache=yes pkg={{ item }} state=installed
   with_items:
     - python-setuptools
     - python-dev
+    - python-pycurl
+    - python-psycopg2
+- name: install pip
+  easy_install: name=pip
+- name: install apt_repository requirements
+  pip: name={{ item }}
+  with_items:
+    - python-apt
+- name: be sure postgres apt key installed
+  apt_key: id=ACCC4CF8 url=http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc
+- name: be sure postgres repository installed
+  apt_repository: repo="deb http://apt.postgresql.org/pub/repos/apt/ precise-pgdg main"
+- name: be sure postgreSQL is installed
+  apt: update_cache=yes pkg={{ item }} state=installed
+  with_items:
     - postgresql-9.2
     - postgresql-server-dev-9.2
-- name: be sure postgreSQL python package is installed
-  easy_install: name=psycopg2
 - name: be sure system allows enough shared memory
   template: src=sysctl.conf dest=/etc/sysctl.conf owner=root group=root mode=644
   register: result
