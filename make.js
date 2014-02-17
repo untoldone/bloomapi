@@ -111,3 +111,61 @@ target.check = function () {
 
 };
 
+// inserts a record in the geocodes table,
+// if the record doesn't exist.
+target.geocode = function() {
+  logger.data.info('geocoding providers');
+
+  var pg = require('./lib/sources/pg'),
+      geocoderProvider = 'mapquest',
+      httpAdapter = 'http',
+      extra = {apiKey: process.env.API_KEY},
+      geocoder = require('node-geocoder').getGeocoder(geocoderProvider, httpAdapter, extra),
+      query = pg.query('SELECT npi,provider_first_line_business_practice_location_address,' + 
+              'provider_business_practice_location_address_city_name,' +
+              'provider_business_practice_location_address_state_name,' +
+              'provider_business_practice_location_address_postal_code FROM npis limit 1');
+
+  Q.ninvoke(query, 'on', 'row', function (row, result) {
+    var address = row.provider_first_line_business_practice_location_address + ', ' + 
+                row.provider_business_practice_location_address_city_name + ', ' +
+                row.provider_business_practice_location_address_state_name +
+                row.provider_business_practice_location_address_postal_code;
+
+    logger.data.info("Processing practice location for #" + row.npi);
+    logger.data.info("Geocoding: " + address);
+
+    geocoder.geocode(address, function(err, res) {
+      if (res && res[0]) {
+        var geo = res[0];
+        logger.data.info("Latitude: " + geo.latitude);
+        logger.data.info("Longitud: " + geo.longitude);
+        logger.data.info("Geocoded!");
+
+        pg.query("SELECT npi from provider_business_practice_locations where npi = $1", [row.npi], function(err, result) {
+          if (result.rows[0]) {
+            var update_query = pg.query("UPDATE provider_business_practice_locations SET latitude = $1, longitude = $2 WHERE npi = $3",
+                                          [geo.latitude, geo.longitude, row.npi]);
+            update_query.on('end', function () {
+              logger.data.info('Updated location');
+            });
+
+          } else {
+            var insert_query = pg.query("INSERT INTO provider_business_practice_locations(npi, latitude, longitude) VALUES($1, $2, $3) RETURNING npi",
+                                          [row.npi, geo.latitude, geo.longitude]);
+            insert_query.on('end', function () {
+              logger.data.info('Inserted new location');
+            });  
+          }
+        });
+
+      } else {
+        logger.data.info("Failed to geocode: " + address);
+        logger.data.info(err);
+      }
+    });
+  }).done(function() {
+    pg.end();
+  });
+
+}
