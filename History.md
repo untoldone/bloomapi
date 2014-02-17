@@ -3,6 +3,7 @@
 
   * Fixed Error with certain NPI TypeError: Cannot set property taxonomy of undefined
   * Updated README.md
+  * Updated ansible deployment code to have timeout on long bootstrap ops as well as updated for latested version of ansible
 
 0.1.2 / 2013-09-28
 ==================
