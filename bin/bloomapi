@@ -1,6 +1,8 @@
+#!/usr/bin/env node
+
 require('shelljs/make');
 
-var logger = require('./lib/logger');
+var logger = require('../lib/logger');
 
 // default target
 target.all = function () {
@@ -17,8 +19,8 @@ Q.longStackSupport = true;
 
 // calls npi#update
 target.fetch = function () {
-  var pg = require('./lib/sources/pg'),
-      npi = require('./lib/sources/npi');
+  var pg = require('../lib/sources/pg'),
+      npi = require('../lib/sources/npi');
 
   logger.data.info('attempting to sync datasources');
 
@@ -35,8 +37,8 @@ target.fetch = function () {
 // creates the database and calls
 // npi#update
 target.bootstrap = function () {
-  var pg = require('./lib/sources/pg'),
-      npi = require('./lib/sources/npi'),
+  var pg = require('../lib/sources/pg'),
+      npi = require('../lib/sources/npi'),
       fs = require('fs');
 
   logger.data.info('bootstrapping bloomapi');
@@ -68,12 +70,12 @@ target.bootstrap = function () {
 
 target.server = function () {
   logger.server.info('starting bloomapi');
-  require('./lib/api/server');
+  require('../lib/api/server');
 };
 
 target.docs = function () {
   logger.data.info('building website');
-  var docs = require('./lib/docs');
+  var docs = require('../lib/docs');
   docs.build().done();
 };
 
