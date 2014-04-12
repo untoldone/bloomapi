@@ -1,0 +1,238 @@
+npi:
+  relationships:
+    - npis:
+      - many:
+          name: provider_details
+          table: npi_provider_details
+      - many: 
+          name: other_identifiers
+          table: npi_other_identifiers
+      - one: 
+          name: business_address
+          table: npi_addresses
+      - one:
+          name: practice_address
+          table: npi_addresses
+      - one:
+          name: organization_official
+          table: npi_organization_officials
+      - one:
+          name: parent_org
+          table: parent_orgs
+    - npi_other_identifiers:
+      - one: hptc
+  api:
+    - npis
+  pipeline:
+    - action: fetch_npi_path
+      set: npi_path
+    - download: url=http://nppes.viva-it.com/{{npi_path}}
+    - unzip: path={{npi_path}}
+    - csv_create: 
+        file: /npidata_(\d+)_(\d+)\.csv/
+        tables: {{tables}}
+  update:
+    - action: fetch_npi_weekly_paths
+      set: npi_paths
+    - each:
+        on: {{npi_paths}}
+        set: npi_path
+        do:
+          - action: clear_files
+          - download: url=http://nppes.viva-it.com/{{npi_path}}
+          - unzip: path={{npi_path}}
+          - csv_import:
+              file: /npi_(.+).csv/
+              tables: {{tables}}
+  variables:
+    tables:
+      npi_provider_details:
+        id:
+          composite:
+            - npi
+            - {1}
+          primary_key: true
+        npi: npi
+        healthcare_taxonomy_code: /healthcare_provider_taxonomy_code_(.+)/
+        license_number: /provider_license_number_(.+)/
+        license_number_state:
+          named: /provider_license_number_state_code_(.+)/
+          map:
+            S: state
+            T: territory
+        taxonomy_switch:
+          named: /healthcare_provider_primary_taxonomy_switch_(.+)/
+          map:
+            X: not answered
+            Y: yes
+            N: no
+      npi_other_identifiers:
+        id:
+          composite:
+            - npi
+            - {0}
+          primary_key: true
+        npi: npi
+        identifier: /other_provider_identifier_(.+)/
+        type:
+          named: /other_provider_identifier_type_code_(.+)/
+          map:
+            "01": other
+            "02": medicare upin
+            "04": medicare id-type unspecified
+            "05": medicaid
+            "06": medicare oscar/certification
+            "07": medicare nsc
+            "08": medicare pin
+        state: /other_provider_identifier_state_(.+)/
+        issuer: /other_provider_identifier_issuer_(.+)/
+      npi_addresses:
+        id:
+          composite:
+            - /provider_first_line_business_(.+)_address/
+            - /provider_second_line_business_(.+)_address/
+            - /provider_business_(.+)_address_city_name/
+            - /provider_business_(.+)_address_state_name/
+            - /provider_business_(.+)_address_postal_code/
+            - /provider_business_(.+)_address_country_code_if_outside_u_s/
+            - /provider_business_(.+)_address_telephone_number/
+            - /provider_business_(.+)_address_fax_number/
+          primary_key: true
+        address_line: /provider_first_line_business_(.+)_address/
+        address_details_line: /provider_second_line_business_(.+)_address/
+        city: /provider_business_(.+)_address_city_name/
+        state: /provider_business_(.+)_address_state_name/
+        zip: /provider_business_(.+)_address_postal_code/
+        country_code: /provider_business_(.+)_address_country_code_if_outside_u_s/
+        phone: /provider_business_(.+)_address_telephone_number
+        fax: /provider_business_(.+)_address_fax_number/
+      npi_organization_officials:
+        id:
+          composite:
+            - authorized_official_last_name
+            - authorized_official_first_name
+            - authorized_official_middle_name
+            - authorized_official_title_or_position
+            - authorized_official_telephone_number
+            - authorized_official_name_prefix_text
+            - authorized_official_name_suffix_text
+            - authorized_official_credential_text
+          primary_key: true
+        first_name: authorized_official_first_name
+        last_name: authorized_official_last_name
+        middle_name: authorized_official_middle_name
+        title: authorized_official_title_or_position
+        phone: authorized_official_telephone_number
+        name_prefix: authorized_official_name_prefix_text
+        name_suffix: authorized_official_name_suffix_text
+        credential: authorized_official_credential_text
+      npi_parent_orgs:
+        id:
+          composite:
+            - parent_organization_lbn
+            - parent_organization_tin
+          primary_key: true
+        tax_identification_number: parent_organization_tin
+        business_name: parent_organization_lbn
+      npis:
+        npi:
+          named: npi
+          primary_key: true
+        type:
+          named: entity_type_code
+          map:
+            1: individual
+            2: organization
+        replacement_npi: replacement_npi
+        employer_identification_number: employer_identification_number_ein
+        business_name: provider_organization
+        last_name: provider_last_name_legal_name
+        first_name: provider_first_name
+        name_prefix: provider_name_prefix_text
+        middle_name: provider_middle_name
+        name_suffix: provider_name_suffix_text
+        credential: provider_credential_text
+        other_name: provider_other_organization_name
+        other_org_type: 
+          named: provider_other_organization_name_type_code
+          map:
+            1: individual
+            2: individual
+            3: organization
+            4: organization
+            5: individual+organization
+        other_last_name: provider_other_last_name
+        other_first_name: provider_other_first_name
+        other_middle_name: provider_other_middle_name
+        other_prefix: provider_other_name_prefix_text
+        other_suffix: provider_other_name_suffix_text
+        other_credential: provider_other_credential_text
+        other_name_type:
+          named: provider_other_last_name_type_code
+          map:
+            1: former name
+            2: professional name
+            3: doing business as
+            4: former legal business name
+            5: other name
+        business_address_id:
+          composite:
+            - provider_first_line_business_mailing_address
+            - provider_second_line_business_mailing_address
+            - provider_business_mailing_address_city_name
+            - provider_business_mailing_address_state_name
+            - provider_business_mailing_address_postal_code
+            - provider_business_mailing_address_country_code_if_outside_u_s
+            - provider_business_mailing_address_telephone_number
+            - provider_business_mailing_address_fax_number
+        practice_address_id:
+          composite:
+            - provider_first_line_business_practice_address
+            - provider_second_line_business_practicepractice_mailing_address
+            - provider_business_practice_address_city_name
+            - provider_business_practice_address_state_name
+            - provider_business_practice_address_postal_code
+            - provider_business_practice_address_country_code_if_outside_u_s
+            - provider_business_practice_address_telephone_number
+            - provider_business_practice_address_fax_number
+        enumeration_date: provider_enumeration_date
+        deactivation_reason:
+          named: npi_deactivation_reason
+          map:
+            DT: death
+            DB: disbandment
+            FR: fraud
+            OT: other
+        deactivation_date: npi_deactivation_date
+        reactivation_date: npi_reactivation_date
+        gender:
+          named: provider_gender_code
+          map:
+            M: male
+            F: female
+        organization_official_id:
+          composite:
+            - authorized_official_last_name
+            - authorized_official_first_name
+            - authorized_official_middle_name
+            - authorized_official_title_or_position
+            - authorized_official_telephone_number
+            - authorized_official_name_prefix_text
+            - authorized_official_name_suffix_text
+            - authorized_official_credential_text
+        sole_proprietor:
+          named: is_sole_proprietor
+          map:
+            X: not answered
+            Y: yes
+            N: no
+        organization_subpart:
+          named: organization_subpart
+          map:
+            X: not answered
+            Y: yes
+            N: no
+        parent_org_id:
+          composite:
+            - parent_organization_lbn
+            - parent_organization_tin

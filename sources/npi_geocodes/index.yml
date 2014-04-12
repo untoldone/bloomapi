@@ -1,0 +1,9 @@
+npi_geocodes:
+  api:
+    - npi_geocodes
+  pipeline:
+    - action: npi_geocode
+    - create: table=npi_geocodes
+  update:
+    - action: npi_geocode
+    - insert: table=npi_geocodes
