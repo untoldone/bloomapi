@@ -43,7 +43,7 @@ target.bootstrap = function () {
 
   target.docs();
 
-  Q.nfcall(fs.readFile, './lib/bootstrap.sql', {encoding: 'utf8'})
+  Q.nfcall(fs.readFile, __dirname + '/../lib/bootstrap.sql', {encoding: 'utf8'})
     .then(function (data) {
       return Q.ninvoke(pg, 'query', data);
     })
