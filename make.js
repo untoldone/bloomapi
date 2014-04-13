@@ -78,13 +78,17 @@ target.docs = function () {
 };
 
 target.check = function () {
-  if (!test('-f', './config.js')) {
-    console.log('ERROR: no configuration file found, copy and configure ./config.js.sample to ./config.js');
+  var valid = true,
+      pg, query;
+  try {    
+    pg = require('../lib/sources/pg');
+  } catch (err) {
+    console.log('ERROR: ' + err.message);
+    valid = false;
+    return;
   }
 
-  var valid = true,
-      pg = require('./lib/sources/pg'),
-      query = pg.query("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'", function (err, result) {
+  query = pg.query("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'", function (err, result) {
     if (err) {
       console.log('ERROR: running query on database, check credentials');
       valid = false;
