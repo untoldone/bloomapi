@@ -7,10 +7,10 @@ var logger = require('../lib/logger');
 // default target
 target.all = function () {
   console.log("\nAvailable commands:\n-------------------");
-  console.log(" node make bootstrap     # fetch, process, and insert NPI data into database")
-  console.log(" node make fetch         # like 'bootstrap' but assumes you already have the base sql database setup")
-  console.log(" node make server        # run web/API server")
-  console.log(" node make check         # checks your environment for configuration files and some dependencies")
+  console.log(" bloomapi bootstrap     # fetch, process, and insert NPI data into database")
+  console.log(" bloomapi fetch         # like 'bootstrap' but assumes you already have the base sql database setup")
+  console.log(" bloomapi server        # run web/API server")
+  console.log(" bloomapi check         # checks your environment for configuration files and some dependencies")
   console.log("\n For more information, visit the project README file on github at https://github.com/untoldone/bloomapi\n")
 }
 
@@ -52,7 +52,7 @@ target.bootstrap = function () {
     .fail(function (e) {
       if(e.code == '42710'){ // "DUPLICATE OBJECT" according to http://www.postgresql.org/docs/9.0/static/errcodes-appendix.html
         logger.data.info("looks like you already have the database schema set up. (bootstrap assumes you don't.)")
-        logger.data.info("if you need to update the NPI data, simply run `node make fetch`")
+        logger.data.info("if you need to update the NPI data, simply run `bloomapi fetch`")
       } else {
         console.error("Error:\n", e.stack);
         process.exit(1);
