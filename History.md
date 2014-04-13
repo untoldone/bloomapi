@@ -4,6 +4,7 @@
   * Added support for bloom to be shipped as npm module
   * Added configuration loading from alternative locations (/etc/bloomapi.js, ~/.bloomapi, <current dir>/.bloomapi)
   * Moved make.js to ./bin/bloomapi
+  * Fixed a downloaded file waits until file is closed before continuing
 
 0.1.3 / 2014-02-08
 ==================
