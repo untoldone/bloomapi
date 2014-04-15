@@ -17,7 +17,9 @@
     "shelljs": "~0.2.6",
     "mustache": "~0.8.1",
     "csvrow": "~0.1.0",
-    "winston": "~0.7.2"
+    "winston": "~0.7.2",
+    "through": "~2.3.4",
+    "split": "~0.3.0"
   },
   "scripts": {
     "test": "jasmine-node spec"
