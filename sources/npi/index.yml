@@ -23,21 +23,19 @@ npi:
       - one: hptc
   api:
     - npis
-  pipeline:
-    - action: fetch_npi_path
-      set: npi_path
+  create:
+    - fetch_npi_path: set=npi_path
     - download: url=http://nppes.viva-it.com/{{npi_path}}
     - unzip: path={{npi_path}}
     - fix_npi: file=/npidata_(\d+)_(\d+)\.csv/
     - csv_create: tables={{tables}}
   update:
-    - action: fetch_npi_weekly_paths
-      set: npi_paths
+    - fetch_npi_weekly_paths: set=npi_paths
     - each:
         on: {{npi_paths}}
         set: npi_path
         do:
-          - action: clear_files
+          - clear_files
           - download: url=http://nppes.viva-it.com/{{npi_path}}
           - unzip: path={{npi_path}}
           - fix_npi: file=/npidata_(\d+)_(\d+)\.csv/
