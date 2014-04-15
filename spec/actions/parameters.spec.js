@@ -36,4 +36,28 @@ describe('actions/parameters', function () {
       "hello": "world"
     });
   });
+
+  it('should replace a variable in a string', function () {
+    var parameters = new Parameters({"world": "joe"}),
+        results;
+
+    results = parameters.parse("hello={{world}}");
+
+    expect(results).toEqual({
+      "hello": "joe"
+    });
+  });
+
+  it('should replace a variable in an object', function () {
+    var parameters = new Parameters({"world": "joe"}),
+        results;
+
+    results = parameters.parse({
+      "hello": "{{world}}"
+    });
+
+    expect(results).toEqual({
+      "hello": "joe"
+    });
+  });
 });
