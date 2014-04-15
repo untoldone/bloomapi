@@ -28,9 +28,8 @@ npi:
       set: npi_path
     - download: url=http://nppes.viva-it.com/{{npi_path}}
     - unzip: path={{npi_path}}
-    - csv_create: 
-        file: /npidata_(\d+)_(\d+)\.csv/
-        tables: {{tables}}
+    - fix_npi: file=/npidata_(\d+)_(\d+)\.csv/
+    - csv_create: tables={{tables}}
   update:
     - action: fetch_npi_weekly_paths
       set: npi_paths
@@ -41,9 +40,8 @@ npi:
           - action: clear_files
           - download: url=http://nppes.viva-it.com/{{npi_path}}
           - unzip: path={{npi_path}}
-          - csv_import:
-              file: /npi_(.+).csv/
-              tables: {{tables}}
+          - fix_npi: file=/npidata_(\d+)_(\d+)\.csv/
+          - csv_import: tables={{tables}}
   variables:
     tables:
       npi_provider_details:
@@ -52,16 +50,24 @@ npi:
             - npi
             - {1}
           primary_key: true
-        npi: npi
-        healthcare_taxonomy_code: /healthcare_provider_taxonomy_code_(.+)/
-        license_number: /provider_license_number_(.+)/
+        npi:
+          named: npi
+          type: bigint
+        healthcare_taxonomy_code:
+          named: /healthcare_provider_taxonomy_code_(.+)/
+          type: string/70
+        license_number:
+          named: /provider_license_number_(.+)/
+          type: string/20
         license_number_state:
           named: /provider_license_number_state_code_(.+)/
+          type: string/9
           map:
             S: state
             T: territory
         taxonomy_switch:
           named: /healthcare_provider_primary_taxonomy_switch_(.+)/
+          type: string/12
           map:
             X: not answered
             Y: yes
@@ -70,12 +76,17 @@ npi:
         id:
           composite:
             - npi
-            - {0}
+            - {1}
           primary_key: true
-        npi: npi
-        identifier: /other_provider_identifier_(.+)/
+        npi:
+          named: npi
+          type: bigint
+        identifier:
+          named: /other_provider_identifier_(.+)/
+          type: string/20
         type:
           named: /other_provider_identifier_type_code_(.+)/
+          type: string/30
           map:
             "01": other
             "02": medicare upin
@@ -84,8 +95,12 @@ npi:
             "06": medicare oscar/certification
             "07": medicare nsc
             "08": medicare pin
-        state: /other_provider_identifier_state_(.+)/
-        issuer: /other_provider_identifier_issuer_(.+)/
+        state: 
+          named: /other_provider_identifier_state_(.+)/
+          type: string/2
+        issuer:
+          named: /other_provider_identifier_issuer_(.+)/
+          type: string/80
       npi_addresses:
         id:
           composite:
@@ -98,14 +113,30 @@ npi:
             - /provider_business_(.+)_address_telephone_number/
             - /provider_business_(.+)_address_fax_number/
           primary_key: true
-        address_line: /provider_first_line_business_(.+)_address/
-        address_details_line: /provider_second_line_business_(.+)_address/
-        city: /provider_business_(.+)_address_city_name/
-        state: /provider_business_(.+)_address_state_name/
-        zip: /provider_business_(.+)_address_postal_code/
-        country_code: /provider_business_(.+)_address_country_code_if_outside_u_s/
-        phone: /provider_business_(.+)_address_telephone_number
-        fax: /provider_business_(.+)_address_fax_number/
+        address_line: 
+          named: /provider_first_line_business_(.+)_address/
+          type: string/55
+        address_details_line:
+          named: /provider_second_line_business_(.+)_address/
+          type: string/55
+        city:
+          named: /provider_business_(.+)_address_city_name/
+          type: string/40
+        state:
+          named: /provider_business_(.+)_address_state_name/
+          type: string/40
+        zip:
+          named: /provider_business_(.+)_address_postal_code/
+          type: string/20
+        country_code:
+          named: /provider_business_(.+)_address_country_code_if_outside_u_s/
+          type: string/2
+        phone:
+          named: /provider_business_(.+)_address_telephone_number
+          type: string/20
+        fax:
+          named: /provider_business_(.+)_address_fax_number/
+          type: string/20
       npi_organization_officials:
         id:
           composite:
@@ -118,13 +149,27 @@ npi:
             - authorized_official_name_suffix_text
             - authorized_official_credential_text
           primary_key: true
-        first_name: authorized_official_first_name
-        last_name: authorized_official_last_name
-        middle_name: authorized_official_middle_name
-        title: authorized_official_title_or_position
-        phone: authorized_official_telephone_number
-        name_prefix: authorized_official_name_prefix_text
-        name_suffix: authorized_official_name_suffix_text
+        first_name:
+          named: authorized_official_first_name
+          type: string/20
+        last_name:
+          named: authorized_official_last_name
+          type: string/20
+        middle_name:
+          named: authorized_official_middle_name
+          type: string/20
+        title:
+          named: authorized_official_title_or_position
+          type: string/35
+        phone:
+          named: authorized_official_telephone_number
+          type: string/20
+        name_prefix:
+          named: authorized_official_name_prefix_text
+          type: string/5
+        name_suffix:
+          named: authorized_official_name_suffix_text
+          type: string/5
         credential: authorized_official_credential_text
       npi_parent_orgs:
         id:
@@ -132,43 +177,83 @@ npi:
             - parent_organization_lbn
             - parent_organization_tin
           primary_key: true
-        tax_identification_number: parent_organization_tin
-        business_name: parent_organization_lbn
+        tax_identification_number:
+          named: parent_organization_tin
+          type: string/9
+        business_name:
+          named: parent_organization_lbn
+          type: string/70
       npis:
         npi:
           named: npi
+          type: bigint
           primary_key: true
         type:
           named: entity_type_code
+          type: string/12
           map:
             1: individual
             2: organization
-        replacement_npi: replacement_npi
-        employer_identification_number: employer_identification_number_ein
-        business_name: provider_organization
-        last_name: provider_last_name_legal_name
-        first_name: provider_first_name
-        name_prefix: provider_name_prefix_text
-        middle_name: provider_middle_name
-        name_suffix: provider_name_suffix_text
-        credential: provider_credential_text
-        other_name: provider_other_organization_name
+        replacement_npi:
+          named: replacement_npi
+          type: bigint
+        employer_identification_number:
+          named: employer_identification_number_ein
+          type: string/9
+        business_name:
+          named: provider_organization
+          type: string/70
+        last_name:
+          named: provider_last_name_legal_name
+          type: string/35
+        first_name:
+          named: provider_first_name
+          type: string/20
+        name_prefix:
+          named: provider_name_prefix_text
+          type: string/5
+        middle_name:
+          named: provider_middle_name
+          type: string/20
+        name_suffix:
+          named: provider_name_suffix_text
+          type: string/5
+        credential:
+          named: provider_credential_text
+          type: string/20
+        other_name:
+          named: provider_other_organization_name
+          type: string/70
         other_org_type: 
           named: provider_other_organization_name_type_code
+          type: string/24
           map:
             1: individual
             2: individual
             3: organization
             4: organization
             5: individual+organization
-        other_last_name: provider_other_last_name
-        other_first_name: provider_other_first_name
-        other_middle_name: provider_other_middle_name
-        other_prefix: provider_other_name_prefix_text
-        other_suffix: provider_other_name_suffix_text
-        other_credential: provider_other_credential_text
+        other_last_name:
+          named: provider_other_last_name
+          type: string/35
+        other_first_name:
+          named: provider_other_first_name
+          type: string/20
+        other_middle_name:
+          named: provider_other_middle_name
+          type: string/20
+        other_prefix:
+          named: provider_other_name_prefix_text
+          type: string/5
+        other_suffix:
+          named: provider_other_name_suffix_text
+          type: string/5
+        other_credential:
+          named: provider_other_credential_text
+          type: string/20
         other_name_type:
           named: provider_other_last_name_type_code
+          type: string/27
           map:
             1: former name
             2: professional name
@@ -195,18 +280,26 @@ npi:
             - provider_business_practice_address_country_code_if_outside_u_s
             - provider_business_practice_address_telephone_number
             - provider_business_practice_address_fax_number
-        enumeration_date: provider_enumeration_date
+        enumeration_date:
+          named: provider_enumeration_date
+          type: date
         deactivation_reason:
           named: npi_deactivation_reason
+          type: string/12
           map:
             DT: death
             DB: disbandment
             FR: fraud
             OT: other
-        deactivation_date: npi_deactivation_date
-        reactivation_date: npi_reactivation_date
+        deactivation_date:
+          named: npi_deactivation_date
+          type: date
+        reactivation_date:
+          named: npi_reactivation_date
+          type: date
         gender:
           named: provider_gender_code
+          type: string/6
           map:
             M: male
             F: female
@@ -222,12 +315,14 @@ npi:
             - authorized_official_credential_text
         sole_proprietor:
           named: is_sole_proprietor
+          type: string/13
           map:
             X: not answered
             Y: yes
             N: no
         organization_subpart:
           named: organization_subpart
+          type: string/13
           map:
             X: not answered
             Y: yes

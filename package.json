@@ -19,7 +19,8 @@
     "csvrow": "~0.1.0",
     "winston": "~0.7.2",
     "through": "~2.3.4",
-    "split": "~0.3.0"
+    "split": "~0.3.0",
+    "sequelize": "~1.7.1"
   },
   "scripts": {
     "test": "jasmine-node spec"

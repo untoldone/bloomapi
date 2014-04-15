@@ -10,31 +10,22 @@ var reader = fs.createReadStream(process.argv[2]),
     s = new require('stream').Readable({ objectMode: true}),
     autodetect,
     th,
-    first = true,
     max = 50000,
-    count = 0,
-    headers;
+    count = 0;
 
 th = reader
 .pipe(split())
 .pipe(through(function (line) {
   count += 1;
   if (count < max) {
-    line = csv.parse(line);
-    if (first) {
-      autodetect = new Autodetect(line);
-      headers = line;
-      first = false;
-    } else {
-      this.queue(line);
-    }
+    this.queue(csv.parse(line));
   }
 }));
 
-th.once('data', function () {
-  autodetect.detect(th, function (err, results) {
-    results.forEach(function (result, index) {
-      console.log(headers[index] + ": " + result); 
-    });
+autodetect = new Autodetect(th);
+
+autodetect.detect(function (err, results) {
+  results.forEach(function (result, index) {
+    console.log(result[0] + ": " + result[1]); 
   });
 });
