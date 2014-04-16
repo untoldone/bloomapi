@@ -1,5 +1,5 @@
 var rewire = require('rewire'),
-    Runtime = rewire('../../lib/sources/runtime');
+    Runtime = rewire('../../lib/sources/sequence');
 
 describe('sources/runtime', function () {
   var fakeFirst, fakeExec, fakeSecond, fakeSExec, fakeFirstCalled, fakeSecondCalled;
