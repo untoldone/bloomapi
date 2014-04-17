@@ -7,34 +7,48 @@ var fs = require('fs'),
 
 describe('sources/tableDiscovery', function () {
   var discoverableSchema = {
-    id: {
-      composite: [
-        'shmo'
-      ]
-    },
-    joe: 'shmo'
-  };
-
-  var nonDiscoverableSchema = {
-    id: {
-      composite: [
-        'shmo'
-      ]
-    },
-    joe: {
-      named: 'shmo',
-      type: 'string/60'
+    tone: {
+      id: {
+        composite: [
+          'shmo'
+        ]
+      },
+      joe: '/shmo/'
     }
   };
 
-  var correctSchema = {
-    id: Sequelize.STRING(32),
-    joe: Sequelize.STRING
+  var nonDiscoverableSchema = {
+    ttwo: {
+      id: {
+        composite: [
+          'shmo'
+        ]
+      },
+      joe: {
+        named: 'shmo',
+        type: 'string/60'
+      }
+    }
   };
+
+  var emptySchema = { tone: null };
+
+  var correctSchema = {
+    tone: {
+      id: Sequelize.STRING(32),
+      joe: Sequelize.STRING
+    }
+  };
+
+  var correctEmptySchema = {
+    tone: { shmo: Sequelize.STRING }
+  }
   
   var correctSpecifiedSchema = {
-    id: Sequelize.STRING(32),
-    joe: Sequelize.STRING(60)
+    ttwo: {
+      id: Sequelize.STRING(32),
+      joe: Sequelize.STRING(60)
+    }
   };
 
   it('should decide if a table needs discovery', function () {
@@ -47,11 +61,13 @@ describe('sources/tableDiscovery', function () {
       }));
     tableDiscovery = new TableDiscovery(discoverableSchema, hintPipe);
 
-
     expect(tableDiscovery.requiresHint()).toEqual(true);
     
     tableDiscovery = new TableDiscovery(nonDiscoverableSchema, hintPipe);
     expect(tableDiscovery.requiresHint()).toEqual(false);
+    
+    tableDiscovery = new TableDiscovery(emptySchema, hintPipe);
+    expect(tableDiscovery.requiresHint()).toEqual(true);
   });
 
   it('should discover the correct schema', function (done) {
@@ -76,6 +92,23 @@ describe('sources/tableDiscovery', function () {
    
     tableDiscovery.schema(function (err, schema) {
       expect(schema).toEqual(correctSpecifiedSchema);
+      done();
+    });
+  });
+
+  it('should discover the whole table of a unspecified one', function (done) {
+    var tableDiscovery, hintPipe;
+    
+    hintPipe = fs.createReadStream(__dirname + "/../fixtures/discoveryHint.csv")
+      .pipe(split())
+      .pipe(through(function (data) {
+        this.queue(csv.parse(data)); 
+      }));
+    
+    tableDiscovery = new TableDiscovery(emptySchema, hintPipe),
+   
+    tableDiscovery.schema(function (err, schema) {
+      expect(schema).toEqual(correctEmptySchema);
       done();
     });
   });

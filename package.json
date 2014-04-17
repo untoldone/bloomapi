@@ -20,7 +20,8 @@
     "winston": "~0.7.2",
     "through": "~2.3.4",
     "split": "~0.3.0",
-    "sequelize": "~1.7.1"
+    "sequelize": "~1.7.1",
+    "request": "~2.34.0"
   },
   "scripts": {
     "test": "jasmine-node spec"
@@ -29,5 +30,8 @@
     "bloomapi": "bin/bloomapi"
   },
   "license": "MIT",
-  "version": "0.1.4"
+  "version": "0.1.4",
+  "devDependencies": {
+    "sinon": "~1.9.1"
+  }
 }

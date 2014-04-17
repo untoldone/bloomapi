@@ -60,6 +60,7 @@ describe('sources/autodetect', function () {
       autodetect.detect(function (err, results) {
         expect(results.keyToType('float')).toEqual('float');
         expect(results.keyToType('bigint')).toEqual('bigint');
+        expect(results.keyToType(/bigint/)).toEqual('bigint');
         done();
       });
     });
