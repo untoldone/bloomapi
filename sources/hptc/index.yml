@@ -1,6 +1,7 @@
 hptc:
   api:
     - nucc_taxonomies
-  create:
-    - download: url=http://www.nucc.org/images/stories/CSV/nucc_taxonomy_140.csv
-    - csv_create: key=code table=nucc_taxonomies
+  sequences:
+    create:
+      - download: url=http://www.nucc.org/images/stories/CSV/nucc_taxonomy_140.csv
+      - csv_create: key=code table=nucc_taxonomies

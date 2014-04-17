@@ -23,33 +23,34 @@ npi:
       - one: hptc
   api:
     - npis
-  create:
-    - fetch_npi_path: set=npi_path
-    - download: url=http://nppes.viva-it.com/{{npi_path}}
-    - unzip: path={{npi_path}}
-    - fix_npi: file=/npidata_(\d+)_(\d+)\.csv/
-    - csv_create: tables={{tables}}
-  update:
-    - fetch_npi_weekly_paths: set=npi_paths
-    - each:
-        on: {{npi_paths}}
-        set: npi_path
-        do:
-          - clear_files
-          - download: url=http://nppes.viva-it.com/{{npi_path}}
-          - unzip: path={{npi_path}}
-          - fix_npi: file=/npidata_(\d+)_(\d+)\.csv/
-          - csv_import: tables={{tables}}
-  variables:
-    tables:
-      npi_provider_details:
-        id:
-          composite:
-            - npi
-            - {1}
-          primary_key: true
-        npi:
-          named: npi
+  sequences:
+    create:
+      - fetch_npi_path: set=npi_path
+      - download: url=http://nppes.viva-it.com/{{npi_path}}
+      - unzip: path={{npi_path}}
+      - fix_npi: file=/npidata_(\d+)_(\d+)\.csv/
+      - csv_create: tables={{tables}}
+    update:
+      - fetch_npi_weekly_paths: set=npi_paths
+      - each:
+          on: {{npi_paths}}
+          set: npi_path
+          do:
+            - clear_files
+            - download: url=http://nppes.viva-it.com/{{npi_path}}
+            - unzip: path={{npi_path}}
+            - fix_npi: file=/npidata_(\d+)_(\d+)\.csv/
+            - csv_import: tables={{tables}}
+    variables:
+      tables:
+        npi_provider_details:
+          id:
+            composite:
+              - npi
+              - {1}
+            primary_key: true
+          npi:
+            named: npi
           type: bigint
         healthcare_taxonomy_code:
           named: /healthcare_provider_taxonomy_code_(.+)/
