@@ -1,0 +1,262 @@
+    {
+        "settings":{
+            "index" : {
+                "number_of_shards" : 3,
+                "number_of_replicas" : 2
+            },
+            "analysis":{
+                "analyzer":{
+                    "autocomplete":{
+                        "type":"custom",
+                        "tokenizer":"standard",
+                        "filter":[ "standard", "lowercase", "stop", "kstem", "ngram" ]
+                    },
+                    "post_title": {
+                        "filter": ["standard", "lowercase", "asciifolding"],
+                        "type": "custom",
+                        "tokenizer": "standard"
+                    }
+                },
+                "filter":{
+                    "ngram":{
+                        "type":"edgeNGram",
+                        "min_gram":2,
+                        "max_gram":15
+                    }
+                }
+            }
+        },
+        "mappings" : {
+            "npi" : {
+                "properties" : {
+                    "npi" : { "type" : "long"},
+                    "replacement_npi": {"type":"long"},
+                    "entity_type": {"type": "integer"},
+                    "ein": {"type":"string"},
+                    "deactivation_reason_code": {"type":"string"},
+
+                    "enumerated": {"type":"date", "format":"MM/dd/YYYY"},
+                    "updated": {"type":"date", "format":"MM/dd/YYYY"},
+                    "deactivated":{"type":"date", "format":"MM/dd/YYYY"},
+                    "reactivated":{"type":"date", "format":"MM/dd/YYYY"},
+
+                    "sole_proprietor": {"type":"boolean"},
+                    "gender": {"type":"string"},
+                    "parent_organization": {
+                        "type":"object",
+                        "properties": {
+                            "legal_business_name": {"type":"string"},
+                            "tin": {"type":"string"}
+                        }
+                    },
+                    "persons": {
+                        "type":"object",
+                        "properties": {
+                            "primary": {
+                                "type": "object",
+                                "properties": {
+                                    "first_name": {
+                                        "type":"multi_field",
+                                        "path":"just_name",
+                                        "fields":{
+                                            "first_name":{
+                                                "type":"string"
+                                            },
+                                            "post_title":{
+                                                "type":"string",
+                                                "analyzer":"post_title",
+                                                "similarity":"BM25"
+                                            },
+                                            "autocomplete":{
+                                                "analyzer":"autocomplete",
+                                                "type":"string"
+                                            }
+                                        }
+                                    },
+                                    "last_name": {
+                                        "type":"multi_field",
+                                        "path":"just_name",
+                                        "fields":{
+                                            "last_name":{
+                                                "type":"string"
+                                            },
+                                            "post_title":{
+                                                "type":"string",
+                                                "analyzer":"post_title",
+                                                "similarity":"BM25"
+                                            },
+                                            "autocomplete":{
+                                                "analyzer":"autocomplete",
+                                                "type":"string"
+                                            }
+                                        }
+                                    },
+                                    "middle_name": {"type":"string"},
+                                    "prefix": {"type":"string"},
+                                    "suffix": {"type":"string"},
+                                    "credential": {"type":"string"},
+                                    "post_title": {"type":"string"},
+                                    "telephone": {"type":"string"}
+                                }
+                            },
+                            "other": {
+                                "type": "object",
+                                "properties": {
+                                    "first_name": {
+                                        "type":"multi_field",
+                                        "path":"just_name",
+                                        "fields":{
+                                            "first_name":{
+                                                "type":"string"
+                                            },
+                                            "post_title":{
+                                                "type":"string",
+                                                "analyzer":"post_title",
+                                                "similarity":"BM25"
+                                            },
+                                            "autocomplete":{
+                                                "analyzer":"autocomplete",
+                                                "type":"string"
+                                            }
+                                        }
+                                    },
+                                    "last_name": {
+                                        "type":"multi_field",
+                                        "path":"just_name",
+                                        "fields":{
+                                            "last_name":{
+                                                "type":"string"
+                                            },
+                                            "post_title":{
+                                                "type":"string",
+                                                "analyzer":"post_title",
+                                                "similarity":"BM25"
+                                            },
+                                            "autocomplete":{
+                                                "analyzer":"autocomplete",
+                                                "type":"string"
+                                            }
+                                        }
+                                    },
+                                    "middle_name": {"type":"string"},
+                                    "prefix": {"type":"string"},
+                                    "suffix": {"type":"string"},
+                                    "credential": {"type":"string"},
+                                    "post_title": {"type":"string"},
+                                    "telephone": {"type":"string"}
+                                }
+                            },
+                            "authorized_official": {
+                                "type": "object",
+                                "properties": {
+                                    "first_name": {
+                                        "type":"multi_field",
+                                        "path":"just_name",
+                                        "fields":{
+                                            "first_name":{
+                                                "type":"string"
+                                            },
+                                            "post_title":{
+                                                "type":"string",
+                                                "analyzer":"post_title",
+                                                "similarity":"BM25"
+                                            },
+                                            "autocomplete":{
+                                                "analyzer":"autocomplete",
+                                                "type":"string"
+                                            }
+                                        }
+                                    },
+                                    "last_name": {
+                                        "type":"multi_field",
+                                        "path":"just_name",
+                                        "fields":{
+                                            "last_name":{
+                                                "type":"string"
+                                            },
+                                            "post_title":{
+                                                "type":"string",
+                                                "analyzer":"post_title",
+                                                "similarity":"BM25"
+                                            },
+                                            "autocomplete":{
+                                                "analyzer":"autocomplete",
+                                                "type":"string"
+                                            }
+                                        }
+                                    },
+                                    "middle_name": {"type":"string"},
+                                    "prefix": {"type":"string"},
+                                    "suffix": {"type":"string"},
+                                    "credential": {"type":"string"},
+                                    "post_title": {"type":"string"},
+                                    "telephone": {"type":"string"}
+                                }
+                            }
+                        }
+                    },
+                    "contact": {
+                        "type": "object",
+                        "properties": {
+                            "mailing": {
+                                "type": "object",
+                                "properties": {
+                                    "address": {
+                                        "type": "object",
+                                        "properties": {
+                                            "street1": {"type":"string"},
+                                            "street2": {"type":"string"},
+                                            "city": {"type":"string"},
+                                            "state": {"type":"string"},
+                                            "postal_code": {"type":"string"},
+                                            "country": {"type":"string"}
+                                        }
+                                    },
+                                    "telephone": {"type":"string"},
+                                    "fax": {"type":"string"}
+                                }
+                            },
+                            "practice": {
+                                "type": "object",
+                                "properties": {
+                                    "address": {
+                                        "type": "object",
+                                        "properties": {
+                                            "street1": {"type":"string"},
+                                            "street2": {"type":"string"},
+                                            "city": {"type":"string"},
+                                            "state": {"type":"string"},
+                                            "postal_code": {"type":"string"},
+                                            "country": {"type":"string"}
+                                        }
+                                    },
+                                    "telephone": {"type":"string"},
+                                    "fax": {"type":"string"}
+                                }
+                            }
+                        }
+                    },
+                    "taxonomies": {
+                        "type": "nested",
+                        "include_in_root": "true",
+                        "properties": {
+                            "code": {"type":"string"},
+                            "group": {"type":"string"},
+                            "state_code": {"type":"string"},
+                            "primary": {"type":"boolean"}
+                        }
+                    },
+                    "provider_identifiers": {
+                        "type": "nested",
+                        "include_in_root": "true",
+                        "properties": {
+                            "id": {"type":"string"},
+                            "type_code": {"type":"string"},
+                            "state": {"type":"string"},
+                            "issuer": {"type":"string"}
+                        }
+                    }
+                }
+            }
+        }
+    }
