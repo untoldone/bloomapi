@@ -25,7 +25,7 @@ describe('sources/tableDiscovery', function () {
         ]
       },
       joe: {
-        named: 'shmo',
+        named: 'joe',
         type: 'string/60'
       }
     }
@@ -35,19 +35,34 @@ describe('sources/tableDiscovery', function () {
 
   var correctSchema = {
     tone: {
-      id: Sequelize.STRING(32),
-      joe: Sequelize.STRING
+      id: {
+        composite: [ "shmo" ]
+      },
+      joe: {
+        named: /shmo/,
+        type: "string"
+      }
     }
   };
 
   var correctEmptySchema = {
-    tone: { shmo: Sequelize.STRING }
+    tone: {
+      shmo: {
+        named: "shmo",
+        type: "string"
+      }
+    }
   }
   
   var correctSpecifiedSchema = {
     ttwo: {
-      id: Sequelize.STRING(32),
-      joe: Sequelize.STRING(60)
+      id: {
+        composite: [ "shmo" ]
+      },
+      joe: {
+        named: "joe",
+        type: "string/60"
+      }
     }
   };
 
