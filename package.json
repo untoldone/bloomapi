@@ -32,6 +32,7 @@
   "license": "MIT",
   "version": "0.1.4",
   "devDependencies": {
-    "sinon": "~1.9.1"
+    "sinon": "~1.9.1",
+    "rewire": "^2.0.0"
   }
 }
