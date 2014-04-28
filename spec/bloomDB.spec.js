@@ -25,4 +25,21 @@ describe('bloomDB', function () {
       "other": Sequelize.STRING
     });
   });
+
+  it('provides a safe name', function () {
+    var names = [
+      ['Hello World4', 'hello_world4'],
+      ['U.S. (Only if things)', 'u_s_only_if_things'],
+      ['joe', 'joe'],
+      ['HelloWorld', 'helloworld']
+    ];
+
+    names.forEach(function (namePair) {
+      expect(bloomDB.safeName(namePair[0])).toEqual(namePair[1]);
+    });
+  });
+
+  it('provides safe names', function () {
+    expect(bloomDB.safeNames(['O', 'Q'])).toEqual(['o', 'q']);
+  });
 });
