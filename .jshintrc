@@ -1,0 +1,24 @@
+{
+  "bitwise": true,
+  "browser": true,
+  "browser": true,
+  "devel": true,
+  "eqeqeq": true,
+  "forin": true,
+  "freeze": true,
+  "immed": true,
+  "latedef": true,
+  "maxlen": 100,
+  "newcap": true,
+  "noarg": true,
+  "node": true,
+  "noempty": true,
+  "nonew": true,
+  "regexp": true,
+  "trailing": true,
+  "undef": true,
+  "unused": true,
+  "globals": {
+    "ActiveXObject": false
+  }
+}
