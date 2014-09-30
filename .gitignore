@@ -7,4 +7,5 @@ www/*.html
 
 ansible/group_vars/webservers
 ansible/production
+ansible/stage
 
