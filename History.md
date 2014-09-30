@@ -1,3 +1,9 @@
+0.1.5 / 2014-09-29
+==================
+
+  * Fixed schema parsing code + dropping temp table if exists
+  * Fixed ansible deploy script to accept github hostkey
+
 0.1.4 / 2014-04-12
 ==================
 
