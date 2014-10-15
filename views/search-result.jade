@@ -1,0 +1,164 @@
+extends subpage
+
+block vars
+  - var title = 'Search'
+  - var description = 'Search all National Provider Identifier (NPI) data by last name, full name, zip code, address, or NPI'
+  - var tab = 'search'
+
+block subContent
+  .row-skipnav
+    h1 #{result.business_name}#{result.first_name} #{result.last_name} 
+      small (#{result.npi})
+    if retTerm
+      div
+        a(href='/search/#{retTerm}/#{retPage}')
+          i.icon-arrow-left
+          |  Return to search results
+    p
+      code #{apiuri}
+      if result.type === 'organization'
+        section.details
+          h2 Organization
+          .pair
+            .key Business Name
+            .value #{result.business_name}
+          .pair
+            .key Other Name
+            .value #{result.other_name}
+          .pair
+            .key Other Name Type
+            .value #{result.other_name_type}
+          .pair
+            .key Enumerated
+            .value #{result.enumeration_date}
+          .pair
+            .key Updated
+            .value #{result.last_update_date}
+        section.details
+          h2 Organization Official
+          .pair
+            .key Name Prefix
+            .value #{result.organization_official.name_prefix}
+          .pair
+            .key First Name
+            .value #{result.organization_official.first_name}
+          .pair
+            .key Middle Name
+            .value #{result.organization_official.middle_name}
+          .pair
+            .key Last Name
+            .value #{result.organization_official.last_name}
+          .pair
+            .key Credential
+            .value #{result.organization_official.credential}
+      else
+        section.details
+          h2 Provider Demographics
+          .pair
+            .key First Name
+            .value #{result.first_name}
+          .pair
+            .key Middle Name
+            .value #{result.middle_name}
+          .pair
+            .key Last Name
+            .value #{result.last_name}
+          .pair
+            .key Gender
+            .value #{result.gender}
+          .pair
+            .key Credential
+            .value #{result.credential}
+          .pair
+            .key Sole Proprietor
+            .value #{result.sole_proprietor}
+          .pair
+            .key Enumerated
+            .value #{result.enumeration_date}
+          .pair
+            .key Updated
+            .value #{result.last_update_date}
+      section.details
+        h2 Practice Location
+        .pair
+          .key Street
+          .value #{result.practice_address.address_line}
+        .pair
+          .key Street (line two)
+          .value #{result.practice_address.address_details_line}
+        .pair
+          .key City
+          .value #{result.practice_address.city}
+        .pair
+          .key State
+          .value #{result.practice_address.state}
+        .pair
+          .key Zip
+          .value #{result.practice_address.zip}
+        .pair
+          .key Country
+          .value #{result.practice_address.country_code}
+        .pair
+          .key Phone
+          .value #{result.practice_address.phone}
+        .pair
+          .key Fax
+          .value #{result.practice_address.fax}
+      section.details
+        h2 Business Location
+        .pair
+          .key Street
+          .value #{result.business_address.address_line}
+        .pair
+          .key Street (line two)
+          .value #{result.business_address.address_details_line}
+        .pair
+          .key City
+          .value #{result.business_address.city}
+        .pair
+          .key State
+          .value #{result.business_address.state}
+        .pair
+          .key Zip
+          .value #{result.business_address.zip}
+        .pair
+          .key Country
+          .value #{result.business_address.country_code}
+        .pair
+          .key Phone
+          .value #{result.business_address.phone}
+        .pair
+          .key Fax
+          .value #{result.business_address.fax}
+      section.details
+        h2 Taxonomy
+        if result.provider_details
+          each taxonomy in result.provider_details
+            section.details
+              .pair
+                .key Code
+                .value #{taxonomy.healthcare_taxonomy_code}
+              .pair
+                .key License
+                .value #{taxonomy.license_number}
+              .pair
+                .key Primary
+                .value #{taxonomy.taxonomy_switch}
+      if result.other_identifiers
+        section.details
+          h2 Affiliations
+          each id in result.other_identifiers
+            section.details
+              .pair
+                .key Identifier
+                .value #{id.identifier}
+              .pair
+                .key Type
+                .value #{id.type}
+              .pair
+                .key Issuing State
+                .value #{id.state}
+              .pair
+                .key Issuer
+                .value #{id.issuer}
+

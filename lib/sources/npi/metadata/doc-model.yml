@@ -1,0 +1,269 @@
+fields:
+  - name: npi
+    description: NPI
+    source: NPI
+  - name: type
+    description: Entity Type Code
+    source: Entity Type Code
+    map:
+      - individual
+      - organization
+  - name: replacement_npi
+    description: Replacement NPI
+    source: Replacement NPI
+  - name: employer_identification_number
+    description: Employer Identification Number (EIN)
+    source: Employer Identification Number (EIN)
+  - name: business_name
+    description: Provider Organization Name (Legal Business
+    source: Provider Organization Name (Legal Business Name)
+  - name: last_name
+    description: Provider Last Name (Legal Name)
+    source: Provider Last Name (Legal Name)
+  - name: first_name
+    description: Provider First Name
+    source: Provider First Name
+  - name: middle_name
+    description: Provider Middle Name
+    source: Provider Middle Name
+  - name: name_prefix
+    description: Provider Name Prefix Text
+    source: Provider Name Prefix Text
+  - name: name_suffix
+    description: Provider Name Suffix Text
+    source: Provider Name Suffix Text
+  - name: credential
+    description: Provider Credential Text
+    source: Provider Credential Text
+  - name: other_name
+    description: Provider Other Organization Name
+    source: Provider Other Organization Name
+  - name: other_name_type
+    description: Provider Other Organization Name Type Code
+    source: Provider Other Organization Name Type Code
+    map:
+      - individual
+      - individual
+      - organization
+      - organization
+      - individual+organization
+  - name: other_last_name
+    description: Provider Other Last Name
+    source: Provider Other Last Name
+  - name: other_first_name
+    description: Provider Other First Name
+    source: Provider Other First Name
+  - name: other_middle_name
+    description: Provider Other Middle Name
+    source: Provider Other Middle Name
+  - name: other_name_prefix
+    description: Provider Other Name Prefix Text
+    source: Provider Other Name Prefix Text
+  - name: other_name_suffix
+    description: Provider Other Name Suffix Text
+    source: Provider Other Name Suffix Text
+  - name: other_credential
+    description: Provider Other Name Credential Text
+    source: Provider Other Credential Text
+  - name: provider_other_last_name_type_code
+    description: Provider Other Last Name Type Code
+    source: Provider Other Last Name Type Code
+    map:
+      - former name
+      - professional name
+      - doing business as
+      - former legal business name
+      - other name
+  - name: business_address
+    description: An object with the following fields
+    fields:
+      - name: address_line
+        description: Provider First Line Business Mailing Address
+        source: Provider First Line Business Mailing Address
+      - name: address_details_line
+        description: Provider Second Line Business Mailing Address
+        source: Provider Second Line Business Mailing Address
+      - name: city
+        description: Provider Business Mailing Address City Name
+        source: Provider Business Mailing Address City Name
+      - name: state
+        description: Provider Business Mailing Address State Name
+        source: Provider Business Mailing Address State Name
+      - name: zip
+        description: Provider Business Mailing Address Postal Code
+        source: Provider Business Mailing Address Postal Code
+      - name: country_code
+        description: Provider Business Mailing Address Country Code
+        source: Provider Business Mailing Address Country Code (If outside U.S.)
+      - name: phone
+        description: Provider Business Mailing Address Telephone
+        source: Provider Business Mailing Address Telephone Number
+      - name: fax
+        description: Provider Business Mailing Address Fax Number
+        source: Provider Business Mailing Address Fax Number
+  - name: practice_address
+    description: An object with the following fields
+    fields:
+      - name: address_line
+        description: Provider First Line Business Location Address
+        source: Provider First Line Business Practice Location Address
+      - name: address_details_line
+        description: Provider Second Line Business Location Address
+        source: Provider Second Line Business Practice Location Address
+      - name: city
+        description: Provider Business Location Address City Name
+        source: Provider Business Practice Location Address City Name
+      - name: state
+        description: Provider Business Location Address State Name
+        source: Provider Business Practice Location Address State Name
+      - name: zip
+        description: Provider Business Location Address Postal Code
+        source: Provider Business Practice Location Address Postal Code
+      - name: country_code
+        description: Provider Business Location Address Country
+        source: Provider Business Practice Location Address Country Code (If outside U.S.)
+      - name: phone
+        description: Provider Business Location Address Telephone
+        source: Provider Business Practice Location Address Telephone Number
+      - name: fax
+        description: Provider Business Location Address Fax Number
+        source: Provider Business Practice Location Address Fax Number
+  - name: enumeration_date
+    description: Provider Enumeration Date
+    source: Provider Enumeration Date
+  - name: last_update_date
+    description: Last Update Date
+    source: Last Update Date
+  - name: deactivation_reason
+    description: NPI Deactivation Reason Code
+    source: NPI Deactivation Reason Code
+    map:
+      - death
+      - disbandment
+      - fraud
+      - other
+  - name: deactivation_date
+    description: NPI Deactivation Date
+    source: NPI Deactivation Date
+  - name: reactivation_date
+    description: NPI Reactivation Date
+    source: NPI Reactivation Date
+  - name: gender
+    description: Provider Gender Code
+    source: Provider Gender Code
+    map:
+      - male
+      - female
+  - name: organization_official
+    description: An object with the following fields
+    fields:
+      - name: last_name
+        description: Authorized Official Last Name
+        source: Authorized Official Last Name
+      - name: first_name
+        description: Authorized Official First Name
+        source: Authorized Official First Name
+      - name: middle_name
+        description: Authorized Official Middle Name
+        source: Authorized Official Middle Name
+      - name: title
+        description: Authorized Official Title or Position
+        source: Authorized Official Title or Position
+      - name: phone
+        description: Authorized Official Telephone Number
+        source: Authorized Official Telephone Number
+      - name: name_prefix
+        description: Authorized Official Name Prefix Text
+        source: Authorized Official Name Prefix Text
+      - name: name_suffix
+        description: Authorized Official Name Suffix Text
+        source: Authorized Official Name Suffix Text
+      - name: credential
+        description: Authorized Official Credential Text
+        source: Authorized Official Credential Text
+  - name: provider_details
+    description: An array with the following fields per object
+    fields:
+      - name: healthcare_taxonomy_code
+        description: Healthcare Provider Taxonomy Code
+        source: "Healthcare Provider Taxonomy Code_{1-15}"
+      - name: license_number
+        description: Provider License Number
+        source: "Provider License Number_{1-15}"
+      - name: license_number_state
+        description: Provider License Number State Code
+        source: "Provider License Number State Code_{1-15}"
+        map:
+          - state
+          - territory
+      - name: taxonomy_switch
+        description: Healthcare Provider Primary Taxonomy Switch
+        source: "Healthcare Provider Primary Taxonomy Switch_{1-15}"
+        map:
+          - not answered
+          - "yes"
+          - "no"
+  - name: other_identifiers
+    description: An array with the following fields per object
+    fields:
+      - name: identifier
+        description: Other Provider Identifier
+        source: "Other Provider Identifier_{1-50}"
+      - name: type
+        description: Other Provider Identifier Type Code
+        source: "Other Provider Identifier Type Code_{1-50}"
+        map:
+          - other
+          - medicare upin
+          - medicare id-type unspecified
+          - medicaid
+          - medicare oscar/certification
+          - medicare nsc
+          - medicare pin
+      - name: state
+        description: Other Provider Identifier State
+        source: "Other Provider Identifier State_{1-50}"
+      - name: issuer
+        description: Other Provider Identifier Issuer
+        source: "Other Provider Identifier Issuer_{1-50}"
+  - name: sole_proprietor
+    description: Provider Sole Proprietor Flag
+    source: Is Sole Proprietor
+    map:
+      - not answered
+      - "yes"
+      - "no"
+  - name: organization_subpart
+    description: Provider Organization Subpart Flag
+    source: Is Organization Subpart
+    map:
+      - not answered
+      - "yes"
+      - "no"
+  - name: parent_org
+    description: An object with the following fields
+    fields:
+      - name: business_name
+        description: Provider Organization Subpart Legal Business
+        source: Parent Organization LBN
+      - name: tax_identification_number
+        description: Provider Organization Subpart TIN
+        source: Parent Organization TIN
+  - name: taxonomy_groups
+    description: An array with the following fields per object
+    fields:
+      - name: taxonomy
+        description: Healthcare Provider Taxonomy Group
+        source: "Healthcare Provider Taxonomy Group_{1-15}"
+indices:
+  - npi
+  - business_name
+  - last_name
+  - business_address.zip
+  - business_address.phone
+  - business_address.fax
+  - practice_address.zip
+  - practice_address.phone
+  - practice_address.fax
+  - organization_official.last_name
+  - organization_official.phone
