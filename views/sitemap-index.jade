@@ -1,0 +1,10 @@
+doctype xml
+
+sitmapindex(xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
+  sitemap
+    loc http://www.bloomapi.com/sitemap-web.xml
+    lastmod 2014-10-15
+  - for (i = 0; i < count; i++)
+    sitmap
+      loc http://www.bloomapi.com/sitemaps/#{i}.xml
+      lastmod #{lastMod}
