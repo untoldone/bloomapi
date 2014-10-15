@@ -1,10 +1,10 @@
 extends application
 
 block vars
-- var homeClass = (tab === 'home' ? 'active' : '')
-- var searchClass = (tab === 'search' ? 'active' : '')
-- var documentationClass = (tab === 'documentation' ? 'active' : '')
-- var contributeClass = (tab === 'contribute' ? 'active' : '');
+- var homeClass = (tab == 'home' ? 'active' : '')
+- var searchClass = (tab == 'search' ? 'active' : '')
+- var documentationClass = (tab == 'documentation' ? 'active' : '')
+- var contributeClass = (tab == 'contribute' ? 'active' : '')
 
 block content
   nav.cover
@@ -12,12 +12,12 @@ block content
       h1.pull-left
         a(href='/') bloom.api
       ul.pull-right
-        li(class=homeClass)
+        li(class=(tab == 'home' ? 'active' : ''))
           a(href='/') home
-        li(class=searchClass)
+        li(class=(tab == 'search' ? 'active' : ''))
           a(href='/search') search
-        li(class=documentationClass)
+        li(class=(tab == 'documentation' ? 'active' : ''))
           a(href='/documentation') documentation
-        li(class=contributeClass)
+        li(class=(tab == 'contribute' ? 'active' : ''))
           a(href='/contribute') contribute
   block subContent
