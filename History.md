@@ -1,3 +1,10 @@
+0.1.6 / 2014-10-15
+==================
+
+  * Added server-side rendering of all pages
+  * Added redirecting for legacy url style
+  * Added sitemaps for all npi pages
+
 0.1.5 / 2014-09-29
 ==================
 
