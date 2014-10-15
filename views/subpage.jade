@@ -1,0 +1,23 @@
+extends application
+
+block vars
+- var homeClass = (tab === 'home' ? 'active' : '')
+- var searchClass = (tab === 'search' ? 'active' : '')
+- var documentationClass = (tab === 'documentation' ? 'active' : '')
+- var contributeClass = (tab === 'contribute' ? 'active' : '');
+
+block content
+  nav.cover
+    div
+      h1.pull-left
+        a(href='/') bloom.api
+      ul.pull-right
+        li(class=homeClass)
+          a(href='/') home
+        li(class=searchClass)
+          a(href='/search') search
+        li(class=documentationClass)
+          a(href='/documentation') documentation
+        li(class=contributeClass)
+          a(href='/contribute') contribute
+  block subContent

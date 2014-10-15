@@ -1,0 +1,19 @@
+extends subpage
+
+block vars
+  - var title = 'Search'
+  - var description = 'Search all National Provider Identifier (NPI) data by last name, full name, zip code, address, or NPI'
+  - var tab = 'search'
+
+block subContent
+  .row
+    .hero
+      h3 search by last name, full name, zip code, address, or npi.
+      .search
+        input(type='text',id='query',placeholder='search by last name, full name, zip code, address, or NPI')
+        i.icon-search
+        span 
+          a(href='#',id='search') search
+      p or checkout the 
+        a(href='/documentation') documentation
+        |  to learn how to write more complex queries.

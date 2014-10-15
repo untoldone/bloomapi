@@ -43,8 +43,6 @@ target.bootstrap = function () {
 
   logger.data.info('bootstrapping bloomapi');
 
-  target.docs();
-
   Q.nfcall(fs.readFile, __dirname + '/../lib/bootstrap.sql', {encoding: 'utf8'})
     .then(function (data) {
       return Q.ninvoke(pg, 'query', data);
@@ -71,12 +69,6 @@ target.bootstrap = function () {
 target.server = function () {
   logger.server.info('starting bloomapi');
   require('../lib/api/server');
-};
-
-target.docs = function () {
-  logger.data.info('building website');
-  var docs = require('../lib/docs');
-  docs.build().done();
 };
 
 target.check = function () {

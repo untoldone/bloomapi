@@ -1,0 +1,190 @@
+extends subpage
+
+block vars
+  - var title = 'Documentation'
+  - var description = 'Documentation for using BloomAPI\'s API or deploying your own copy from source'
+  - var tab = 'documentation'
+
+block subContent
+  .row-skipnav
+    h1 Documentation
+    p
+      | BloomAPI is a way to search for and compare clinicians. It may be used from sites such as 
+      a(href='http://www.bloomapi.com/search') www.bloomapi.com/search
+      |  or, as a software developer, it may be queried for use in application development. The documentation below explains how, as a software developer, to use or deploy your own copy of BloomAPI.
+    h2 Querying
+    p
+      | BloomAPI can be queried at http://www.bloomapi.com/api/ or at your own deployment.
+      | Here is a summary of the available APIs.
+    h3 GET /api/search
+    h4 Parameters
+    ul.params
+      li
+        strong key*
+        |  name of field to filter by. Replace * with any number to set the 'index number'. The index number is used to associate keys with an 'op' and 'value'
+      li
+        strong op*
+        |  search operation to apply for a given index number. Currenlty 'eq' is the only possible value
+      li
+        strong value*
+        |  value to search for given an index number. String must be uppercase.
+      li
+        strong limit
+        |  optional, sets the maximum number of records to return. Default is 20 and maximum is 100
+      li
+        strong offset
+        |  optional, sets a number of records to skip before returning. Default is 0
+    p To ensure performance, one of the following fields must be included in every query
+    ul
+      each index in docModel.indices
+        li #{index}
+    h4 Examples
+    p Query for all clinicians that practice in the zipcode '98101'
+    code GET http://www.bloomapi.com/api/search?limit=10&offset=0&key1=practice_address.zip&op1=eq&value1=98101
+    p Query for all clinicians that have a last name of 'Dennis' and practice in the zipcode '943012302'
+    code GET http://www.bloomapi.com/api/search?limit=10&offset=0&key1=last_name&op1=eq&value1=DENNIS&key2=practice_address.zip&op2=eq&value2=943012302
+    h4 Response Fields
+    p Returns an array of NPI objects. Each field's description is directly from the NPI dissemination documentation present in the 
+      a(href="http://nppes.viva-it.com/NPI_Files.html",target="_blank") dissemination files
+      | . Source fields are the name of the column in the source CSVs before they are translated for bloomapi.
+    p The objects have the following fields
+    each field in docModel.fields
+      section.details
+        p
+          strong #{field.name}
+          .pair
+            .key Description
+            .value #{field.description}
+          if field.source
+            .pair
+              .key Source Field
+              .value #{field.source}
+          if field.map
+            .pair
+              .key Possible Values
+              .value
+                each mapValue in field.map
+                  div #{mapValue}
+          if field.fields
+            each subField in field.fields
+              section.details
+                p
+                  strong #{subField.name}
+                  .pair
+                    .key Description
+                    .value #{subField.description}
+                  if subField.source
+                    .pair
+                      .key Source Field
+                      .value #{subField.source}
+                  if subField.map
+                    .pair
+                      .key Possible Values
+                      .value
+                        each mapValue in subField.map
+                          div #{mapValue}
+    h3 GET /api/npis/:npi
+    p
+      | Returns a specific NPI's details. <em>:npi</em> should be replaced by the NPI you are searching for
+    h4 Response Fields
+    p
+      | The response fields are the same as <code>GET /api/search</code> except that a single
+      | element is returned rather than an array
+    h3 GET /api/sources
+    p Returns the current datasources and their status. At the moment, the only datasource is 'NPI' which represents the 
+      a(href="http://nppes.viva-it.com/NPI_Files.html",target="_blank") NPI Data Dissemination
+      | .
+    h4 Response Fields
+    p The result will be an array of data sources. For now, the array will be of length of 1 for just the 'NPI' datasource.
+    ul
+      li
+        strong source
+        |  Identifier of datasource. The only datasource is 'NPI' for now
+      li
+        strong updated
+        |  Timestamp of the most resent data inserted. For example, if the most recent data was from a weekly NPI dissemination file marked with July 2nd, 2013 in the dissemination filename -- this will be the timestamp of when this update is download/ applied to bloomapi from the NPI datasource (sometime after July 2nd, 2013)
+      li
+        strong checked
+        |  Timestamp of the last time BloomAPI checked for additional data for this datasource. This is not the same as <em>updated</em> since BloomAPI may not find any additional data since the last <em>updated</em> date
+      li
+        strong status
+        |  Will be of the value 'NEVER_RUN', 'RUNNING' or 'READY'. 'NEVER_RUN' means this datasource's initial data collection has not yet run or has never completed successfully, 'RUNNING' means that BloomAPI is running data collection for this source currently -- data is still available for this source while collection is running. 'READY' means that this datasource is not currently running collection and data is available.
+    h2 Responses
+    p Responses are JSON formated objects that have the result set as well as additional metadata
+    p Return codes
+    ul
+      li
+        strong 200
+        | : Successfully queried
+      li
+        strong 400
+        | : User error such as invalid parameters
+      li
+        strong 500
+        | : Server error. Likely caused by a bug in BloomAPI
+    p 200 Structure
+    code
+      | {
+      |   meta: {
+      |     count: <i>Total count without limit</i>
+      |   },
+      |   result: [
+      |     {
+      |       npi: 1111111111,
+      |       type: "individual",
+      |       ...
+      |     },
+      |     ...
+      |   ]
+      | }
+    p 400/500 Structure
+    code
+      | {
+      |   error: "Error message",
+      |   type: "parameter|fatal",
+      |   details: {
+      |     <i>An object that represents this error type</i>
+      |   }
+      | }
+    h2 Deploy
+    p Deploy your own copy of BloomAPI to gain higher performance or high availability to meet your own SLAs. Alternatively deploy it to gain an on-site database containing the lastest version of the NPI data dissemination.
+    p Deployment is run on a remote machine from a machine with the source downloaded using 
+      a(href="http://www.ansible.cc/",target="_blank") Ansible
+      |. BloomAPI provides a set of Ansible playbooks that can be used to automatically deploy BloomAPI and all of its dependencies on top of a clean installation of Ubuntu 14.04.
+    p To install Ansible on mac OSX
+    code
+      | brew install python --framework
+      | sudo pip install ansible
+    p To install Ansible on Ubuntu
+    code
+      | sudo apt-get install -y python python-setuptools
+      | sudo easy_install pip
+      | sudo pip install ansible
+    p To see more details on installing Ansible, see the 
+      a(href="http://docs.ansible.com/intro_getting_started.html",target="_blank") Ansible Getting Started page
+      | .
+    p Once ansible is installed, use these steps to deploy BloomAPI to a remote machine:
+    ol
+      li Create a clean installation of Ubuntu 14.04. The machine should have at least 16GB of free disk space for the dissemination file downloads/ extraction
+      li Ensure a user named 'ubuntu' has sudo access without requiring a password
+      li You should also have setup an ssh authorized_keys on the new machine with your ssh public key in the ubuntu account's 
+        code .ssh/authorized_keys
+        |  file
+      li Edit the file at 
+        code ansible/stage
+        |  and replace 
+        code latest.bloomapi.com
+        |  with the uri of your new Ubuntu installation
+      li Copy 
+        code ansible/group_vars/webservers.sample
+        |  to 
+        code ansible/group_vars/webservers
+        |  and edit any variables in this file to your liking
+      li From the source directory, run 
+        code ansible-playbook ansible/site.yml
+        |  to deploy BloomAPI. Deployment can take between 20 and 50 minutes on a Rackspace small instances depending on how many NPI weekly dissemination files are being imported.
+    p Once the playbook is complete, your box should have a fully-functional installation of BloomAPI with a fresh copy of the data dissemination. The new server will be listening for requests at 
+      code= '<hostname>/'
+      |  for the documentation website and at 
+      code= '<hostname>/api'
+      |  for the API itself.
