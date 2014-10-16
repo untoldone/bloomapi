@@ -93,11 +93,6 @@ target.check = function () {
       valid = false;
     }
 
-    if (!which('pdftotext')) {
-      console.log('ERROR: pdftotext is required for bootstrap task');
-      valid = false;
-    }
-
     if (valid) {
       console.log('PASSED: all checks');
     }

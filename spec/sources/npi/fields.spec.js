@@ -95,4 +95,21 @@ describe('NPIFields', function () {
       'first_name': 'George'
     }]);
   });
+
+  it('should format field name', function () {
+    // rules:
+    //  all to lower case
+    //  convert '(', ')', '.' and white space to '_'
+    //  shorten multiple '_' in a row to single '_'
+    //  trim _ from beginning and end
+    var name = " Hello (World.U.S.) Something.)",
+        result = npiFields.fieldName(name);
+
+    expect(result).toEqual('hello_world_u_s_something');
+    
+    name = "Employer Identification Number (EIN)";
+    result = npiFields.fieldName(name);
+    expect(result).toEqual('employer_identification_number_ein');
+  });
+
 });
