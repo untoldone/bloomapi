@@ -5,7 +5,7 @@
 - name: be sure nodejs apt repository exists
   apt_repository: repo=ppa:chris-lea/node.js
   sudo: yes
-- name: be sure to install node, all node dependencies, p7zip, and pdftotext
+- name: be sure to install node, all node dependencies, and p7zip
   apt: update_cache=yes state=present pkg={{ item }}
   with_items:
     - python-software-properties
@@ -14,7 +14,6 @@
     - make
     - nodejs
     - p7zip-full
-    - poppler-utils
     - nginx
   sudo: yes
 

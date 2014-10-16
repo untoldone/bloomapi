@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "q": "~1.0.1",
-    "pdftohtmljs": "~0.3.5",
     "pg": "~2.11.1",
     "express": "~4.0.0",
     "sql": "~0.35.0",
