@@ -1,1 +1,2 @@
 Sitemap: http://www.bloomapi.com/sitemap.xml
+Disallow: /api/*
