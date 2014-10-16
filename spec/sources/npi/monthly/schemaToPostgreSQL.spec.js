@@ -16,32 +16,32 @@ describe('SchemaToPostgreSQL', function () {
     it('should convert varchar', function () {
       demo.type = "VARCHAR";
       var result = converter.importSchema([demo]);
-      expect(result).toEqual('CREATE TABLE npis_temp (field  varchar(6));');
+      expect(result).toEqual('DROP TABLE IF EXISTS npis_temp; CREATE TABLE npis_temp (field  varchar(6));');
     });
 
     it('should convert smallint', function () {
       demo.length = 2;
       var result = converter.importSchema([demo]);
-      expect(result).toEqual('CREATE TABLE npis_temp (field  smallint);');
+      expect(result).toEqual('DROP TABLE IF EXISTS npis_temp; CREATE TABLE npis_temp (field  smallint);');
     });
 
     it('should convert integer', function () {
       demo.length = 9;
       var result = converter.importSchema([demo]);
-      expect(result).toEqual('CREATE TABLE npis_temp (field  integer);');
+      expect(result).toEqual('DROP TABLE IF EXISTS npis_temp; CREATE TABLE npis_temp (field  integer);');
     });
 
     it('should convert bigint', function () {
       demo.length = 10;
       var result = converter.importSchema([demo]);
-      expect(result).toEqual('CREATE TABLE npis_temp (field  bigint);');
+      expect(result).toEqual('DROP TABLE IF EXISTS npis_temp; CREATE TABLE npis_temp (field  bigint);');
     });
 
     it('should convert date', function () {
       demo.length = 10;
       demo.type = "DATE";
       var result = converter.importSchema([demo]);
-      expect(result).toEqual('CREATE TABLE npis_temp (field  date);');
+      expect(result).toEqual('DROP TABLE IF EXISTS npis_temp; CREATE TABLE npis_temp (field  date);');
     });
 
     it('should raise on unknown type', function () {
@@ -55,7 +55,7 @@ describe('SchemaToPostgreSQL', function () {
       demo.length = 10;
       demo.name = "npi";
       var result = converter.importSchema([demo]);
-      expect(result).toEqual('CREATE TABLE npis_temp (npi  bigint PRIMARY KEY);');
+      expect(result).toEqual('DROP TABLE IF EXISTS npis_temp; CREATE TABLE npis_temp (npi  bigint PRIMARY KEY);');
     });
 
   });
