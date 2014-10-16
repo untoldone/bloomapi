@@ -1,5 +1,4 @@
 [![Build Status](https://secure.travis-ci.org/untoldone/bloomapi.png)](http://travis-ci.org/untoldone/bloomapi)
-[![Dependency Status](https://gemnasium.com/untoldone/bloomapi.svg)](https://gemnasium.com/untoldone/bloomapi)
 
 An open source library for maintaining an updated mirror of the [NPI Data Dissemination](http://nppes.viva-it.com/NPI_Files.html) and making it queriable via API.
 A public deployment of BloomAPI can be seen at http://www.bloomapi.com/

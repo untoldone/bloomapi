@@ -9,14 +9,14 @@
   },
   "dependencies": {
     "q": "~1.0.1",
-    "pg": "~2.11.1",
+    "pg": "~3.5.0",
     "express": "~4.0.0",
-    "sql": "~0.35.0",
-    "js-yaml": "~3.0.2",
-    "shelljs": "~0.2.6",
+    "sql": "~0.39.0",
+    "js-yaml": "~3.2.2",
+    "shelljs": "~0.3.0",
     "mustache": "~0.8.1",
     "csvrow": "~0.1.0",
-    "winston": "~0.7.2",
+    "winston": "~0.8.0",
     "jade": "^1.7.0"
   },
   "scripts": {
