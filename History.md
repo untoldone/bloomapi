@@ -4,6 +4,8 @@
   * Added server-side rendering of all pages
   * Added redirecting for legacy url style
   * Added sitemaps for all npi pages
+  * Added simplified loading code/ removed PDF parsing code
+  * Updated dependencies
 
 0.1.5 / 2014-09-29
 ==================
