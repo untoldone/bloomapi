@@ -51,7 +51,7 @@ block subContent
         .pair
           .key Credential
           .value #{result.organization_official.credential}
-    else
+    else if result.type === 'individual'
       section.details
         h2 Provider Demographics
         .pair
@@ -78,72 +78,81 @@ block subContent
         .pair
           .key Updated
           .value #{result.last_update_date}
-    section.details
-      h2 Practice Location
-      .pair
-        .key Street
-        .value #{result.practice_address.address_line}
-      .pair
-        .key Street (line two)
-        .value #{result.practice_address.address_details_line}
-      .pair
-        .key City
-        .value #{result.practice_address.city}
-      .pair
-        .key State
-        .value #{result.practice_address.state}
-      .pair
-        .key Zip
-        .value #{result.practice_address.zip}
-      .pair
-        .key Country
-        .value #{result.practice_address.country_code}
-      .pair
-        .key Phone
-        .value #{result.practice_address.phone}
-      .pair
-        .key Fax
-        .value #{result.practice_address.fax}
-    section.details
-      h2 Business Location
-      .pair
-        .key Street
-        .value #{result.business_address.address_line}
-      .pair
-        .key Street (line two)
-        .value #{result.business_address.address_details_line}
-      .pair
-        .key City
-        .value #{result.business_address.city}
-      .pair
-        .key State
-        .value #{result.business_address.state}
-      .pair
-        .key Zip
-        .value #{result.business_address.zip}
-      .pair
-        .key Country
-        .value #{result.business_address.country_code}
-      .pair
-        .key Phone
-        .value #{result.business_address.phone}
-      .pair
-        .key Fax
-        .value #{result.business_address.fax}
-    section.details
-      h2 Taxonomy
-      if result.provider_details
-        each taxonomy in result.provider_details
-          section.details
-            .pair
-              .key Code
-              .value #{taxonomy.healthcare_taxonomy_code}
-            .pair
-              .key License
-              .value #{taxonomy.license_number}
-            .pair
-              .key Primary
-              .value #{taxonomy.taxonomy_switch}
+    else if result.deactivation_date
+      section.details
+        h2 Deactivated NPI
+        .pair
+          .key Deactivation Date
+          .value #{result.deactivation_date}
+      
+    if result.practice_address
+      section.details
+        h2 Practice Location
+        .pair
+          .key Street
+          .value #{result.practice_address.address_line}
+        .pair
+          .key Street (line two)
+          .value #{result.practice_address.address_details_line}
+        .pair
+          .key City
+          .value #{result.practice_address.city}
+        .pair
+          .key State
+          .value #{result.practice_address.state}
+        .pair
+          .key Zip
+          .value #{result.practice_address.zip}
+        .pair
+          .key Country
+          .value #{result.practice_address.country_code}
+        .pair
+          .key Phone
+          .value #{result.practice_address.phone}
+        .pair
+          .key Fax
+          .value #{result.practice_address.fax}
+    if result.business_address
+      section.details
+        h2 Business Location
+        .pair
+          .key Street
+          .value #{result.business_address.address_line}
+        .pair
+          .key Street (line two)
+          .value #{result.business_address.address_details_line}
+        .pair
+          .key City
+          .value #{result.business_address.city}
+        .pair
+          .key State
+          .value #{result.business_address.state}
+        .pair
+          .key Zip
+          .value #{result.business_address.zip}
+        .pair
+          .key Country
+          .value #{result.business_address.country_code}
+        .pair
+          .key Phone
+          .value #{result.business_address.phone}
+        .pair
+          .key Fax
+          .value #{result.business_address.fax}
+    if result.provider_details
+      section.details
+        h2 Taxonomy
+          each taxonomy in result.provider_details
+            section.details
+              .pair
+                .key Code
+                .value #{taxonomy.healthcare_taxonomy_code}
+              .pair
+                .key License
+                .value #{taxonomy.license_number}
+              .pair
+                .key Primary
+                .value #{taxonomy.taxonomy_switch}
     if result.other_identifiers
       section.details
         h2 Affiliations
