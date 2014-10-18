@@ -142,17 +142,17 @@ block subContent
     if result.provider_details
       section.details
         h2 Taxonomy
-          each taxonomy in result.provider_details
-            section.details
-              .pair
-                .key Code
-                .value #{taxonomy.healthcare_taxonomy_code}
-              .pair
-                .key License
-                .value #{taxonomy.license_number}
-              .pair
-                .key Primary
-                .value #{taxonomy.taxonomy_switch}
+        each taxonomy in result.provider_details
+          section.details
+            .pair
+              .key Code
+              .value #{taxonomy.healthcare_taxonomy_code}
+            .pair
+              .key License
+              .value #{taxonomy.license_number}
+            .pair
+              .key Primary
+              .value #{taxonomy.taxonomy_switch}
     if result.other_identifiers
       section.details
         h2 Affiliations
