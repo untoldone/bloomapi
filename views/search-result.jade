@@ -1,8 +1,8 @@
 extends subpage
 
 block vars
-  - var title = 'Search'
-  - var description = 'Search all National Provider Identifier (NPI) data by last name, full name, zip code, address, or NPI'
+  - var title = result.business_name || (result.first_name ? result.first_name + " " + result.last_name : result.npi)
+  - var description = result.type ? 'An ' + result.type + ' with the NPI, ' + result.npi + ', practicing at: ' + result.practice_address.address_line + ', ' + result.practice_address.city + ', ' + result.practice_address.state : 'An NPI deactivated on ' + result.deactivation_date
   - var tab = 'search'
 
 block subContent
