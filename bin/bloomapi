@@ -67,7 +67,6 @@ target.bootstrap = function () {
 }
 
 target.server = function () {
-  logger.server.info('starting bloomapi');
   require('../lib/api/server');
 };
 
