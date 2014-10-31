@@ -26,8 +26,12 @@ block subContent
                   .name #{entry.last_name}, #{entry.first_name}
                 else
                   .name #{entry.business_name}
-                .phone #{entry.practice_address.phone}
-                .address #{entry.practice_address.address_line}, #{entry.practice_address.city}, #{entry.practice_address.state} #{entry.practice_address.zip}
+                .phone 
+                  if entry.practice_address
+                    | #{entry.practice_address.phone}
+                .address 
+                  if entry.practice_address
+                    | #{entry.practice_address.address_line}, #{entry.practice_address.city}, #{entry.practice_address.state} #{entry.practice_address.zip}
         .pages.search-results
           each page in pages
             if page == currentPage
