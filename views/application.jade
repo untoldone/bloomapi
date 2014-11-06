@@ -2,7 +2,7 @@ doctype html
 
 block vars
   - var title = 'Find and Compare Clinicians'
-  - var description = "National Provider Identifier (NPI) tool and API to search and compare clinitians. Open source, high performance, and updated weekly from the National Plan & Provider Enumeration System\'s (NPPES) NPI registry"
+  - var description = "National Provider Identifier (NPI) lookup and API to search and compare physicians. Open source and high performance. Updated weekly from the NPPES registry"
 
 html
   head
@@ -11,6 +11,7 @@ html
     script(type='text/javascript',src='/js/jquery-1.11.1.min.js')
     script(type='text/javascript',src='/js/index.js')
     meta(http-equiv='Content-Type',content='text/html; charset=UTF-8')
+    meta(http-equiv='Content-Language',content='en-us')
     meta(name='description',content='#{description}')
   body
     block content
