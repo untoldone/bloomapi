@@ -8,7 +8,6 @@ import (
 	"encoding/json"
 	"github.com/untoldone/bloomdb"
 	"log"
-	"fmt"
 )
 
 type searchParams struct {

@@ -12,6 +12,7 @@ func showUsage() {
 	fmt.Println("=============================\n")
 	fmt.Println("Avaialable commands:")
 	fmt.Println("bloomapi-npi server    # run BloomAPI server")
+	fmt.Println("bloomapi-npi bootstrap # setup BloomAPI shared schema")
 }
 
 func main() {
@@ -23,11 +24,19 @@ func main() {
 
 	arg := os.Args[1]
 
-	viper.SetConfigType("toml")
+	viper.SetConfigName("config")
+	viper.AddConfigPath("./")
+	err := viper.ReadInConfig()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
 	switch arg {
 	case "server":
 		bloomapi.Server()
+	case "bootstrap":
+		bloomapi.Bootstrap()
 	default:
 		fmt.Println("Invalid command:", arg)
 		showUsage()
