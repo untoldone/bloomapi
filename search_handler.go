@@ -11,8 +11,8 @@ import (
 )
 
 type searchParams struct {
-	Offset uint
-	Limit uint
+	Offset uint64
+	Limit uint64
 	Phrases map[string]string
 }
 
@@ -130,19 +130,20 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 		return nil, NewParamsError("search requires at least one set of search parameters (e.g. key1/op1/value1)", map[string]string{})
 	}
 
+	var err error
 	// Ensure offset/ limit are positive integers
-	var offsetValue uint
+	var offsetValue uint64
 	if offset, ok := params["offset"]; ok {
-		_, err := strconv.ParseUint(offset[0], 0, 64)
+		offsetValue, err = strconv.ParseUint(offset[0], 0, 64)
 		if err != nil {
 			return nil, NewParamsError("offset must be a positive number", 
 																map[string]string{"offset": "must be a positive number"})
 		}
 	}
 
-	var limitValue uint
+	var limitValue uint64
 	if limit, ok := params["limit"]; ok {
-		limitValue, err := strconv.ParseUint(limit[0], 0, 64)
+		limitValue, err = strconv.ParseUint(limit[0], 0, 64)
 		if err != nil {
 			return nil, NewParamsError("limit must be a positive number", 
 																map[string]string{"limit": "must be a positive number"})
