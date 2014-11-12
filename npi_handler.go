@@ -2,6 +2,7 @@ package bloomapi
 
 import (
 	"net/http"
+	"encoding/json"
 	"github.com/gorilla/mux"
 	"github.com/untoldone/bloomdb"
 	"log"
@@ -35,7 +36,17 @@ func NpiHandler (w http.ResponseWriter, req *http.Request) {
 		r.JSON(w, http.StatusNotFound, "npi not found")
 		return
 	} else {
-		r.JSON(w, http.StatusOK, map[string]interface{} {"result": result.Hits.Hits[0].Source})
+		hits := make([]interface{}, len(result.Hits.Hits))
+		for i, hit := range result.Hits.Hits {
+			var source map[string]interface{}
+			json.Unmarshal(*hit.Source, &source)
+			hits[i] = source
+		}
+
+		body := map[string]interface{} {"result": hits[0]}
+		keysToStrings(body)
+
+		r.JSON(w, http.StatusOK, body)
 		return
 	}
 }
