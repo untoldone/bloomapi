@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"encoding/json"
 	"github.com/gorilla/mux"
-	"github.com/untoldone/bloomdb"
+	"github.com/gocodo/bloomdb"
 	"log"
 )
 

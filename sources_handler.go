@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"time"
 	"log"
-	"github.com/untoldone/bloomdb"
+	"github.com/gocodo/bloomdb"
 )
 
 type dataSource struct {

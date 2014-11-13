@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 	"fmt"
-	"github.com/untoldone/bloomapi"
+	"github.com/gocodo/bloomapi"
 	"github.com/spf13/viper"
 )
 

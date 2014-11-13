@@ -6,7 +6,7 @@ import (
 	"strings"
 	"strconv"
 	"encoding/json"
-	"github.com/untoldone/bloomdb"
+	"github.com/gocodo/bloomdb"
 	"log"
 )
 
