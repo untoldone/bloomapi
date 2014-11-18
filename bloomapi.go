@@ -5,6 +5,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/codegangsta/negroni"
 	"gopkg.in/unrolled/render.v1"
+	"github.com/spf13/viper"
 )
 
 var r = render.New(render.Options{})
@@ -20,5 +21,5 @@ func Server() {
 
 	n := negroni.Classic()
 	n.UseHandler(router)
-	n.Run(":3005")
+	n.Run(":" + viper.GetString("bloomapiPort"))
 }
