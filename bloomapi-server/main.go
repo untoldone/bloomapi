@@ -11,8 +11,9 @@ func showUsage() {
 	fmt.Println("Usage: bloomapi-npi <command>")
 	fmt.Println("=============================\n")
 	fmt.Println("Avaialable commands:")
-	fmt.Println("bloomapi-npi server    # run BloomAPI server")
-	fmt.Println("bloomapi-npi bootstrap # setup BloomAPI shared schema")
+	fmt.Println("bloomapi server    # run BloomAPI server")
+	fmt.Println("bloomapi bootstrap # setup BloomAPI shared schema")
+	fmt.Println("bloomapi drop      # remove all BloomAPI shared tables")
 }
 
 func main() {
@@ -37,6 +38,8 @@ func main() {
 		bloomapi.Server()
 	case "bootstrap":
 		bloomapi.Bootstrap()
+	case "drop":
+		bloomapi.Drop()
 	default:
 		fmt.Println("Invalid command:", arg)
 		showUsage()
