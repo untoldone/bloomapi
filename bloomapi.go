@@ -18,6 +18,8 @@ func Server() {
 	router.HandleFunc("/api/search", SearchHandler).Methods("GET")
 	router.HandleFunc("/api/npis/{npi:[0-9]+}", NpiHandler).Methods("GET")
 	router.HandleFunc("/api/sources", SourcesHandler).Methods("GET")
+	router.HandleFunc("/api/search/{source}", SearchSourceHandler).Methods("GET")
+	router.HandleFunc("/api/sources/{source}/{id}", ItemHandler).Methods("GET")
 
 	n := negroni.Classic()
 	n.UseHandler(router)
