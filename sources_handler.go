@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"time"
 	"log"
-	"github.com/gocodo/bloomdb"
 )
 
 type dataSource struct {
@@ -15,14 +14,13 @@ type dataSource struct {
 }
 
 func SourcesHandler (w http.ResponseWriter, req *http.Request) {
-	bdb := bloomdb.CreateDB()
+
 	conn, err := bdb.SqlConnection()
 	if err != nil {
 		log.Println(err)
 		r.JSON(w, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
-	defer conn.Close()
 
 	rows, err := conn.Query("SELECT source, updated, checked, status FROM data_sources")
 	if err != nil {

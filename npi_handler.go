@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"encoding/json"
 	"github.com/gorilla/mux"
-	"github.com/gocodo/bloomdb"
 	"log"
 )
 
@@ -12,7 +11,6 @@ func NpiHandler (w http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	npi := vars["npi"]
 
-	bdb := bloomdb.CreateDB()
 	conn := bdb.SearchConnection()
 
 	result, err := conn.Search("source", "npi", nil, map[string]interface{} {

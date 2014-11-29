@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"encoding/json"
 	"github.com/gorilla/mux"
-	"github.com/gocodo/bloomdb"
 	"log"
 )
 
@@ -13,7 +12,6 @@ func ItemHandler (w http.ResponseWriter, req *http.Request) {
 	source := vars["source"]
 	id := vars["id"]
 
-	bdb := bloomdb.CreateDB()
 	conn := bdb.SearchConnection()
 
 	query := map[string]interface{} {

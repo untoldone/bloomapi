@@ -1,12 +1,10 @@
 package bloomapi
 
 import (
-	"github.com/gocodo/bloomdb"
 	"encoding/json"
 )
 
 func search(sourceType string, params *searchParams) (map[string]interface{}, error) {
-	bdb := bloomdb.CreateDB()
 	conn := bdb.SearchConnection()
 
 	query := map[string]interface{} {
