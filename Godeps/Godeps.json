@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/gocodo/bloomapi",
+	"ImportPath": "github.com/untoldone/bloomapi",
 	"GoVersion": "go1.3.1",
 	"Deps": [
 		{
