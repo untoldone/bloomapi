@@ -14,3 +14,8 @@ For details on **contributing** see http://www.bloomapi.com/contribute
 - Include easy to use, data documentation tools
 - Include useful public datasets out of the box such as NUCC Taxonomy Codes, Geo-coded locations in existing data sets (E.g. NPI), ICD-9/10 codes, UPIN crosswalk, and FDA's NDC.
 - Also include data loading code for datasets with licensing restrictions such as AHRQ's HCUP data and CPT codes.
+
+### Issue Tracking
+
+- [Current issues](https://github.com/untoldone/bloomapi/issues?q=-milestone%3ABacklog+is%3Aissue+is%3Aopen+) in focus for a future release or for review 
+- [Current backlog](https://github.com/untoldone/bloomapi/issues?q=milestone%3ABacklog+is%3Aissue+is%3Aopen+) of issues that have been saved for later
