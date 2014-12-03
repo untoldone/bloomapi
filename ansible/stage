@@ -1,6 +1,0 @@
-[webservers]
-54.210.30.147
-
-[webservers:vars]
-ga_tracking_id=UA-41572439-1
-ga_domain=bloomapi.com

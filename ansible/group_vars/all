@@ -1,5 +1,0 @@
----
-# Default variable values
-postgres_password: postgres
-branch: master
-machine_memory: 1024
