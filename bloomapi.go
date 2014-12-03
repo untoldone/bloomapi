@@ -2,7 +2,6 @@ package bloomapi
 
 import (
 	"fmt"
-	"net/http/pprof"
 	"github.com/gorilla/mux"
 	"github.com/codegangsta/negroni"
 	"gopkg.in/unrolled/render.v1"
