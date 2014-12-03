@@ -1,3 +1,12 @@
+0.2.0 / 2014-12-03
+==================
+
+  * Completed rewrite in Go
+  * Added normalized version of NPI
+  * Added tracking of historical values of NPI in database
+  * Removed Website to futher modularize project
+  * Removed Ansible deployment code to further modularize project
+
 0.1.6 / 2014-10-15
 ==================
 
