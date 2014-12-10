@@ -26,12 +26,12 @@ func NpiHandler (w http.ResponseWriter, req *http.Request) {
 		})
 	if err != nil {
 		log.Println(err)
-		r.JSON(w, http.StatusInternalServerError, "Internal Server Error")
+		renderJSON(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
 
 	if result.Hits.Total == 0 {
-		r.JSON(w, http.StatusNotFound, "npi not found")
+		renderJSON(w, req, http.StatusNotFound, "npi not found")
 		return
 	} else {
 		hits := make([]interface{}, len(result.Hits.Hits))
@@ -44,7 +44,7 @@ func NpiHandler (w http.ResponseWriter, req *http.Request) {
 		body := map[string]interface{} {"result": hits[0]}
 		keysToStrings(body)
 
-		r.JSON(w, http.StatusOK, body)
+		renderJSON(w, req, http.StatusOK, body)
 		return
 	}
 }

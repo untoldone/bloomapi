@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/codegangsta/negroni"
-	"gopkg.in/unrolled/render.v1"
+	"github.com/gorilla/context"
 	"github.com/spf13/viper"
 	"github.com/gocodo/bloomdb"
 )
 
-var r = render.New(render.Options{})
 var bdb *bloomdb.BloomDatabase
 
 func Server() {
@@ -36,6 +35,7 @@ func Server() {
 	dr.HandleFunc("/threadcreate", pprof.Handler("threadcreate").ServeHTTP)*/
 
 	n := negroni.Classic()
-	n.UseHandler(router)
+	n.Use(negroni.HandlerFunc(preJSONP))
+	n.UseHandler(context.ClearHandler(router))
 	n.Run(":" + viper.GetString("bloomapiPort"))
 }

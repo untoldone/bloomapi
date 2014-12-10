@@ -94,6 +94,10 @@
 			"Rev": "77144270da4a139bc4554f0488514f4212312ac3"
 		},
 		{
+			"ImportPath": "github.com/untoldone/render",
+			"Rev": "a4de1863c64b5af45d4aca5269c8c5b979f88f6a"
+		},
+		{
 			"ImportPath": "github.com/xordataexchange/crypt/backend",
 			"Comment": "v0.0.2",
 			"Rev": "0d6dc8c093c1c191f00effdfc3b2f858973f0271"
@@ -107,10 +111,6 @@
 			"ImportPath": "github.com/xordataexchange/crypt/encoding/secconf",
 			"Comment": "v0.0.2",
 			"Rev": "0d6dc8c093c1c191f00effdfc3b2f858973f0271"
-		},
-		{
-			"ImportPath": "gopkg.in/unrolled/render.v1",
-			"Rev": "cf57b1afa5d93abdbd356aad95d7c2720dad6d01"
 		},
 		{
 			"ImportPath": "gopkg.in/yaml.v1",

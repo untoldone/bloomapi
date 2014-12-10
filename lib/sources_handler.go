@@ -18,14 +18,14 @@ func SourcesHandler (w http.ResponseWriter, req *http.Request) {
 	conn, err := bdb.SqlConnection()
 	if err != nil {
 		log.Println(err)
-		r.JSON(w, http.StatusInternalServerError, "Internal Server Error")
+		renderJSON(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
 
 	rows, err := conn.Query("SELECT source, updated, checked, status FROM data_sources")
 	if err != nil {
 		log.Println(err)
-		r.JSON(w, http.StatusInternalServerError, "Internal Server Error")
+		renderJSON(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
 	defer rows.Close()
@@ -41,12 +41,12 @@ func SourcesHandler (w http.ResponseWriter, req *http.Request) {
 		err := rows.Scan(&source, &update, &checked, &status)
 		if err != nil {
 			log.Println(err)
-			r.JSON(w, http.StatusInternalServerError, "Internal Server Error")
+			renderJSON(w, req, http.StatusInternalServerError, "Internal Server Error")
 			return
 		}
 
 		sources = append(sources, dataSource{source, update, checked, status})
 	}
 
-	r.JSON(w, http.StatusOK, map[string][]dataSource{"result": sources})
+	renderJSON(w, req, http.StatusOK, map[string][]dataSource{"result": sources})
 }
