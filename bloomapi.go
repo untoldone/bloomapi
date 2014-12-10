@@ -1,41 +1,48 @@
-package bloomapi
+package main
 
 import (
+	"os"
 	"fmt"
-	"github.com/gorilla/mux"
-	"github.com/codegangsta/negroni"
-	"gopkg.in/unrolled/render.v1"
 	"github.com/spf13/viper"
-	"github.com/gocodo/bloomdb"
+	"github.com/untoldone/bloomapi/lib"
 )
 
-var r = render.New(render.Options{})
-var bdb *bloomdb.BloomDatabase
+func showUsage() {
+	fmt.Println("Usage: bloomapi <command>")
+	fmt.Println("=============================\n")
+	fmt.Println("Avaialable commands:")
+	fmt.Println("bloomapi server    # run BloomAPI server")
+	fmt.Println("bloomapi bootstrap # setup BloomAPI shared schema")
+	fmt.Println("bloomapi drop      # remove all BloomAPI shared tables")
+}
 
-func Server() {
-	fmt.Println("Running Server")
+func main() {
+	if (len(os.Args) != 2) {
+		fmt.Println("Invalid command usage\n")
+		showUsage()
+		os.Exit(1)
+	}
 
-	bdb = bloomdb.CreateDB()
-	router := mux.NewRouter()
+	arg := os.Args[1]
 
-	router.HandleFunc("/api/search", SearchHandler).Methods("GET")
-	router.HandleFunc("/api/npis/{npi:[0-9]+}", NpiHandler).Methods("GET")
-	router.HandleFunc("/api/sources", SourcesHandler).Methods("GET")
-	router.HandleFunc("/api/search/{source}", SearchSourceHandler).Methods("GET")
-	router.HandleFunc("/api/sources/{source}/{id}", ItemHandler).Methods("GET")
+	viper.SetConfigName("config")
+	viper.AddConfigPath("./")
+	err := viper.ReadInConfig()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
-  /*runtime.SetBlockProfileRate(1)
-	dr := router.PathPrefix("/debug/pprof").Subrouter()
-	dr.HandleFunc("/", pprof.Index)
-	dr.HandleFunc("/cmdline", pprof.Cmdline)
-	dr.HandleFunc("/profile", pprof.Profile)
-	dr.HandleFunc("/symbol", pprof.Symbol)
-	dr.HandleFunc("/block", pprof.Handler("block").ServeHTTP)
-	dr.HandleFunc("/heap", pprof.Handler("heap").ServeHTTP)
-	dr.HandleFunc("/goroutine", pprof.Handler("goroutine").ServeHTTP)
-	dr.HandleFunc("/threadcreate", pprof.Handler("threadcreate").ServeHTTP)*/
-
-	n := negroni.Classic()
-	n.UseHandler(router)
-	n.Run(":" + viper.GetString("bloomapiPort"))
+	switch arg {
+	case "server":
+		bloomapi.Server()
+	case "bootstrap":
+		bloomapi.Bootstrap()
+	case "drop":
+		bloomapi.Drop()
+	default:
+		fmt.Println("Invalid command:", arg)
+		showUsage()
+		os.Exit(1)
+	}
 }
