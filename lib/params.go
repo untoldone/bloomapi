@@ -9,13 +9,13 @@ import (
 type searchParams struct {
 	Offset uint64
 	Limit uint64
-	Phrases map[string]string
+	paramSets []*paramSet
 }
 
 type paramSet struct {
 	Key string
 	Op string
-	Value string
+	Values []string
 }
 
 func (p *paramSet) SetKey(key string) {
@@ -26,8 +26,8 @@ func (p *paramSet) SetOp(op string) {
 	p.Op = op
 }
 
-func (p *paramSet) SetValue(value string) {
-	p.Value = value
+func (p *paramSet) SetValues(values []string) {
+	p.Values = values
 }
 
 var keyRegexp = regexp.MustCompile("\\Akey(\\d+)\\z")
@@ -57,18 +57,10 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 		return nil, NewParamsError(message, paramsMap)
 	}
 
-	// No parameters can be specified multiple times
-	for key, values := range params {
-		if len(values) > 1 {
-			return nil, NewParamsError(key + " must not be repeated more than once", 
-																map[string]string {key:"must not be repeated more than once"})
-		}
-	}
-
 	// Ensure params in sets of key/op/value
 	//  and ensure no op is not 'eq' as it is the currently only support op
 	paramSets := map[string]*paramSet{}
-	for key, value := range params {
+	for key, values := range params {
 		if keyRegexp.MatchString(key) {
 			sub := keyRegexp.FindStringSubmatch(key)
 			index := sub[1]
@@ -77,7 +69,7 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 				paramSets[index] = &paramSet{}
 			}
 
-			paramSets[index].SetKey(value[0])
+			paramSets[index].SetKey(values[0])
 		}
 
 		if valueRegexp.MatchString(key) {
@@ -88,7 +80,7 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 				paramSets[index] = &paramSet{}
 			}
 
-			paramSets[index].SetValue(value[0])
+			paramSets[index].SetValues(values)
 		}
 
 		if opRegexp.MatchString(key) {
@@ -99,7 +91,7 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 				paramSets[index] = &paramSet{}
 			}
 
-			paramSets[index].SetOp(value[0])
+			paramSets[index].SetOp(values[0])
 		}
 	}
 
@@ -108,7 +100,7 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 			return nil, NewParamsError("one or more key/op/value sets are missing a key", map[string]string{})
 		}
 
-		if set.Value == "" {
+		if set.Values == nil || len(set.Values) == 0 {
 			return nil, NewParamsError("one or more key/op/value sets are missing a value", map[string]string{})
 		}
 
@@ -116,7 +108,7 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 			return nil, NewParamsError("one or more key/op/value sets are missing a op", map[string]string{})
 		}
 
-		if set.Op != "eq" {
+		if set.Op != "eq" && set.Op != "fuzzy" && set.Op != "prefix" {
 			return nil, NewParamsError("invalid operation " + set.Op, map[string]string{})
 		}
 	}
@@ -152,18 +144,20 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 		}
 	}
 
-	phrases := map[string]string{}
-	for _, param := range paramSets {
-		phrases[param.Key] = param.Value
-	}
-
 	if limitValue == 0 {
 		limitValue = 100
+	}
+
+	listSets := make([]*paramSet, len(paramSets))
+	i := 0
+	for _, v := range paramSets {
+		listSets[i] = v
+		i += 1
 	}
 
 	return &searchParams{
 			offsetValue,
 			limitValue,
-			phrases,
+			listSets,
 		}, nil
 }
