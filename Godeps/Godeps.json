@@ -94,8 +94,8 @@
 			"Rev": "77144270da4a139bc4554f0488514f4212312ac3"
 		},
 		{
-			"ImportPath": "github.com/untoldone/render",
-			"Rev": "a4de1863c64b5af45d4aca5269c8c5b979f88f6a"
+			"ImportPath": "github.com/unrolled/render",
+			"Rev": "bdfac4a8df10cc9dc03ee14ba2f655137fd70378"
 		},
 		{
 			"ImportPath": "github.com/xordataexchange/crypt/backend",
