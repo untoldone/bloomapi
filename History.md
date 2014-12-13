@@ -1,3 +1,12 @@
+0.2.1 / 2014-12-12
+==================
+
+  * Added CORS support
+  * Added prefix/fuzzy search options
+  * Added logical OR search option
+  * Fixed missing license_number_state field
+  * Fixed bloomapi go install failing silently
+
 0.2.0 / 2014-12-03
 ==================
 
