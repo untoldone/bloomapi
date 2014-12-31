@@ -40,6 +40,7 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 	for key, _ := range params {
 		if key != "limit" &&
 			 key != "offset" &&
+			 key != "callback" &&
 			 !keyRegexp.MatchString(key) &&
 			 !valueRegexp.MatchString(key) &&
 			 !opRegexp.MatchString(key) {
