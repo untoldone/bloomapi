@@ -3,13 +3,14 @@ package bloomapi
 import (
 	"net/http"
 	"encoding/json"
+	"strings"
 	"github.com/gorilla/mux"
 	"log"
 )
 
 func ItemHandler (w http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
-	source := vars["source"]
+	source := strings.ToLower(vars["source"])
 	id := vars["id"]
 
 	conn := bdb.SearchConnection()

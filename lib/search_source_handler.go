@@ -3,12 +3,13 @@ package bloomapi
 import (
 	"net/http"
 	"github.com/gorilla/mux"
+	"strings"
 	"log"
 )
 
 func SearchSourceHandler (w http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
-	source := vars["source"]
+	source := strings.ToLower(vars["source"])
 
 	params, err := parseParams(req.URL.Query())
 	if err != nil {
