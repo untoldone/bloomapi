@@ -2,6 +2,7 @@ package bloomapi
 
 import (
 	"fmt"
+	"net/http"
 	"github.com/gorilla/mux"
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/context"
@@ -36,6 +37,19 @@ func Server() {
 
 	n := negroni.Classic()
 	n.Use(negroni.HandlerFunc(preJSONP))
+	n.Use(negroni.HandlerFunc(func (rw http.ResponseWriter, req *http.Request, next http.HandlerFunc) {
+			vars := req.URL.Query()
+			secret := vars["secret"]
+
+			if len(secret) > 0 && secret[0] != "" {
+				renderJSON(rw, req, 401, map[string]string{
+					"name": "Unauthorized",
+					"message": "Please contact support@bloomapi.com if this is in error",
+				})
+			} else {
+				next(rw, req)
+			}
+		}))
 	n.UseHandler(context.ClearHandler(router))
 	n.Run(":" + viper.GetString("bloomapiPort"))
 }

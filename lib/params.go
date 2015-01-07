@@ -41,6 +41,7 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 		if key != "limit" &&
 			 key != "offset" &&
 			 key != "callback" &&
+			 key != "secret" &&
 			 !keyRegexp.MatchString(key) &&
 			 !valueRegexp.MatchString(key) &&
 			 !opRegexp.MatchString(key) {
