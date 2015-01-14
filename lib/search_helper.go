@@ -22,6 +22,12 @@ func phraseMatches (paramSets []*paramSet) []interface{} {
 						set.Key: value,
 					},
 				}
+			case "substring":
+				shouldValues[vIndex] = map[string]interface{} {
+					"wildcard": map[string]interface{} {
+						set.Key: "*" + value + "*",
+					},
+				}
 			case "prefix":
 				shouldValues[vIndex] = map[string]interface{} {
 					"prefix": map[string]interface{} {
