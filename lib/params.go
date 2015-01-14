@@ -110,7 +110,7 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 			return nil, NewParamsError("one or more key/op/value sets are missing a op", map[string]string{})
 		}
 
-		if set.Op != "eq" && set.Op != "fuzzy" && set.Op != "prefix" {
+		if set.Op != "eq" && set.Op != "fuzzy" && set.Op != "prefix" && set.Op != "substring" {
 			return nil, NewParamsError("invalid operation " + set.Op, map[string]string{})
 		}
 	}
