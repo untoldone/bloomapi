@@ -28,6 +28,38 @@ func phraseMatches (paramSets []*paramSet) []interface{} {
 						set.Key: value,
 					},
 				}
+			case "gte":
+				shouldValues[vIndex] = map[string]interface{} {
+					"range": map[string]interface{} {
+						set.Key: map[string]interface{} {
+							"gte": value,
+						},
+					},
+				}
+			case "gt":
+				shouldValues[vIndex] = map[string]interface{} {
+					"range": map[string]interface{} {
+						set.Key: map[string]interface{} {
+							"gt": value,
+						},
+					},
+				}
+			case "lte":
+				shouldValues[vIndex] = map[string]interface{} {
+					"range": map[string]interface{} {
+						set.Key: map[string]interface{} {
+							"lte": value,
+						},
+					},
+				}
+			case "lt":
+				shouldValues[vIndex] = map[string]interface{} {
+					"range": map[string]interface{} {
+						set.Key: map[string]interface{} {
+							"lt": value,
+						},
+					},
+				}
 			}
 		}
 
