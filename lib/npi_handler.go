@@ -13,7 +13,7 @@ func NpiHandler (w http.ResponseWriter, req *http.Request) {
 
 	conn := bdb.SearchConnection()
 
-	result, err := conn.Search("source", "npi", nil, map[string]interface{} {
+	result, err := conn.Search("source", "usgov.hhs.npi", nil, map[string]interface{} {
 			"query": map[string]interface{} {
 					"filtered": map[string]interface{} {
 						"filter": map[string]interface{} {

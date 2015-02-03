@@ -12,7 +12,7 @@ func SearchHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	results, err := search("npi", params)
+	results, err := search("usgov.hhs.npi", params)
 	if err != nil {
 		log.Println(err)
 		renderJSON(w, req, http.StatusInternalServerError, "Internal Server Error")

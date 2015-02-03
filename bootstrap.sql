@@ -1,8 +1,25 @@
-CREATE TABLE data_sources
+CREATE TABLE sources
 (
-  source character varying(50) NOT NULL,
-  updated timestamp without time zone,
-  checked timestamp without time zone,
-  status character varying(50),
-  CONSTRAINT data_sources_source_key UNIQUE (source)
+  id uuid,
+  name character varying(255),
+  checked timestamp,
+  CONSTRAINT sources_id_key UNIQUE (id)
+);
+
+CREATE TABLE source_versions
+(
+  id uuid,
+  source_id uuid,
+  version character varying(255),
+  CONSTRAINT source_versions_id_key UNIQUE (id)
+);
+CREATE INDEX ON source_versions (source_id);
+
+CREATE TABLE search_types
+(
+  id uuid,
+  name character varying(255),
+  last_updated timestamp,
+  last_checked timestamp,
+  CONSTRAINT search_types_id_key UNIQUE (id)
 );
