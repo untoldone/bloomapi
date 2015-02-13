@@ -18,8 +18,12 @@ func Server() {
 	bdb = bloomdb.CreateDB()
 	router := mux.NewRouter()
 
+	// For Backwards Compatibility Feb 13, 2015
 	router.HandleFunc("/api/search", SearchHandler).Methods("GET")
+	router.HandleFunc("/api/search/npi", SearchHandler).Methods("GET")
 	router.HandleFunc("/api/npis/{npi:[0-9]+}", NpiHandler).Methods("GET")
+	router.HandleFunc("/api/sources/npi/{npi:[0-9]+}", NpiHandler).Methods("GET")
+
 	router.HandleFunc("/api/sources", SourcesHandler).Methods("GET")
 	router.HandleFunc("/api/search/{source}", SearchSourceHandler).Methods("GET")
 	router.HandleFunc("/api/sources/{source}/{id}", ItemHandler).Methods("GET")

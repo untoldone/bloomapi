@@ -6,6 +6,15 @@ CREATE TABLE sources
   CONSTRAINT sources_id_key UNIQUE (id)
 );
 
+CREATE TABLE source_tables
+(
+  id uuid,
+  source_id uuid,
+  name character varying(64),
+  CONSTRAINT source_tables_id_key UNIQUE (id)
+);
+CREATE INDEX ON source_tables (source_id);
+
 CREATE TABLE source_versions
 (
   id uuid,

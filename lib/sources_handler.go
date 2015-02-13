@@ -35,6 +35,8 @@ func SourcesHandler (w http.ResponseWriter, req *http.Request) {
 		update time.Time
 		checked time.Time
 	)
+
+	var npiUpdated, npiChecked time.Time
 	sources := make([]dataSource, 0)
 	for rows.Next() {
 		err := rows.Scan(&source, &update, &checked)
@@ -44,8 +46,17 @@ func SourcesHandler (w http.ResponseWriter, req *http.Request) {
 			return
 		}
 
+		// Backcompat Feb 13, 2015
+		if source == "usgov.hhs.npi" {
+			npiUpdated = update
+			npiChecked = checked
+		}
+
 		sources = append(sources, dataSource{source, update, checked, "READY"})
 	}
+
+	// Backcompat Feb 13, 2015
+	sources = append(sources, dataSource{"NPI", npiUpdated, npiChecked, "READY"})
 
 	renderJSON(w, req, http.StatusOK, map[string][]dataSource{"result": sources})
 }
