@@ -14,9 +14,15 @@ func SearchHandler (w http.ResponseWriter, req *http.Request) {
 
 	results, err := search("usgov.hhs.npi", params)
 	if err != nil {
-		log.Println(err)
-		renderJSON(w, req, http.StatusInternalServerError, "Internal Server Error")
-		return
+		switch err.(type) {
+		case paramsError:
+			renderJSON(w, req, http.StatusBadRequest, err)
+			return
+		default:
+			log.Println(err)
+			renderJSON(w, req, http.StatusInternalServerError, "Internal Server Error")
+			return
+		}
 	}
 	
 	renderJSON(w, req, http.StatusOK, results)

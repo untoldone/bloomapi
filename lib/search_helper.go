@@ -2,7 +2,11 @@ package bloomapi
 
 import (
 	"encoding/json"
+	"regexp"
+	"github.com/mattbaird/elastigo/lib"
 )
+
+var esTypeExceptionRegex = regexp.MustCompile(`FormatException`)
 
 func phraseMatches (paramSets []*paramSet) []interface{} {
 	elasticPhrases := make([]interface{}, len(paramSets))
@@ -88,7 +92,16 @@ func search(sourceType string, params *searchParams) (map[string]interface{}, er
 
 	result, err := conn.Search("source", sourceType, nil, query)
 	if err != nil {
-		return nil, err
+		switch terr := err.(type) {
+		case elastigo.ESError:
+			if esTypeExceptionRegex.MatchString(terr.What) {
+				return nil, NewParamsError("one or more values were of an unexpected type", map[string]string{})
+			}	else {
+				return nil, err
+			}
+		default:
+			return nil, err
+		}
 	}
 
 	hits := make([]interface{}, len(result.Hits.Hits))
