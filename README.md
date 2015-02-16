@@ -10,7 +10,7 @@ For details on **contributing** see http://www.bloomapi.com/contribute
 
 ### Questions?
 
-Please post them to StackOverflow with the tag '[bloomapi](http://stackoverflow.com/questions/tagged/bloomapi)' 
+Please email [support@bloomapi.com](mailto:support@bloomapi.com). If you think your issue may be a bug, see *Issues* below.
 
 ### Issues?
 We use github issues to track problems and enhancement requests. If you have an issue or enhancement you'd like to see implemented, please open a new issue and we will sort it appropriately.
