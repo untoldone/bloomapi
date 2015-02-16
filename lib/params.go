@@ -60,7 +60,6 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 	}
 
 	// Ensure params in sets of key/op/value
-	//  and ensure no op is not 'eq' as it is the currently only support op
 	paramSets := map[string]*paramSet{}
 	for key, values := range params {
 		if keyRegexp.MatchString(key) {
@@ -103,6 +102,18 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 		}
 
 		if set.Values == nil || len(set.Values) == 0 {
+			return nil, NewParamsError("one or more key/op/value sets are missing a value", map[string]string{})
+		}
+
+		hasValue := false
+		for _, value := range set.Values {
+			if value != "" {
+				hasValue = true
+				break;
+			}
+		}
+
+		if !hasValue {
 			return nil, NewParamsError("one or more key/op/value sets are missing a value", map[string]string{})
 		}
 
