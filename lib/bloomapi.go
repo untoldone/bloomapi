@@ -40,7 +40,6 @@ func Server() {
 	dr.HandleFunc("/threadcreate", pprof.Handler("threadcreate").ServeHTTP)*/
 
 	n := negroni.Classic()
-	n.Use(negroni.HandlerFunc(preJSONP))
 	n.Use(negroni.HandlerFunc(func (rw http.ResponseWriter, req *http.Request, next http.HandlerFunc) {
 			vars := req.URL.Query()
 			secret := vars["secret"]
