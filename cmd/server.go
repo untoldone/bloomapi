@@ -15,16 +15,11 @@ func Server() {
 	port := viper.GetString("bloomapiPort")
 	n := negroni.Classic()
 
-	// Middleware setup
+	// Pre-Router Middleware setup
 	n.Use(middleware.NewAuthentication())
 
 	// Router setup
 	router := mux.NewRouter()
-
-	// Current API
-	router.HandleFunc("/api/sources", handler.SourcesHandler).Methods("GET")
-	router.HandleFunc("/api/search/{source}", handler.SearchSourceHandler).Methods("GET")
-	router.HandleFunc("/api/sources/{source}/{id}", handler.ItemHandler).Methods("GET")
 
 	// For Backwards Compatibility Feb 13, 2015
 	router.HandleFunc("/api/search", handler_compat.NpiSearchHandler).Methods("GET")
@@ -32,7 +27,15 @@ func Server() {
 	router.HandleFunc("/api/npis/{npi:[0-9]+}", handler_compat.NpiItemHandler).Methods("GET")
 	router.HandleFunc("/api/sources/npi/{npi:[0-9]+}", handler_compat.NpiItemHandler).Methods("GET")
 
+	// Current API
+	router.HandleFunc("/api/sources", handler.SourcesHandler).Methods("GET")
+	router.HandleFunc("/api/search/{source}", handler.SearchSourceHandler).Methods("GET")
+	router.HandleFunc("/api/sources/{source}/{id}", handler.ItemHandler).Methods("GET")
+
 	n.UseHandler(router)
+
+	// Post-Router Middleware setup
+	n.Use(middleware.NewClearContext())
 
 	log.Println("Running Server")
 	n.Run(":" + port)

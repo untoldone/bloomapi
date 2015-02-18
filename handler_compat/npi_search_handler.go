@@ -15,7 +15,7 @@ func NpiSearchHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	results, err := handler.Search("usgov.hhs.npi", params)
+	results, err := handler.Search("usgov.hhs.npi", params, req)
 	if err != nil {
 		switch err.(type) {
 		case api.ParamsError:

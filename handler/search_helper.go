@@ -1,8 +1,10 @@
 package handler
 
 import (
+	"fmt"
 	"encoding/json"
 	"regexp"
+	"net/http"
 	"github.com/mattbaird/elastigo/lib"
 
 	"github.com/untoldone/bloomapi/api"
@@ -10,7 +12,9 @@ import (
 
 var esTypeExceptionRegex = regexp.MustCompile(`FormatException`)
 
-func phraseMatches (paramSets []*SearchParamSet) []interface{} {
+var experimentalOperationMessage = "Warning: The operation, '%s', is currently in beta and is subject to change. If you'd like to be notified before changes to this functionality, email 'support@bloomapi.com' and ask for an API key referencing this message."
+
+func phraseMatches (paramSets []*SearchParamSet, r *http.Request) []interface{} {
 	elasticPhrases := make([]interface{}, len(paramSets))
 	for index, set := range paramSets {
 		shouldValues := make([]map[string]interface{}, len(set.Values))
@@ -23,12 +27,14 @@ func phraseMatches (paramSets []*SearchParamSet) []interface{} {
 					},
 				}
 			case "fuzzy":
+				api.AddMessage(r, fmt.Sprintf(experimentalOperationMessage, "fuzzy"))
 				shouldValues[vIndex] = map[string]interface{} {
 					"fuzzy": map[string]interface{} {
 						set.Key: value,
 					},
 				}
 			case "prefix":
+				api.AddMessage(r, fmt.Sprintf(experimentalOperationMessage, "prefix"))
 				shouldValues[vIndex] = map[string]interface{} {
 					"prefix": map[string]interface{} {
 						set.Key: value,
@@ -79,15 +85,22 @@ func phraseMatches (paramSets []*SearchParamSet) []interface{} {
 	return elasticPhrases
 }
 
-func Search(sourceType string, params *SearchParams) (map[string]interface{}, error) {
+func Search(sourceType string, params *SearchParams, r *http.Request) (map[string]interface{}, error) {
 	conn := api.Conn().SearchConnection()
+
+	if sourceType != "usgov.hhs.npi" {
+		api.AddMessage(r, "Warning: Use the dataset, '" + sourceType + "', without an API key is for development-use only. Use of this API without a key may be rate-limited in the future. For hosted, production access, please email 'support@bloomapi.com' for an API key.")
+		api.AddMessage(r, "Warning: The dataset, '" + sourceType + "', is currently in beta and is subject to change. If you'd like to be notified before changes to this dataset, email 'support@bloomapi.com' and ask for an API key referencing this message.")
+	}
+
+	matches := phraseMatches(params.paramSets, r)
 
 	query := map[string]interface{} {
 			"from": params.Offset,
 			"size": params.Limit,
 			"query": map[string]interface{} {
 				"bool": map[string]interface{} {
-					"must": phraseMatches(params.paramSets),
+					"must": matches,
 				},
 			},
 		}
