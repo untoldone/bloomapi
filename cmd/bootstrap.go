@@ -1,4 +1,27 @@
-CREATE TABLE sources
+package cmd
+
+import (
+	"log"
+	"github.com/gocodo/bloomdb"
+)
+
+func Bootstrap() {
+	bdb := bloomdb.CreateDB()
+
+	conn, err := bdb.SqlConnection()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer conn.Close()
+
+	_, err = conn.Exec(bootstrapSql)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+var bootstrapSql =
+`CREATE TABLE sources
 (
   id uuid,
   name character varying(255),
@@ -31,4 +54,4 @@ CREATE TABLE search_types
   last_updated timestamp,
   last_checked timestamp,
   CONSTRAINT search_types_id_key UNIQUE (id)
-);
+);`

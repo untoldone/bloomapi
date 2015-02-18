@@ -1,9 +1,11 @@
-package bloomapi
+package handler
 
 import (
 	"net/http"
 	"time"
 	"log"
+
+	"github.com/untoldone/bloomapi/api"
 )
 
 type dataSource struct {
@@ -15,17 +17,17 @@ type dataSource struct {
 
 func SourcesHandler (w http.ResponseWriter, req *http.Request) {
 
-	conn, err := bdb.SqlConnection()
+	conn, err := api.Conn().SqlConnection()
 	if err != nil {
 		log.Println(err)
-		renderJSON(w, req, http.StatusInternalServerError, "Internal Server Error")
+		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
 
 	rows, err := conn.Query("SELECT name, last_updated, last_checked FROM search_types")
 	if err != nil {
 		log.Println(err)
-		renderJSON(w, req, http.StatusInternalServerError, "Internal Server Error")
+		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
 	defer rows.Close()
@@ -42,7 +44,7 @@ func SourcesHandler (w http.ResponseWriter, req *http.Request) {
 		err := rows.Scan(&source, &update, &checked)
 		if err != nil {
 			log.Println(err)
-			renderJSON(w, req, http.StatusInternalServerError, "Internal Server Error")
+			api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 			return
 		}
 
@@ -58,5 +60,5 @@ func SourcesHandler (w http.ResponseWriter, req *http.Request) {
 	// Backcompat Feb 13, 2015
 	sources = append(sources, dataSource{"NPI", npiUpdated, npiChecked, "READY"})
 
-	renderJSON(w, req, http.StatusOK, map[string][]dataSource{"result": sources})
+	api.Render(w, req, http.StatusOK, map[string][]dataSource{"result": sources})
 }

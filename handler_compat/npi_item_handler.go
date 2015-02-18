@@ -1,17 +1,19 @@
-package bloomapi
+package handler_compat
 
 import (
 	"net/http"
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"log"
+
+	"github.com/untoldone/bloomapi/api"
 )
 
-func NpiHandler (w http.ResponseWriter, req *http.Request) {
+func NpiItemHandler (w http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	npi := vars["npi"]
 
-	conn := bdb.SearchConnection()
+	conn := api.Conn().SearchConnection()
 
 	result, err := conn.Search("source", "usgov.hhs.npi", nil, map[string]interface{} {
 			"query": map[string]interface{} {
@@ -26,12 +28,12 @@ func NpiHandler (w http.ResponseWriter, req *http.Request) {
 		})
 	if err != nil {
 		log.Println(err)
-		renderJSON(w, req, http.StatusInternalServerError, "Internal Server Error")
+		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
 
 	if result.Hits.Total == 0 {
-		renderJSON(w, req, http.StatusNotFound, "npi not found")
+		api.Render(w, req, http.StatusNotFound, "npi not found")
 		return
 	} else {
 		hits := make([]interface{}, len(result.Hits.Hits))
@@ -42,9 +44,9 @@ func NpiHandler (w http.ResponseWriter, req *http.Request) {
 		}
 
 		body := map[string]interface{} {"result": hits[0]}
-		keysToStrings(body)
+		valuesToStrings(body)
 
-		renderJSON(w, req, http.StatusOK, body)
+		api.Render(w, req, http.StatusOK, body)
 		return
 	}
 }

@@ -4,7 +4,7 @@ import (
 	"os"
 	"fmt"
 	"github.com/spf13/viper"
-	"github.com/untoldone/bloomapi/lib"
+	"github.com/untoldone/bloomapi/cmd"
 )
 
 func showUsage() {
@@ -35,11 +35,11 @@ func main() {
 
 	switch arg {
 	case "server":
-		bloomapi.Server()
+		cmd.Server()
 	case "bootstrap":
-		bloomapi.Bootstrap()
+		cmd.Bootstrap()
 	case "drop":
-		bloomapi.Drop()
+		cmd.Drop()
 	default:
 		fmt.Println("Invalid command:", arg)
 		showUsage()

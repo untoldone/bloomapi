@@ -1,32 +1,34 @@
-package bloomapi
+package handler
 
 import (
 	"regexp"
 	"strings"
 	"strconv"
+
+	"github.com/untoldone/bloomapi/api"
 )
 
-type searchParams struct {
+type SearchParams struct {
 	Offset uint64
 	Limit uint64
-	paramSets []*paramSet
+	paramSets []*SearchParamSet
 }
 
-type paramSet struct {
+type SearchParamSet struct {
 	Key string
 	Op string
 	Values []string
 }
 
-func (p *paramSet) SetKey(key string) {
+func (p *SearchParamSet) SetKey(key string) {
 	p.Key = key
 }
 
-func (p *paramSet) SetOp(op string) {
+func (p *SearchParamSet) SetOp(op string) {
 	p.Op = op
 }
 
-func (p *paramSet) SetValues(values []string) {
+func (p *SearchParamSet) SetValues(values []string) {
 	p.Values = values
 }
 
@@ -34,7 +36,7 @@ var keyRegexp = regexp.MustCompile("\\Akey(\\d+)\\z")
 var valueRegexp = regexp.MustCompile("\\Avalue(\\d+)\\z")
 var opRegexp = regexp.MustCompile("\\Aop(\\d+)\\z")
 
-func parseParams (params map[string][]string) (*searchParams, error) {
+func ParseSearchParams(params map[string][]string) (*SearchParams, error) {
 	// Ensure no unknown parameters
 	unknown := make([]string, 0)
 	for key, _ := range params {
@@ -56,18 +58,18 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 			paramsMap[key] = "is an unknown parameter"
 		}
 
-		return nil, NewParamsError(message, paramsMap)
+		return nil, api.NewParamsError(message, paramsMap)
 	}
 
 	// Ensure params in sets of key/op/value
-	paramSets := map[string]*paramSet{}
+	paramSets := map[string]*SearchParamSet{}
 	for key, values := range params {
 		if keyRegexp.MatchString(key) {
 			sub := keyRegexp.FindStringSubmatch(key)
 			index := sub[1]
 			_, ok := paramSets[index]
 			if !ok {
-				paramSets[index] = &paramSet{}
+				paramSets[index] = &SearchParamSet{}
 			}
 
 			paramSets[index].SetKey(values[0])
@@ -78,7 +80,7 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 			index := sub[1]
 			_, ok := paramSets[index]
 			if !ok {
-				paramSets[index] = &paramSet{}
+				paramSets[index] = &SearchParamSet{}
 			}
 
 			paramSets[index].SetValues(values)
@@ -89,7 +91,7 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 			index := sub[1]
 			_, ok := paramSets[index]
 			if !ok {
-				paramSets[index] = &paramSet{}
+				paramSets[index] = &SearchParamSet{}
 			}
 
 			paramSets[index].SetOp(values[0])
@@ -98,11 +100,11 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 
 	for _, set := range paramSets {
 		if set.Key == "" {
-			return nil, NewParamsError("one or more key/op/value sets are missing a key", map[string]string{})
+			return nil, api.NewParamsError("one or more key/op/value sets are missing a key", map[string]string{})
 		}
 
 		if set.Values == nil || len(set.Values) == 0 {
-			return nil, NewParamsError("one or more key/op/value sets are missing a value", map[string]string{})
+			return nil, api.NewParamsError("one or more key/op/value sets are missing a value", map[string]string{})
 		}
 
 		hasValue := false
@@ -114,11 +116,11 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 		}
 
 		if !hasValue {
-			return nil, NewParamsError("one or more key/op/value sets are missing a value", map[string]string{})
+			return nil, api.NewParamsError("one or more key/op/value sets are missing a value", map[string]string{})
 		}
 
 		if set.Op == "" {
-			return nil, NewParamsError("one or more key/op/value sets are missing a op", map[string]string{})
+			return nil, api.NewParamsError("one or more key/op/value sets are missing a op", map[string]string{})
 		}
 
 		if set.Op != "eq" &&
@@ -128,7 +130,7 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 				set.Op != "gt" &&
 				set.Op != "lte" &&
 				set.Op != "lt" {
-			return nil, NewParamsError("invalid operation " + set.Op, map[string]string{})
+			return nil, api.NewParamsError("invalid operation " + set.Op, map[string]string{})
 		}
 	}
 
@@ -138,7 +140,7 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 	if offset, ok := params["offset"]; ok {
 		offsetValue, err = strconv.ParseUint(offset[0], 0, 64)
 		if err != nil {
-			return nil, NewParamsError("offset must be a positive number", 
+			return nil, api.NewParamsError("offset must be a positive number", 
 																map[string]string{"offset": "must be a positive number"})
 		}
 	}
@@ -147,13 +149,13 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 	if limit, ok := params["limit"]; ok {
 		limitValue, err = strconv.ParseUint(limit[0], 0, 64)
 		if err != nil {
-			return nil, NewParamsError("limit must be a positive number", 
+			return nil, api.NewParamsError("limit must be a positive number", 
 																map[string]string{"limit": "must be a positive number"})
 		}
 
 		// Ensure limit is less than 100
 		if limitValue > 100 {
-			return nil, NewParamsError("limit must be less than 100", 
+			return nil, api.NewParamsError("limit must be less than 100", 
 																map[string]string{"limit": "must less than 100"})
 		}
 	}
@@ -162,14 +164,14 @@ func parseParams (params map[string][]string) (*searchParams, error) {
 		limitValue = 100
 	}
 
-	listSets := make([]*paramSet, len(paramSets))
+	listSets := make([]*SearchParamSet, len(paramSets))
 	i := 0
 	for _, v := range paramSets {
 		listSets[i] = v
 		i += 1
 	}
 
-	return &searchParams{
+	return &SearchParams{
 			offsetValue,
 			limitValue,
 			listSets,

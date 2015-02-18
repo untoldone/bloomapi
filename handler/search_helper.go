@@ -1,14 +1,16 @@
-package bloomapi
+package handler
 
 import (
 	"encoding/json"
 	"regexp"
 	"github.com/mattbaird/elastigo/lib"
+
+	"github.com/untoldone/bloomapi/api"
 )
 
 var esTypeExceptionRegex = regexp.MustCompile(`FormatException`)
 
-func phraseMatches (paramSets []*paramSet) []interface{} {
+func phraseMatches (paramSets []*SearchParamSet) []interface{} {
 	elasticPhrases := make([]interface{}, len(paramSets))
 	for index, set := range paramSets {
 		shouldValues := make([]map[string]interface{}, len(set.Values))
@@ -77,8 +79,8 @@ func phraseMatches (paramSets []*paramSet) []interface{} {
 	return elasticPhrases
 }
 
-func search(sourceType string, params *searchParams) (map[string]interface{}, error) {
-	conn := bdb.SearchConnection()
+func Search(sourceType string, params *SearchParams) (map[string]interface{}, error) {
+	conn := api.Conn().SearchConnection()
 
 	query := map[string]interface{} {
 			"from": params.Offset,
@@ -95,7 +97,7 @@ func search(sourceType string, params *searchParams) (map[string]interface{}, er
 		switch terr := err.(type) {
 		case elastigo.ESError:
 			if esTypeExceptionRegex.MatchString(terr.What) {
-				return nil, NewParamsError("one or more values were of an unexpected type", map[string]string{})
+				return nil, api.NewParamsError("one or more values were of an unexpected type", map[string]string{})
 			}	else {
 				return nil, err
 			}
@@ -117,8 +119,6 @@ func search(sourceType string, params *searchParams) (map[string]interface{}, er
 			},
 			"result": hits,
 		}
-
-	keysToStrings(cleanedResult)
 
 	return cleanedResult, nil;
 }

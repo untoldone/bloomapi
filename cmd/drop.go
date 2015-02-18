@@ -1,28 +1,27 @@
-package bloomapi
+package cmd
 
 import (
 	"log"
-	"io/ioutil"
 	"github.com/gocodo/bloomdb"
 )
 
 func Drop() {
 	bloomdb := bloomdb.CreateDB()
 
-	file, err := ioutil.ReadFile("drop.sql")
-	if err != nil {
-		log.Fatal("Failed to read file.", err)
-	}
-
-	metaSql := string(file[:])
 	conn, err := bloomdb.SqlConnection()
 	if err != nil {
 		log.Fatal("Failed to get database connection.", err)
 	}
 	defer conn.Close()
 
-	_, err = conn.Exec(metaSql)
+	_, err = conn.Exec(dropSql)
 	if err != nil {
 		log.Fatal("Failed to create metadata tables.", err)
 	}
 }
+
+var dropSql =
+`DROP TABLE IF EXISTS sources;
+DROP TABLE IF EXISTS source_tables;
+DROP TABLE IF EXISTS source_versions;
+DROP TABLE IF EXISTS search_types;`
