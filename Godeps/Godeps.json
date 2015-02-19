@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/untoldone/bloomapi",
-	"GoVersion": "go1.3.1",
+	"GoVersion": "go1.4.1",
 	"Deps": [
 		{
 			"ImportPath": "code.google.com/p/go.crypto/cast5",
@@ -45,7 +45,8 @@
 		},
 		{
 			"ImportPath": "github.com/gocodo/bloomdb",
-			"Rev": "7fd53843832e4c2890633d712993c0abdcef15d1"
+			"Comment": "v0.0.2",
+			"Rev": "152299c1d6cd29a7822fbb9f33165ae818ab6a4c"
 		},
 		{
 			"ImportPath": "github.com/gorilla/context",
@@ -66,12 +67,13 @@
 		},
 		{
 			"ImportPath": "github.com/lib/pq",
-			"Rev": "e31e9d09fa0cd168dd1a45ddb1dff76f1f55512a"
+			"Comment": "go1.0-cutoff-20-g308412e",
+			"Rev": "308412e3e54d78c6411b1d5ef52c0660b921c81b"
 		},
 		{
 			"ImportPath": "github.com/mattbaird/elastigo/lib",
-			"Comment": "v1.0-89-gc57bd86",
-			"Rev": "c57bd86150f509f81adf5ce758c5dcbe44144485"
+			"Comment": "v1.0-135-g18f936b",
+			"Rev": "18f936bf0c4d2e52e9d5a697e0e77ded7a685cb6"
 		},
 		{
 			"ImportPath": "github.com/mitchellh/mapstructure",
