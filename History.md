@@ -1,7 +1,16 @@
+0.2.2 / 2015-02-18
+==================
+
+  * Added multiple datasource including PECOS, HCPCS, NUCC Taxonomy codes
+  * Added gt/lt/gte/lte search options
+  * Added new query endpoints
+  * Fixes handling unexpected types in queries
+  * Fixes handling blank queries
+
 0.2.1 / 2014-12-12
 ==================
 
-  * Added CORS support
+  * Added JSONP support
   * Added prefix/fuzzy search options
   * Added logical OR search option
   * Fixed missing license_number_state field
