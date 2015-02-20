@@ -3,6 +3,7 @@ package handler
 import (
 	"net/http"
 	"github.com/gorilla/mux"
+	"github.com/gorilla/context"
 	"strings"
 	"log"
 
@@ -13,12 +14,22 @@ func SearchSourceHandler (w http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	source := strings.ToLower(vars["source"])
 
-	if !validElasticSearchRegexp.MatchString(source) {
-		api.Render(w, req, http.StatusOK, map[string]interface{}{
-			"meta": map[string]interface{}{
-				"rowCount": 0,
-			},
-			"result": []string{},
+	conn := api.Conn()
+	apiKey, ok := context.Get(req, "api_key").(string)
+	if !ok {
+		apiKey = ""
+	}
+
+	_, ok, err := conn.SearchTypeWithNameAndKey(source, apiKey)
+	if err != nil {
+		log.Println(err)
+		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
+		return
+	}
+	if !ok {
+		api.Render(w, req, 404, map[string]string{
+			"name": "Source Not Found",
+			"message": "Please contact support@bloomapi.com if this is in error",
 		})
 		return
 	}

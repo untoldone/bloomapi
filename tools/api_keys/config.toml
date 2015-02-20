@@ -1,0 +1,5 @@
+sqlConnStr = "postgres://postgres:postgres@localhost/bloomapi?sslmode=disable"
+searchHosts = [
+  "localhost"
+]
+bloomapiPort = 3005
