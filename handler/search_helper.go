@@ -13,6 +13,7 @@ import (
 var esTypeExceptionRegex = regexp.MustCompile(`FormatException`)
 
 var experimentalOperationMessage = "Warning: This query used the experimental operation, '%s'. To ensure you're notified in case breaking changes need to be made, email support@bloomapi.com and ask for an API key"
+var experimentalSort = "Warning: This query used the experimental features, 'sort'. To ensure you're notified in case breaking changes need to be made, email support@bloomapi.com and ask for an API key"
 
 func phraseMatches (paramSets []*SearchParamSet, r *http.Request) []interface{} {
 	elasticPhrases := make([]interface{}, len(paramSets))
@@ -95,6 +96,11 @@ func Search(sourceType string, params *SearchParams, r *http.Request) (map[strin
 
 	matches := phraseMatches(params.paramSets, r)
 
+	var order = "asc"
+	if params.Order != "" {
+		order = params.Order
+	}
+
 	query := map[string]interface{} {
 			"from": params.Offset,
 			"size": params.Limit,
@@ -104,6 +110,16 @@ func Search(sourceType string, params *SearchParams, r *http.Request) (map[strin
 				},
 			},
 		}
+
+	if params.Sort != "" {
+		query["sort"] = map[string]interface{} {
+			params.Sort: map[string]interface{} {
+				"order": order,
+			},
+		}
+
+		api.AddMessage(r, experimentalSort)
+	}
 
 	result, err := conn.Search("source", sourceType, nil, query)
 	if err != nil {

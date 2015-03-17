@@ -11,6 +11,8 @@ import (
 type SearchParams struct {
 	Offset uint64
 	Limit uint64
+	Sort string
+	Order string
 	paramSets []*SearchParamSet
 }
 
@@ -44,6 +46,8 @@ func ParseSearchParams(params map[string][]string) (*SearchParams, error) {
 			 key != "offset" &&
 			 key != "callback" &&
 			 key != "secret" &&
+			 key != "order" &&
+			 key != "sort" &&
 			 !keyRegexp.MatchString(key) &&
 			 !valueRegexp.MatchString(key) &&
 			 !opRegexp.MatchString(key) {
@@ -160,6 +164,23 @@ func ParseSearchParams(params map[string][]string) (*SearchParams, error) {
 		}
 	}
 
+	var sort, order string
+	if sortList, ok := params["sort"]; ok {
+		if orderList, ok := params["order"]; ok {
+			if orderList[0] != "desc" && orderList[0] != "asc" {
+				return nil, api.NewParamsError("order must be 'asc' or 'desc'", map[string]string{"order": "must be 'asc' or 'desc'"})
+			}
+
+			order = orderList[0]
+		}
+
+		sort = sortList[0]
+	} else {
+		if _, ok := params["order"]; ok {
+			return nil, api.NewParamsError("order may not be present without sort", map[string]string{"order": "may not be present without 'sort'"})
+		}
+	}
+
 	if limitValue == 0 {
 		limitValue = 100
 	}
@@ -172,8 +193,10 @@ func ParseSearchParams(params map[string][]string) (*SearchParams, error) {
 	}
 
 	return &SearchParams{
-			offsetValue,
-			limitValue,
-			listSets,
+			Offset: offsetValue,
+			Limit: limitValue,
+			Sort: sort,
+			Order: order,
+			paramSets: listSets,
 		}, nil
 }
