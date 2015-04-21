@@ -2,6 +2,7 @@ BloomAPI
 ========
 
 [![Join the chat at https://gitter.im/untoldone/bloomapi](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/untoldone/bloomapi?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 BloomAPI is a set of libraries and executables to translate existing datasources into performant APIs. A public deployment of BloomAPI as well as more information can be found at http://www.bloomapi.com.
 
 The public deployment of BloomAPI currently hosts an updated mirror of the [NPI Data Dissemination](http://nppes.viva-it.com/NPI_Files.html) as an example, but production ready, datasource.
