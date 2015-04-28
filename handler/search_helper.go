@@ -121,7 +121,7 @@ func Search(sourceType string, params *SearchParams, r *http.Request) (map[strin
 		api.AddMessage(r, experimentalSort)
 	}
 
-	result, err := conn.Search("source", sourceType, nil, query)
+	result, err := conn.Search(sourceType, "main", nil, query)
 	if err != nil {
 		switch terr := err.(type) {
 		case elastigo.ESError:

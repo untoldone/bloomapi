@@ -15,7 +15,7 @@ func NpiItemHandler (w http.ResponseWriter, req *http.Request) {
 
 	conn := api.Conn().SearchConnection()
 
-	result, err := conn.Search("source", "usgov.hhs.npi", nil, map[string]interface{} {
+	result, err := conn.Search("usgov.hhs.npi", "main", nil, map[string]interface{} {
 			"query": map[string]interface{} {
 					"filtered": map[string]interface{} {
 						"filter": map[string]interface{} {

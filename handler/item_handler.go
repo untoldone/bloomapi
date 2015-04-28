@@ -56,7 +56,7 @@ func ItemHandler (w http.ResponseWriter, req *http.Request) {
 		api.AddMessage(req, "Warning: This query used the experimental dataset, '" + source + "'. To ensure you're notified in case breaking changes need to be made, email support@bloomapi.com and ask for an API key.")
 	}
 
-	result, err := searchConn.Get("source", source, id, nil)
+	result, err := searchConn.Get(source, "main", id, nil)
 	if err != nil && err.Error() == elastigo.RecordNotFound.Error() {
 		api.Render(w, req, http.StatusNotFound, "item not found")
 		return
