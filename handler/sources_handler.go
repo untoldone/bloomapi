@@ -31,23 +31,23 @@ func SourcesHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	sources := make([]dataSource, len(searchTypes))
-	for i, searchType := range searchTypes {
-		sources[i] = dataSource{
-			Source: searchType.Name,
-			Updated: searchType.LastUpdated,
-			Checked: searchType.LastChecked,
-			Status: "READY",
-		}
-
-		// Backcompat Feb 13, 2015
-		if searchType.Name == "usgov.hhs.npi" {
-			sources[i] = dataSource{
-				Source: "NPI",
+	sources := []dataSource{}
+	for _, searchType := range searchTypes {
+		sources = append(sources, dataSource{
+				Source: searchType.Name,
 				Updated: searchType.LastUpdated,
 				Checked: searchType.LastChecked,
 				Status: "READY",
-			}
+			})
+
+		// Backcompat Feb 13, 2015
+		if searchType.Name == "usgov.hhs.npi" {
+			sources = append(sources, dataSource{
+					Source: "NPI",
+					Updated: searchType.LastUpdated,
+					Checked: searchType.LastChecked,
+					Status: "READY",
+				})
 		}
 	}
 
