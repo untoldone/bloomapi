@@ -30,7 +30,7 @@ func Create() error {
 	createdAt := time.Now().UTC()
 	key_id := bloomdb.MakeKey(key)
 
-	_, err = conn.Exec("INSERT INTO api_keys (id, key, created_at) VALUES ($1, $2, $3)", key_id, key, createdAt)
+	_, err = conn.Exec("INSERT INTO api_keys (id, key, created_at, updated_at) VALUES ($1, $2, $3, $3)", key_id, key, createdAt)
 	if err != nil {
 		return err
 	}
