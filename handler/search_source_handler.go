@@ -36,6 +36,7 @@ func SearchSourceHandler (w http.ResponseWriter, req *http.Request) {
 
 	params, err := ParseSearchParams(req.URL.Query())
 	if err != nil {
+		log.Println(err)
 		api.Render(w, req, http.StatusBadRequest, err)
 		return
 	}
