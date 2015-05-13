@@ -19,7 +19,9 @@ type dataSource struct {
 func SourcesHandler (w http.ResponseWriter, req *http.Request) {
 	conn := api.Conn()
 	apiKey, ok := context.Get(req, "api_key").(string)
-	log.Println(apiKey)
+
+	api.AddFeature(req, "handler:sources")
+
 	if !ok {
 		apiKey = ""
 	}

@@ -3,6 +3,8 @@ package main
 import (
 	"os"
 	"fmt"
+	"log"
+	"log/syslog"
 	"github.com/spf13/viper"
 	"github.com/untoldone/bloomapi/cmd"
 )
@@ -30,6 +32,21 @@ func main() {
 	err := viper.ReadInConfig()
 	if err != nil {
 		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	logStyle := viper.GetString("generalLogger")
+	switch logStyle {
+	case "syslog":
+		logwriter, e := syslog.New(syslog.LOG_NOTICE, "bloomapi")
+		if e != nil {
+			fmt.Println("Error initializing syslog")
+			os.Exit(1)
+		}
+		log.SetOutput(logwriter)
+	case "stdout":
+	default:
+		fmt.Println("Invalid logger:", logStyle, "please select 'syslog' or 'stdout'")
 		os.Exit(1)
 	}
 

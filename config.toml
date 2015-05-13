@@ -3,3 +3,5 @@ searchHosts = [
   "localhost"
 ]
 bloomapiPort = 3005
+statsLogger = "syslog" # values can be: 'syslog' or 'stdout'
+generalLogger = "syslog"

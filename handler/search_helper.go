@@ -19,6 +19,7 @@ func phraseMatches (paramSets []*SearchParamSet, r *http.Request) []interface{} 
 	elasticPhrases := make([]interface{}, len(paramSets))
 	for index, set := range paramSets {
 		shouldValues := make([]map[string]interface{}, len(set.Values))
+		api.AddFeature(r, "op:" + set.Op)
 		for vIndex, value := range set.Values {
 			switch (set.Op) {
 			case "eq":
@@ -118,6 +119,8 @@ func Search(sourceType string, params *SearchParams, r *http.Request) (map[strin
 			},
 		}
 
+
+		api.AddFeature(r, "sort")
 		api.AddMessage(r, experimentalSort)
 	}
 

@@ -13,6 +13,9 @@ func NpiItemHandler (w http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	npi := vars["npi"]
 
+	api.AddFeature(req, "usgov.hhs.npi")
+	api.AddFeature(req, "handler:legacynpi:item")
+
 	conn := api.Conn().SearchConnection()
 
 	result, err := conn.Search("usgov.hhs.npi", "main", nil, map[string]interface{} {

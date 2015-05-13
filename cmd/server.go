@@ -20,6 +20,7 @@ func Server() {
 
 	// Router setup
 	router := mux.NewRouter()
+	router.KeepContext = true
 
 	// For Backwards Compatibility Feb 13, 2015
 	router.HandleFunc("/api/search", handler_compat.NpiSearchHandler).Methods("GET")
@@ -35,6 +36,7 @@ func Server() {
 	n.UseHandler(router)
 
 	// Post-Router Middleware setup
+	n.Use(middleware.NewRecordFeatures())
 	n.Use(middleware.NewClearContext())
 
 	log.Println("Running Server")

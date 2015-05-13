@@ -14,6 +14,9 @@ func SearchSourceHandler (w http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	source := strings.ToLower(vars["source"])
 
+	api.AddFeature(req, source)
+	api.AddFeature(req, "handler:search")
+
 	conn := api.Conn()
 	apiKey, ok := context.Get(req, "api_key").(string)
 	if !ok {
