@@ -15,6 +15,8 @@ func showUsage() {
 	fmt.Println("api_keys delete <key>                   # Remove a specific key")
 	fmt.Println("api_keys associate <key> <search_type>  # allow a key to access a search_type")
 	fmt.Println("api_keys dissociate <key> <search_type> # disallow a key to access a search_type")
+	fmt.Println("api_keys grant-yourchart <key>          # grant access to yourchart")
+	fmt.Println("api_keys revoke-yourchart <key>         # revoke access to yourchart")
 }
 
 func main() {
@@ -83,6 +85,34 @@ func main() {
 		err := cmd.Dissociate(key, searchType)
 		if err != nil {
 			fmt.Println("Failed to Dissociate:", err)
+			os.Exit(1)
+		}
+	case "grant-yourchart":
+		if (len(os.Args) != 3) {
+			fmt.Println("Invalid command usage\n")
+			showUsage()
+			os.Exit(1)
+		}
+
+		key := os.Args[2]
+
+		err := cmd.GrantYourchart(key)
+		if err != nil {
+			fmt.Println("Failed to Grant Yourchart:", err)
+			os.Exit(1)
+		}
+	case "revoke-yourchart":
+		if (len(os.Args) != 3) {
+			fmt.Println("Invalid command usage\n")
+			showUsage()
+			os.Exit(1)
+		}
+
+		key := os.Args[2]
+
+		err := cmd.RevokeYourchart(key)
+		if err != nil {
+			fmt.Println("Failed to Revoke Yourchart:", err)
 			os.Exit(1)
 		}
 	default:

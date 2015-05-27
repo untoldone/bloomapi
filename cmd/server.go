@@ -33,6 +33,10 @@ func Server() {
 	router.HandleFunc("/api/search/{source}", handler.SearchSourceHandler).Methods("GET")
 	router.HandleFunc("/api/sources/{source}/{id}", handler.ItemHandler).Methods("GET")
 
+	// Patient API
+	router.HandleFunc("/api/yourchart", handler.YourChartCreateHandler).Methods("POST")
+	router.HandleFunc("/api/yourchart/{id}", handler.YourChartFetchHandler).Methods("GET")
+
 	n.UseHandler(router)
 
 	// Post-Router Middleware setup
