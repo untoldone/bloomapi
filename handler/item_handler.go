@@ -20,9 +20,6 @@ func ItemHandler (w http.ResponseWriter, req *http.Request) {
 	source := strings.ToLower(vars["source"])
 	id := vars["id"]
 
-	api.AddFeature(req, "handler:item")
-	api.AddFeature(req, source)
-
 	bloomConn := api.Conn()
 	searchConn := bloomConn.SearchConnection()
 
@@ -78,6 +75,9 @@ func ItemHandler (w http.ResponseWriter, req *http.Request) {
 	}
 
 	body := map[string]interface{} { "result": found }
+
+	api.AddFeature(req, "handler:item")
+	api.AddFeature(req, source)
 
 	api.Render(w, req, http.StatusOK, body)
 	return

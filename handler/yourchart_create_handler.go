@@ -11,8 +11,6 @@ import (
 	"github.com/gorilla/context"
 	"github.com/spf13/viper"
 	"github.com/untoldone/bloomapi/api"
-
-	"fmt"
 )
 
 func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
@@ -37,8 +35,6 @@ func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 		})
 		return
 	}
-
-	api.AddFeature(req, "handler:yourchart:create")
 
 	postResp, err := http.PostForm(yourchartUrl, url.Values{
 			"username": {username},
@@ -74,14 +70,14 @@ func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	fmt.Println(jobId)
-
 	err = YourchartAuthorize(apiKey, jobId)
 	if err != nil {
 		log.Println(err)
 		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
+
+	api.AddFeature(req, "handler:yourchart:create")
 
 	api.Render(w, req, http.StatusOK, decoded)
 }

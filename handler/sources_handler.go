@@ -20,8 +20,6 @@ func SourcesHandler (w http.ResponseWriter, req *http.Request) {
 	conn := api.Conn()
 	apiKey, ok := context.Get(req, "api_key").(string)
 
-	api.AddFeature(req, "handler:sources")
-
 	if !ok {
 		apiKey = ""
 	}
@@ -52,6 +50,8 @@ func SourcesHandler (w http.ResponseWriter, req *http.Request) {
 				})
 		}
 	}
+
+	api.AddFeature(req, "handler:sources")
 
 	api.Render(w, req, http.StatusOK, map[string][]dataSource{"result": sources})
 }

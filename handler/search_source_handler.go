@@ -14,9 +14,6 @@ func SearchSourceHandler (w http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	source := strings.ToLower(vars["source"])
 
-	api.AddFeature(req, source)
-	api.AddFeature(req, "handler:search")
-
 	conn := api.Conn()
 	apiKey, ok := context.Get(req, "api_key").(string)
 	if !ok {
@@ -50,6 +47,9 @@ func SearchSourceHandler (w http.ResponseWriter, req *http.Request) {
 		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
+	
+	api.AddFeature(req, source)
+	api.AddFeature(req, "handler:search")
 	
 	api.Render(w, req, http.StatusOK, results)
 	return

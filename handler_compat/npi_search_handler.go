@@ -15,9 +15,6 @@ func NpiSearchHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	api.AddFeature(req, "usgov.hhs.npi")
-	api.AddFeature(req, "handler:legacynpi:search")
-
 	results, err := handler.Search("usgov.hhs.npi", params, req)
 	if err != nil {
 		switch err.(type) {
@@ -32,6 +29,9 @@ func NpiSearchHandler (w http.ResponseWriter, req *http.Request) {
 	}
 
 	valuesToStrings(results)
+
+	api.AddFeature(req, "usgov.hhs.npi")
+	api.AddFeature(req, "handler:legacynpi:search")
 	
 	api.Render(w, req, http.StatusOK, results)
 	return

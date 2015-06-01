@@ -46,8 +46,6 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 		})
 		return
 	}
-	
-	api.AddFeature(req, "handler:yourchart:fetch")
 
 	getResp, err := http.Get(yourchartUrl + "/" + id)
 	body, err := ioutil.ReadAll(getResp.Body)
@@ -65,6 +63,8 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
+
+	api.AddFeature(req, "handler:yourchart:fetch")
 
 	api.Render(w, req, http.StatusOK, decoded)
 }
