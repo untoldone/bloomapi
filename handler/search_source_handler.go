@@ -36,15 +36,18 @@ func SearchSourceHandler (w http.ResponseWriter, req *http.Request) {
 
 	params, err := ParseSearchParams(req.URL.Query())
 	if err != nil {
-		log.Println(err)
 		api.Render(w, req, http.StatusBadRequest, err)
 		return
 	}
 
 	results, err := Search(source, params, req)
 	if err != nil {
-		log.Println(err)
-		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
+		if _, ok = err.(api.ParamsError); ok {
+			api.Render(w, req, http.StatusBadRequest, err)
+		} else {
+			log.Println(err)
+			api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")	
+		}
 		return
 	}
 	

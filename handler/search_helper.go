@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"regexp"
 	"net/http"
+	"github.com/gorilla/context"
 	"github.com/mattbaird/elastigo/lib"
 
 	"github.com/untoldone/bloomapi/api"
@@ -113,12 +114,16 @@ func Search(sourceType string, params *SearchParams, r *http.Request) (map[strin
 		}
 
 	if params.Sort != "" {
+		if _, ok := context.Get(r, "api_key").(string); !ok {
+			return nil, api.NewParamsError("'sort' is unsupported without a BloomAPI user account", map[string]string{})
+		}
+
+
 		query["sort"] = map[string]interface{} {
 			params.Sort: map[string]interface{} {
 				"order": order,
 			},
 		}
-
 
 		api.AddFeature(r, "sort")
 		api.AddMessage(r, experimentalSort)
