@@ -18,3 +18,5 @@ CREATE TABLE keys_to_search_types
 ALTER TABLE search_types ADD COLUMN public boolean;
 
 UPDATE search_types SET public = true;
+
+ALTER TABLE api_keys ADD COLUMN deactivated boolean DEFAULT false;

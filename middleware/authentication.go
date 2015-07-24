@@ -35,12 +35,18 @@ func (s *Authentication) ServeHTTP(rw http.ResponseWriter, r *http.Request, next
 	  	return
 		}
 
-		var t int
-		err = conn.QueryRow(`SELECT 1 FROM api_keys WHERE key = $1`, secret[0]).Scan(&t)
+		var deactivated bool
+		err = conn.QueryRow(`SELECT deactivated FROM api_keys WHERE key = $1`, secret[0]).Scan(&deactivated)
 		if err == sql.ErrNoRows {
 			api.Render(rw, r, 401, map[string]string{
 				"name": "Unauthorized",
 				"message": "Please contact support@bloomapi.com if this is in error",
+			})
+			return
+		} else if deactivated {
+			api.Render(rw, r, 401, map[string]string{
+				"name": "Deactivated",
+				"message": "Your account has been deactivated by BloomAPI admins. Please contact support@bloomapi.com for more information",
 			})
 			return
 		} else if err != nil {
