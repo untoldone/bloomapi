@@ -147,6 +147,12 @@ func ParseSearchParams(params map[string][]string) (*SearchParams, error) {
 			return nil, api.NewParamsError("offset must be a positive number", 
 																map[string]string{"offset": "must be a positive number"})
 		}
+
+		// Ensure offset is less than 10000
+		if offsetValue > 10000 {
+			return nil, api.NewParamsError("offset must be less than or equal to 10000",
+																map[string]string{"offset": "must be less than or equal to 10000"})
+		}
 	}
 
 	var limitValue uint64
