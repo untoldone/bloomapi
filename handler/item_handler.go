@@ -51,9 +51,8 @@ func ItemHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	if source != "usgov.hhs.npi" {
-		api.AddMessage(req, "Warning: Use of the dataset, '" + source + "', without an API key is for development-use only. Use of this API without a key may be rate-limited in the future. For hosted, production access, please email 'support@bloomapi.com' for an API key.")
-		api.AddMessage(req, "Warning: This query used the experimental dataset, '" + source + "'. To ensure you're notified in case breaking changes need to be made, email support@bloomapi.com and ask for an API key.")
+	if apiKey == "" {
+		api.AddMessage(req, "Warning: Use of the dataset, '" + source + "', without an API key is for development-use only. Use of this API without a key without an API key is for development-use only. Use of this API without a key is rate-limited. For hosted, production access, please email 'support@bloomapi.com' for an API key.")
 	}
 
 	result, err := searchConn.Get(source, "main", id, nil)
