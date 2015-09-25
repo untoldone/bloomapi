@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"strings"
 	"encoding/json"
 	"regexp"
 	"net/http"
@@ -56,7 +57,7 @@ func phraseMatches (paramSets []*SearchParamSet, r *http.Request) []interface{} 
 				}
 				shouldValues[vIndex] = map[string]interface{} {
 					"prefix": map[string]interface{} {
-						set.Key: value,
+						set.Key: strings.ToLower(value),
 					},
 				}
 			case "gte":
