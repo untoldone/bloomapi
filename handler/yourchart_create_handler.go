@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"errors"
 	"log"
+	"strconv"
 	"encoding/json"
 	"strings"
 	"github.com/gorilla/context"
@@ -59,7 +60,7 @@ func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	var decoded map[string]string
+	var decoded map[string]interface{}
 	decoder := json.NewDecoder(strings.NewReader(string(body)))
 	err = decoder.Decode(&decoded)
 	if err != nil {
@@ -68,7 +69,8 @@ func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	upstreamJobId, ok := decoded["statusId"]
+	var upstreamJobId string
+	rawUpstreamJobId, ok := decoded["statusId"]
 	if !ok {
 		log.Println(errors.New("Unable to get new job's statusId"))
 		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
@@ -94,7 +96,7 @@ func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	var labDecoded map[string]string
+	var labDecoded map[string]interface{}
 	labDecoder := json.NewDecoder(strings.NewReader(string(labBody)))
 	err = labDecoder.Decode(&labDecoded)
 	if err != nil {
@@ -103,11 +105,26 @@ func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	upstreamLabJobId, ok := labDecoded["statusId"]
+	var upstreamLabJobId string
+	rawUpstreamLabJobId, ok := labDecoded["statusId"]
 	if !ok {
 		log.Println(errors.New("Unable to get new job's statusId"))
 		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
+	}
+
+	switch rawUpstreamLabJobId := rawUpstreamLabJobId.(type) {
+	case string:
+		upstreamLabJobId = rawUpstreamLabJobId
+	case float64:
+		upstreamLabJobId = strconv.FormatFloat(rawUpstreamLabJobId, 'f', 0, 64)
+	}
+
+	switch rawUpstreamJobId := rawUpstreamJobId.(type) {
+	case string:
+		upstreamJobId = rawUpstreamJobId
+	case float64:
+		upstreamJobId = strconv.FormatFloat(rawUpstreamJobId, 'f', 0, 64)
 	}
 
 	err = YourchartAuthorize(apiKey, jobId, upstreamJobId, upstreamLabJobId)
