@@ -3,6 +3,7 @@ searchHosts = [
   "localhost"
 ]
 bloomapiPort = 3005
-yourchartUrl = "http://localhost:3001"
+yourchartUrl = "http://localhost:3000"
+yourchartLabUrl = "http://localhost:3000"
 statsLogger = "syslog" # values can be: 'syslog' or 'stdout'
 generalLogger = "stdout"

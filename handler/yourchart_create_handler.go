@@ -11,10 +11,12 @@ import (
 	"github.com/gorilla/context"
 	"github.com/spf13/viper"
 	"github.com/untoldone/bloomapi/api"
+	"github.com/satori/go.uuid"
 )
 
 func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 	yourchartUrl := viper.GetString("yourchartUrl")
+	yourchartLabUrl := viper.GetString("yourchartLabUrl")
 	username := req.FormValue("username")
 	password := req.FormValue("password")
 	orgId := req.FormValue("orgId")
@@ -36,6 +38,9 @@ func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
+	jobId := uuid.NewV4().String()
+
+	// Yourchart
 	postResp, err := http.PostForm(yourchartUrl, url.Values{
 			"username": {username},
 			"password": {password},
@@ -54,7 +59,7 @@ func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	var decoded map[string]int
+	var decoded map[string]string
 	decoder := json.NewDecoder(strings.NewReader(string(body)))
 	err = decoder.Decode(&decoded)
 	if err != nil {
@@ -63,14 +68,49 @@ func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	jobId, ok := decoded["statusId"]
+	upstreamJobId, ok := decoded["statusId"]
 	if !ok {
 		log.Println(errors.New("Unable to get new job's statusId"))
 		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
 
-	err = YourchartAuthorize(apiKey, jobId)
+	// Yourchart Lab!!
+	postLabResp, err := http.PostForm(yourchartLabUrl, url.Values{
+			"username": {username},
+			"password": {password},
+			"orgId": {orgId},
+		})
+	if err != nil {
+		log.Println(err)
+		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
+		return
+	}
+	defer postLabResp.Body.Close()
+	labBody, err := ioutil.ReadAll(postLabResp.Body)
+	if err != nil {
+		log.Println(err)
+		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
+		return
+	}
+
+	var labDecoded map[string]string
+	labDecoder := json.NewDecoder(strings.NewReader(string(labBody)))
+	err = labDecoder.Decode(&labDecoded)
+	if err != nil {
+		log.Println(err)
+		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
+		return
+	}
+
+	upstreamLabJobId, ok := labDecoded["statusId"]
+	if !ok {
+		log.Println(errors.New("Unable to get new job's statusId"))
+		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
+		return
+	}
+
+	err = YourchartAuthorize(apiKey, jobId, upstreamJobId, upstreamLabJobId)
 	if err != nil {
 		log.Println(err)
 		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
@@ -79,5 +119,7 @@ func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 
 	api.AddFeature(req, "handler:yourchart:create")
 
-	api.Render(w, req, http.StatusOK, decoded)
+	api.Render(w, req, http.StatusOK, map[string]string{
+	    "statusId": jobId,
+		})
 }

@@ -2,7 +2,6 @@ package handler
 
 import (
 	"time"
-	"strconv"
 	"github.com/untoldone/bloomapi/api"
 	"github.com/gocodo/bloomdb"
 )
@@ -39,14 +38,14 @@ func YourchartEnabled(apiKey string) (bool, error) {
 	return count > 0, nil
 }
 
-func YourchartAuthorized(apiKey string, jobId int) (bool, error) {
+func YourchartAuthorized(apiKey string, jobId string) (string, string, error) {
 	conn, err := api.Conn().SqlConnection()
 	if err != nil {
-		return false, err
+		return "", "", err
 	}
 
 	rows, err := conn.Query(`
-		SELECT COUNT(*)
+		SELECT upstream_job_id, upstream_lab_job_id
 		FROM yourchart_job_authorizations
 		JOIN api_keys
 		ON api_keys.id = yourchart_job_authorizations.api_key_id
@@ -54,40 +53,39 @@ func YourchartAuthorized(apiKey string, jobId int) (bool, error) {
 		AND job_id = $2
 		`, apiKey, jobId)
 	if err != nil {
-		return false, err
+		return "", "", err
 	}
 	defer rows.Close()
 
-	var count int
+	var upstreamJobId string
+	var upstreamLabJobId string
 	for rows.Next() {
-		if err := rows.Scan(&count); err != nil {
-			return false, err
+		if err := rows.Scan(&upstreamJobId, &upstreamLabJobId); err != nil {
+			return "", "", err
 		}
 	}
 
 	if err = rows.Err(); err != nil {
-		return false, err
+		return "", "", err
 	}
 
-	return count > 0, nil
+	return upstreamJobId, upstreamLabJobId, nil
 }
 
-func YourchartAuthorize(apiKey string, jobId int) error {
+func YourchartAuthorize(apiKey string, jobId string, upstreamJobId string, upstreamLabJobId string) error {
 	conn, err := api.Conn().SqlConnection()
 	if err != nil {
 		return err
 	}
 
-	authorizationId := bloomdb.MakeKey(apiKey, strconv.Itoa(jobId))
+	authorizationId := bloomdb.MakeKey(apiKey, jobId)
 	createdAt := time.Now().UTC()
 
-	//fmt.Println(authorizationId, apiKey, jobId, createdAt)
-
 	_, err = conn.Exec(`
-		INSERT INTO yourchart_job_authorizations (id, api_key_id, job_id, created_at)
+		INSERT INTO yourchart_job_authorizations (id, api_key_id, job_id, upstream_job_id, upstream_lab_job_id, created_at)
 		VALUES ($1, 
 			(SELECT id FROM api_keys WHERE key = $2), 
-			$3, $4)`, authorizationId, apiKey, jobId, createdAt)
+			$3, $4, $5, $6)`, authorizationId, apiKey, jobId, upstreamJobId, upstreamLabJobId, createdAt)
 	if err != nil {
 		return err
 	}
