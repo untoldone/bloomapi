@@ -15,6 +15,7 @@ import (
 func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	yourchartUrl := viper.GetString("yourchartUrl")
+	yourchartLabUrl := viper.GetString("yourchartLabUrl")
 	id := vars["id"]
 
 	apiKey, ok := context.Get(req, "api_key").(string)
@@ -65,7 +66,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	getLabResp, err := http.Get(yourchartUrl + "/" + upstreamLabJobId)
+	getLabResp, err := http.Get(yourchartLabUrl + "/" + upstreamLabJobId)
 	labBody, err := ioutil.ReadAll(getLabResp.Body)
 	if err != nil {
 		log.Println(err)
@@ -110,17 +111,17 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	for _, patient := range decoded["result"].(map[string]interface{})["patients"].([]interface{}) {
-		name := patient.(map[string]interface{})["name"].(string)
+	for iOne, patient := range decoded["result"].(map[string]interface{})["patients"].([]interface{}) {
+		//name := patient.(map[string]interface{})["name"].(string)
 		details := patient.(map[string]interface{})["details"]
 		replaced := false
 
-		for _, labPatient := range labDecoded["result"].(map[string]interface{})["patients"].([]interface{}) {
-			labName := labPatient.(map[string]interface{})["name"].(string)
-			labDetails := labPatient.(map[string]interface{})["details"]
+		for iTwo, labPatient := range labDecoded["result"].(map[string]interface{})["patients"].([]interface{}) {
+			//labName := labPatient.(map[string]interface{})["name"].(string)
+			//labDetails := labPatient.(map[string]interface{})["details"]
 
-			if name == labName {
-				details.(map[string]interface{})["test-results"] = labDetails.(map[string]interface{})["test-results"]
+			if iOne == iTwo {
+				details.(map[string]interface{})["test-results"] = labPatient.(map[string]interface{})["test-results"]
 				replaced = true
 				break
 			}
