@@ -116,22 +116,28 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 		details := patient.(map[string]interface{})["details"]
 		replaced := false
 
-		for iTwo, labPatient := range labDecoded["result"].(map[string]interface{})["patients"].([]interface{}) {
-			//labName := labPatient.(map[string]interface{})["name"].(string)
-			//labDetails := labPatient.(map[string]interface{})["details"]
+		if labDecoded["result"].(map[string]interface{})["patients"].([]interface{})[0].(map[string]interface{})["test-results"] != nil {
+			// New version Jan 25, 2016
+			for iTwo, labPatient := range labDecoded["result"].(map[string]interface{})["patients"].([]interface{}) {
+				//labName := labPatient.(map[string]interface{})["name"].(string)
+				//labDetails := labPatient.(map[string]interface{})["details"]
 
-			if iOne == iTwo {
-				if labPatient.(map[string]interface{})["name"] != nil &&
-					 		patient.(map[string]interface{})["name"] != labPatient.(map[string]interface{})["name"] {
-					api.Render(w, req, http.StatusInternalServerError, "Internal Server Error: multiple patients inproperly matched")
-					return
-				}
-				if details != nil && labPatient != nil {
+				if iOne == iTwo {
+					if patient.(map[string]interface{})["name"] != labPatient.(map[string]interface{})["name"] {
+						api.Render(w, req, http.StatusInternalServerError, "Internal Server Error: multiple patients inproperly matched")
+						return
+					}
+
 					details.(map[string]interface{})["test-results"] = labPatient.(map[string]interface{})["test-results"]
+					
+					replaced = true
+					break
 				}
-				replaced = true
-				break
 			}
+		} else {
+			// Previous version
+			details.(map[string]interface{})["test-results"] = labDecoded["result"].(map[string]interface{})["patients"]
+			replaced = true
 		}
 
 		if !replaced {
