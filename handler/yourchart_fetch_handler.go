@@ -121,7 +121,14 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 			//labDetails := labPatient.(map[string]interface{})["details"]
 
 			if iOne == iTwo {
-				details.(map[string]interface{})["test-results"] = labPatient.(map[string]interface{})["test-results"]
+				if labPatient.(map[string]interface{})["name"] != nil &&
+					 		patient.(map[string]interface{})["name"] != labPatient.(map[string]interface{})["name"] {
+					api.Render(w, req, http.StatusInternalServerError, "Internal Server Error: multiple patients inproperly matched")
+					return
+				}
+				if details != nil && labPatient != nil {
+					details.(map[string]interface{})["test-results"] = labPatient.(map[string]interface{})["test-results"]
+				}
 				replaced = true
 				break
 			}
