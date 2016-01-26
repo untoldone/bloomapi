@@ -128,7 +128,9 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 						return
 					}
 
-					details.(map[string]interface{})["test-results"] = labPatient.(map[string]interface{})["test-results"]
+					if details != nil {
+						details.(map[string]interface{})["test-results"] = labPatient.(map[string]interface{})["test-results"]
+					}
 					
 					replaced = true
 					break
