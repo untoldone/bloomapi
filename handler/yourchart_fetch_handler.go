@@ -4,15 +4,18 @@ import (
 	"net/http"
 	"io/ioutil"
 	"log"
+	"errors"
 	"encoding/json"
 	"strings"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/context"
 	"github.com/spf13/viper"
 	"github.com/untoldone/bloomapi/api"
+	raven "github.com/getsentry/raven-go"
 )
 
 func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
+	raven.SetHttpContext(raven.NewHttp(req))
 	vars := mux.Vars(req)
 	yourchartUrl := viper.GetString("yourchartUrl")
 	yourchartLabUrl := viper.GetString("yourchartLabUrl")
@@ -23,6 +26,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 	enabled, err := YourchartEnabled(apiKey)
 	if err != nil {
 		log.Println(err)
+		raven.CaptureErrorAndWait(err, nil)
 		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
@@ -30,6 +34,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 	upstreamJobId, upstreamLabJobId, err := YourchartAuthorized(apiKey, id)
 	if err != nil {
 		log.Println(err)
+		raven.CaptureErrorAndWait(err, nil)
 		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
@@ -46,6 +51,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 	body, err := ioutil.ReadAll(getResp.Body)
 	if err != nil {
 		log.Println(err)
+		raven.CaptureErrorAndWait(err, nil)
 		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
@@ -55,6 +61,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 	err = decoder.Decode(&decoded)
 	if err != nil {
 		log.Println(err)
+		raven.CaptureErrorAndWait(err, nil)
 		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
@@ -70,6 +77,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 	labBody, err := ioutil.ReadAll(getLabResp.Body)
 	if err != nil {
 		log.Println(err)
+		raven.CaptureErrorAndWait(err, nil)
 		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
@@ -79,6 +87,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 	err = labDecoder.Decode(&labDecoded)
 	if err != nil {
 		log.Println(err)
+		raven.CaptureErrorAndWait(err, nil)
 		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
@@ -123,7 +132,9 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 				//labDetails := labPatient.(map[string]interface{})["details"]
 
 				if iOne == iTwo {
-					if patient.(map[string]interface{})["name"] != labPatient.(map[string]interface{})["name"] {
+					if labPatient.(map[string]interface{})["name"] != nil && 
+							patient.(map[string]interface{})["name"] != labPatient.(map[string]interface{})["name"] {
+						raven.CaptureErrorAndWait(errors.New("multiple patients inproperly matched"), nil)
 						api.Render(w, req, http.StatusInternalServerError, "Internal Server Error: multiple patients inproperly matched")
 						return
 					}
@@ -144,6 +155,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 
 		if !replaced {
 			log.Println("Failed to match Epic lab service patient to mobile patient")
+			raven.CaptureErrorAndWait(errors.New("Failed to match Epic lab service patient to mobile patient"), nil)
 			api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
 			return
 		}

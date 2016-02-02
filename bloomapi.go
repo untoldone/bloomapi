@@ -7,6 +7,7 @@ import (
 	"log/syslog"
 	"github.com/spf13/viper"
 	"github.com/untoldone/bloomapi/cmd"
+	"github.com/getsentry/raven-go"
 )
 
 func showUsage() {
@@ -33,6 +34,11 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
+	}
+
+	dsn := viper.GetString("sentryDSN")
+	if dsn != "" {
+  	raven.SetDSN(dsn)
 	}
 
 	logStyle := viper.GetString("generalLogger")
