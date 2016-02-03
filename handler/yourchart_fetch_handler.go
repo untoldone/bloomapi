@@ -27,7 +27,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Println(err)
 		raven.CaptureErrorAndWait(err, nil)
-		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
+		api.Render(w, req, http.StatusOK, map[string]string{"state": "failed", "message":"Interal Error"})
 		return
 	}
 
@@ -35,7 +35,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Println(err)
 		raven.CaptureErrorAndWait(err, nil)
-		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
+		api.Render(w, req, http.StatusOK, map[string]string{"state": "failed", "message":"Interal Error"})
 		return
 	}
 
@@ -52,7 +52,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Println(err)
 		raven.CaptureErrorAndWait(err, nil)
-		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
+		api.Render(w, req, http.StatusOK, map[string]string{"state": "failed", "message":"Interal Error"})
 		return
 	}
 
@@ -62,7 +62,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Println(err)
 		raven.CaptureErrorAndWait(err, nil)
-		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
+		api.Render(w, req, http.StatusOK, map[string]string{"state": "failed", "message":"Interal Error"})
 		return
 	}
 
@@ -78,7 +78,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Println(err)
 		raven.CaptureErrorAndWait(err, nil)
-		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
+		api.Render(w, req, http.StatusOK, map[string]string{"state": "failed", "message":"Interal Error"})
 		return
 	}
 
@@ -88,7 +88,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Println(err)
 		raven.CaptureErrorAndWait(err, nil)
-		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
+		api.Render(w, req, http.StatusOK, map[string]string{"state": "failed", "message":"Interal Error"})
 		return
 	}
 	
@@ -120,14 +120,23 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	for iOne, patient := range decoded["result"].(map[string]interface{})["patients"].([]interface{}) {
+	patients := decoded["result"].(map[string]interface{})["patients"].([]interface{})
+
+	for iOne, patient := range patients {
 		//name := patient.(map[string]interface{})["name"].(string)
 		details := patient.(map[string]interface{})["details"]
 		replaced := false
 
-		if labDecoded["result"].(map[string]interface{})["patients"].([]interface{})[0].(map[string]interface{})["test-results"] != nil {
+		labPatients := labDecoded["result"].(map[string]interface{})["patients"].([]interface{})
+		if len(patients) != len(labPatients) {
+			raven.CaptureErrorAndWait(errors.New("number of patients are different"), nil)
+			api.Render(w, req, http.StatusOK, map[string]string{"state": "failed", "message":"Interal Error"})
+			return
+		}
+
+		if labPatients[0].(map[string]interface{})["test-results"] != nil {
 			// New version Jan 25, 2016
-			for iTwo, labPatient := range labDecoded["result"].(map[string]interface{})["patients"].([]interface{}) {
+			for iTwo, labPatient := range labPatients {
 				//labName := labPatient.(map[string]interface{})["name"].(string)
 				//labDetails := labPatient.(map[string]interface{})["details"]
 
@@ -135,7 +144,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 					if labPatient.(map[string]interface{})["name"] != nil && 
 							patient.(map[string]interface{})["name"] != labPatient.(map[string]interface{})["name"] {
 						raven.CaptureErrorAndWait(errors.New("multiple patients inproperly matched"), nil)
-						api.Render(w, req, http.StatusInternalServerError, "Internal Server Error: multiple patients inproperly matched")
+						api.Render(w, req, http.StatusOK, map[string]string{"state": "failed", "message":"Interal Error"})
 						return
 					}
 
@@ -156,7 +165,7 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 		if !replaced {
 			log.Println("Failed to match Epic lab service patient to mobile patient")
 			raven.CaptureErrorAndWait(errors.New("Failed to match Epic lab service patient to mobile patient"), nil)
-			api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
+			api.Render(w, req, http.StatusOK, map[string]string{"state": "failed", "message":"Interal Error"})
 			return
 		}
 	}
