@@ -16,6 +16,7 @@ func Server() {
 	n := negroni.Classic()
 
 	// Pre-Router Middleware setup
+	n.Use(middleware.NewRecovery())
 	n.Use(middleware.NewAuthentication())
 
 	// Router setup
