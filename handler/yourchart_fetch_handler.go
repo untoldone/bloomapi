@@ -115,8 +115,12 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	if labState != "complete" {
+	if labState == "pending" {
 		api.Render(w, req, http.StatusOK, map[string]string{"state": "authenticated"})
+		return
+	} else if labState != "complete" {
+		raven.CaptureErrorAndWait(errors.New("lab job seems to be in failure state"), nil)
+		api.Render(w, req, http.StatusOK, map[string]string{"state": "failed", "message":"Interal Error"})
 		return
 	}
 
