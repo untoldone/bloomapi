@@ -132,14 +132,21 @@ func YourChartFetchHandler (w http.ResponseWriter, req *http.Request) {
 		replaced := false
 
 		labPatients := labDecoded["result"].(map[string]interface{})["patients"].([]interface{})
-		if len(patients) != len(labPatients) && len(labPatients) > 0 &&
-		 	 labPatients[0].(map[string]interface{})["test-results"] != nil {
+		if len(labPatients) == 0 {
+			raven.CaptureErrorAndWait(errors.New("no lab patients returned"), nil)
+			api.Render(w, req, http.StatusOK, map[string]string{"state": "failed", "message":"Interal Error"})
+			return
+		}
+
+		newModel := labPatients[0].(map[string]interface{})["test-results"] != nil
+
+		if newModel && len(patients) != len(labPatients) {
 			raven.CaptureErrorAndWait(errors.New("number of patients are different"), nil)
 			api.Render(w, req, http.StatusOK, map[string]string{"state": "failed", "message":"Interal Error"})
 			return
 		}
 
-		if labPatients[0].(map[string]interface{})["test-results"] != nil {
+		if newModel {
 			// New version Jan 25, 2016
 			for iTwo, labPatient := range labPatients {
 				//labName := labPatient.(map[string]interface{})["name"].(string)
