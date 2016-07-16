@@ -1,0 +1,189 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"comment": "null-231",
+			"path": "code.google.com/p/go.crypto/cast5",
+			"revision": "88f995681294397936c136182f54e1f6891db323"
+		},
+		{
+			"comment": "null-231",
+			"path": "code.google.com/p/go.crypto/openpgp",
+			"revision": "88f995681294397936c136182f54e1f6891db323"
+		},
+		{
+			"comment": "null-231",
+			"path": "code.google.com/p/go.crypto/openpgp/armor",
+			"revision": "88f995681294397936c136182f54e1f6891db323"
+		},
+		{
+			"comment": "null-231",
+			"path": "code.google.com/p/go.crypto/openpgp/elgamal",
+			"revision": "88f995681294397936c136182f54e1f6891db323"
+		},
+		{
+			"comment": "null-231",
+			"path": "code.google.com/p/go.crypto/openpgp/errors",
+			"revision": "88f995681294397936c136182f54e1f6891db323"
+		},
+		{
+			"comment": "null-231",
+			"path": "code.google.com/p/go.crypto/openpgp/packet",
+			"revision": "88f995681294397936c136182f54e1f6891db323"
+		},
+		{
+			"comment": "null-231",
+			"path": "code.google.com/p/go.crypto/openpgp/s2k",
+			"revision": "88f995681294397936c136182f54e1f6891db323"
+		},
+		{
+			"checksumSHA1": "MB9HzbQmQNxyHrB9fRpPcYWfRdA=",
+			"comment": "v0.1.0-9-g3883ac1",
+			"path": "github.com/BurntSushi/toml",
+			"revision": "3883ac1ce943878302255f538fce319d23226223"
+		},
+		{
+			"checksumSHA1": "JjbQxZON07bhyL2IQu4C55kcQuk=",
+			"path": "github.com/araddon/gou",
+			"revision": "381a3eebd3a360ce569ab00c7a9e5079816c7cd8"
+		},
+		{
+			"checksumSHA1": "/s7yNIhRN3HSeab3iut980ytYb0=",
+			"path": "github.com/araddon/gou/goutest",
+			"revision": "381a3eebd3a360ce569ab00c7a9e5079816c7cd8"
+		},
+		{
+			"checksumSHA1": "LW9WvOpwNmcBR5Y91co6sKf4i+E=",
+			"path": "github.com/armon/consul-api",
+			"revision": "1b81c8e0c4cbf1d382310e4c0dc11221632e79d1"
+		},
+		{
+			"checksumSHA1": "/TFb44Eu/HnuIaZo/UH/FErT/2E=",
+			"path": "github.com/bitly/go-hostpool",
+			"revision": "2e89d10a8bbfeada4b32882ffb4a2cb8b31d9bc0"
+		},
+		{
+			"checksumSHA1": "5vufiHbKXaAkTmjkFJ/IGlllseM=",
+			"comment": "v0.1-34-gae96f1c",
+			"path": "github.com/codegangsta/negroni",
+			"revision": "ae96f1c1ac9eb11be7dff4fe4cb42f6846b93d77"
+		},
+		{
+			"checksumSHA1": "6ec3xDc2y943IWB4qnb6s3A7fUg=",
+			"comment": "v0.2.0-rc1-127-g6fe04d5",
+			"path": "github.com/coreos/go-etcd/etcd",
+			"revision": "6fe04d580dfb71c9e34cbce2f4df9eefd1e1241e"
+		},
+		{
+			"checksumSHA1": "cecMxRDbumCbyl5VgG09gDQm3h8=",
+			"path": "github.com/go-contrib/uuid",
+			"revision": "a07c134f8289edd9ac6ee6f0aa5f3d345f4aaf27"
+		},
+		{
+			"checksumSHA1": "iIUYZyoanCQQTUaWsu8b+iOSPt4=",
+			"path": "github.com/gorilla/context",
+			"revision": "14f550f51af52180c2eefed15e5fd18d63c0a64a"
+		},
+		{
+			"checksumSHA1": "ATHl/KcmYOhmdeKcpTh7fb4chgI=",
+			"path": "github.com/gorilla/mux",
+			"revision": "e444e69cbd2e2e3e0749a2f3c717cec491552bbf"
+		},
+		{
+			"checksumSHA1": "1YeGotQXMZMqk+mmm8sbBVJywpw=",
+			"comment": "go.weekly.2011-12-22-24-gf31442d",
+			"path": "github.com/kr/pretty",
+			"revision": "f31442d60e51465c69811e2107ae978868dbea5c"
+		},
+		{
+			"checksumSHA1": "1A8MCVCYVZta64kqDsvFNcWRQvo=",
+			"path": "github.com/kr/text",
+			"revision": "6807e777504f54ad073ecef66747de158294b639"
+		},
+		{
+			"checksumSHA1": "tow4Px+hT42W2CoY8TmPIrQPVpU=",
+			"comment": "go1.0-cutoff-20-g308412e",
+			"path": "github.com/lib/pq",
+			"revision": "308412e3e54d78c6411b1d5ef52c0660b921c81b"
+		},
+		{
+			"checksumSHA1": "xppHi82MLqVx1eyQmbhTesAEjx8=",
+			"comment": "go1.0-cutoff-20-g308412e",
+			"path": "github.com/lib/pq/oid",
+			"revision": "308412e3e54d78c6411b1d5ef52c0660b921c81b"
+		},
+		{
+			"checksumSHA1": "3VWN7G85mc3uh9TLwZ0xkYd8/rw=",
+			"comment": "v1.0-135-g18f936b",
+			"path": "github.com/mattbaird/elastigo/lib",
+			"revision": "18f936bf0c4d2e52e9d5a697e0e77ded7a685cb6"
+		},
+		{
+			"checksumSHA1": "+OwSloMUOgkUXkJmGr7pQyNsh4Q=",
+			"path": "github.com/mitchellh/mapstructure",
+			"revision": "740c764bc6149d3f1806231418adb9f52c11bcbf"
+		},
+		{
+			"checksumSHA1": "Rb3ob9eyJPeuGtn6s9B1P6wnYO4=",
+			"path": "github.com/spf13/cast",
+			"revision": "770890fb156e3654a3aaa7e696971f7e5a73df4a"
+		},
+		{
+			"checksumSHA1": "hX8deL9cWOmxz4k4TFXAm3BOfm0=",
+			"path": "github.com/spf13/jwalterweatherman",
+			"revision": "e3682f3b5526cf86abc2d415aa312cd5531e3d0a"
+		},
+		{
+			"checksumSHA1": "wAUwpUL9V4b2SqNSfSZIXoPfYUA=",
+			"path": "github.com/spf13/pflag",
+			"revision": "463bdc838f2b35e9307e91d480878bda5fff7232"
+		},
+		{
+			"checksumSHA1": "MlDAVqd3Hm60N3gpd3/WTAmzv2Y=",
+			"path": "github.com/spf13/viper",
+			"revision": "77144270da4a139bc4554f0488514f4212312ac3"
+		},
+		{
+			"checksumSHA1": "lKk+EEDaPRWS32IAlP1k1U9uEk8=",
+			"path": "github.com/unrolled/render",
+			"revision": "bdfac4a8df10cc9dc03ee14ba2f655137fd70378"
+		},
+		{
+			"checksumSHA1": "5FkYRFXX3oCRM5tvekDbjsFae5w=",
+			"comment": "v0.0.2",
+			"path": "github.com/xordataexchange/crypt/backend",
+			"revision": "0d6dc8c093c1c191f00effdfc3b2f858973f0271"
+		},
+		{
+			"checksumSHA1": "IuJmQNPYs17BoS3ViEPczuaJNPk=",
+			"comment": "v0.0.2",
+			"path": "github.com/xordataexchange/crypt/backend/consul",
+			"revision": "0d6dc8c093c1c191f00effdfc3b2f858973f0271"
+		},
+		{
+			"checksumSHA1": "drVGUIXKdlDY3eXoVImd9yFFzt8=",
+			"comment": "v0.0.2",
+			"path": "github.com/xordataexchange/crypt/backend/etcd",
+			"revision": "0d6dc8c093c1c191f00effdfc3b2f858973f0271"
+		},
+		{
+			"checksumSHA1": "I0NXv6jt0ubXmyKuRMLL5T0bwCQ=",
+			"comment": "v0.0.2",
+			"path": "github.com/xordataexchange/crypt/config",
+			"revision": "0d6dc8c093c1c191f00effdfc3b2f858973f0271"
+		},
+		{
+			"checksumSHA1": "tKgRa+MhTAs/KEn/fSfYoaMZsIM=",
+			"comment": "v0.0.2",
+			"path": "github.com/xordataexchange/crypt/encoding/secconf",
+			"revision": "0d6dc8c093c1c191f00effdfc3b2f858973f0271"
+		},
+		{
+			"checksumSHA1": "MGk7cSnHqiL5soaovzgcJaNH3fc=",
+			"path": "gopkg.in/yaml.v1",
+			"revision": "9f9df34309c04878acc86042b16630b0f696e1de"
+		}
+	],
+	"rootPath": "github.com/untoldone/bloomapi"
+}

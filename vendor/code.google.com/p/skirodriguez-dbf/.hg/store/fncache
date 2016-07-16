@@ -1,0 +1,9 @@
+data/src/pkg/godbf/encoding.go.i
+data/Makefile.i
+data/godbf/helpers.go.i
+data/.project.i
+data/src/pkg/godbf/dbfreader.go.i
+data/godbf/encoding.go.i
+data/.hgignore.i
+data/src/pkg/godbf/helpers.go.i
+data/godbf/dbfreader.go.i
