@@ -1,9 +1,8 @@
-sqlConnStr = "postgres://postgres:postgres@localhost/bloomapi?sslmode=disable"
+sqlConnStr = "postgres://postgres:postgres@db/bloomapi?sslmode=disable"
 searchHosts = [
-  "localhost"
+  "search"
 ]
 bloomapiPort = 3005
-yourchartUrl = "http://localhost:3001"
-yourchartLabUrl = "http://localhost:9292/labs"
+yourchartUrl = "http://yourchart:3001"
 statsLogger = "syslog" # values can be: 'syslog' or 'stdout'
 generalLogger = "stdout"
