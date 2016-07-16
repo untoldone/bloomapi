@@ -81,6 +81,12 @@
 			"revision": "a07c134f8289edd9ac6ee6f0aa5f3d345f4aaf27"
 		},
 		{
+			"checksumSHA1": "2hLDRk503F/4SkLc6FleXobkfw8=",
+			"path": "github.com/gocodo/bloomdb",
+			"revision": "a31c948b16b820ef203335225cab0f03c308d4ad",
+			"revisionTime": "2016-07-16T19:30:43Z"
+		},
+		{
 			"checksumSHA1": "iIUYZyoanCQQTUaWsu8b+iOSPt4=",
 			"path": "github.com/gorilla/context",
 			"revision": "14f550f51af52180c2eefed15e5fd18d63c0a64a"
