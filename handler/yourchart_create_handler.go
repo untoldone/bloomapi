@@ -17,7 +17,7 @@ import (
 
 func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 	yourchartUrl := viper.GetString("yourchartUrl")
-	yourchartLabUrl := viper.GetString("yourchartLabUrl")
+	//yourchartLabUrl := viper.GetString("yourchartLabUrl")
 	username := req.FormValue("username")
 	password := req.FormValue("password")
 	orgId := req.FormValue("orgId")
@@ -78,7 +78,7 @@ func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 	}
 
 	// Yourchart Lab!!
-	postLabResp, err := http.PostForm(yourchartLabUrl, url.Values{
+	/*postLabResp, err := http.PostForm(yourchartLabUrl, url.Values{
 			"username": {username},
 			"password": {password},
 			"orgId": {orgId},
@@ -118,7 +118,7 @@ func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 		upstreamLabJobId = rawUpstreamLabJobId
 	case float64:
 		upstreamLabJobId = strconv.FormatFloat(rawUpstreamLabJobId, 'f', 0, 64)
-	}
+	}*/
 
 	switch rawUpstreamJobId := rawUpstreamJobId.(type) {
 	case string:
@@ -127,7 +127,7 @@ func YourChartCreateHandler (w http.ResponseWriter, req *http.Request) {
 		upstreamJobId = strconv.FormatFloat(rawUpstreamJobId, 'f', 0, 64)
 	}
 
-	err = YourchartAuthorize(apiKey, jobId, upstreamJobId, upstreamLabJobId)
+	err = YourchartAuthorize(apiKey, jobId, upstreamJobId, "")
 	if err != nil {
 		log.Println(err)
 		api.Render(w, req, http.StatusInternalServerError, "Internal Server Error")
