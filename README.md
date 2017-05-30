@@ -5,9 +5,7 @@ BloomAPI is a set of libraries and executables to translate existing datasources
 
 The public deployment of BloomAPI currently hosts an updated mirror of the [NPI Data Dissemination](http://nppes.viva-it.com/NPI_Files.html) as an example, but production ready, datasource.
 
-For **documentation** see http://www.bloomapi.com/documentation
-
-For details on **contributing** see http://www.bloomapi.com/contribute
+For **documentation** see https://www.bloomapi.com/documentation/public-data
 
 ### Questions?
 
