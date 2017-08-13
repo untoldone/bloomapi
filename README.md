@@ -1,7 +1,7 @@
 BloomAPI
 ========
 
-BloomAPI was originally this open source project. This project is a set of libraries and executables to translate existing datasources into performant APIs. A public deployment of BloomAPI as well as more information can be found at https://www.bloomapi.com/documentation/public-data.
+BloomAPI was originally this open source project. While BloomAPI is now a company with a different focus, this project is still actively maintained as set of libraries and executables to translate existing datasources into performant APIs. A public deployment of BloomAPI as well as more information can be found at https://www.bloomapi.com/documentation/public-data.
 
 To get a locally running copy of BloomAPI, simply download https://raw.githubusercontent.com/untoldone/bloomapi/master/docker-compose.yml and, with Docker installed, run `docker-compose up -d`. Note, that you must give docker at least 4GB of memory to complete initialization successfully. That said, if you want to run this in production, you'll almost certainly need 8GB to run stably.
 
