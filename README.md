@@ -8,7 +8,7 @@ To get a locally running copy of BloomAPI (only prerequisite Docker with 4GB+ of
 1. Download https://raw.githubusercontent.com/untoldone/bloomapi/master/docker-compose.yml
 2. Run `docker-compose up -d` from the same directory
 
-Data loading will happen automatically, and you can view the progress of the initial data load with `docker-compose logs -f`. Once the initial data load is complete, test the API via http://localhost:3005/api/search/usgov.hhs.npi.
+Data loading will happen automatically. You can view the progress of the initial data load with `docker-compose logs -f`. Once the initial data load is complete, test the API via http://localhost:3005/api/search/usgov.hhs.npi.
 
 Code is also available for the current publically hosted datasources at https://github.com/bloomapi/datasources. This includes the NPI, ICD9, ICD10, PECOS and others.
 
