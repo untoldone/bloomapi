@@ -1,4 +1,4 @@
-sqlConnStr = "postgres://postgres:postgres@db/bloomapi?sslmode=disable"
+sqlConnStr = "postgres://postgres@db/bloomapi?sslmode=disable"
 searchHosts = [
   "search"
 ]

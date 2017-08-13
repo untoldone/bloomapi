@@ -1,11 +1,13 @@
 BloomAPI
 ========
 
-BloomAPI is a set of libraries and executables to translate existing datasources into performant APIs. A public deployment of BloomAPI as well as more information can be found at http://www.bloomapi.com.
+BloomAPI was originally this open source project. This project is a set of libraries and executables to translate existing datasources into performant APIs. A public deployment of BloomAPI as well as more information can be found at https://www.bloomapi.com/documentation/public-data.
 
-The public deployment of BloomAPI currently hosts an updated mirror of the [NPI Data Dissemination](http://nppes.viva-it.com/NPI_Files.html) as an example, but production ready, datasource.
+To get a locally running copy of BloomAPI, simply download https://raw.githubusercontent.com/untoldone/bloomapi/master/docker-compose.yml and, with Docker installed, run `docker-compose up -d`. Note, that you must give docker at least 4GB of memory to complete initialization successfully. That said, if you want to run this in production, you'll almost certainly need 8GB to run stably.
 
-For **documentation** see https://www.bloomapi.com/documentation/public-data
+Code is also available for the current publically hosted datasources at https://github.com/bloomapi/datasources. This includes the NPI, ICD9, ICD10, PECOS and others.
+
+Today, BloomAPI is focused on simplifying the way medical data is shared through technical and non-technical means. For more information about BloomAPI, see https://www.bloomapi.com.
 
 ### Questions?
 
@@ -16,10 +18,3 @@ We use github issues to track problems and enhancement requests. If you have an 
 
 - [Current issues](https://github.com/untoldone/bloomapi/issues?q=-milestone%3ABacklog+is%3Aissue+is%3Aopen+) in focus for a future release or for review 
 - [Current backlog](https://github.com/untoldone/bloomapi/issues?q=milestone%3ABacklog+is%3Aissue+is%3Aopen+) of issues that have been saved for later
-
-### Roadmap
-- Improve API search capabilities based on existing needs and usage
-- Improve libraries to make introducing new datasources an easy, well documented, process
-- Include easy to use, data documentation tools
-- Include useful public datasets out of the box such as NUCC Taxonomy Codes, Geo-coded locations in existing data sets (E.g. NPI), ICD-9/10 codes, UPIN crosswalk, and FDA's NDC.
-- Also include data loading code for datasets with licensing restrictions such as AHRQ's HCUP data and CPT codes.

@@ -1,0 +1,20 @@
+version: '2'
+services:
+  db:
+    image: postgres:9.6.3
+    environment:
+      - POSTGRES_DB=bloomapi
+  search:
+    image: elasticsearch:2.4.6
+  api:
+    image: untoldone/bloomapi:latest
+    ports:
+      - 3005:3005
+    links:
+      - db
+      - search
+  worker:
+    image: untoldone/bloom-datasources:latest
+    links:
+      - db
+      - search
