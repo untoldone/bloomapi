@@ -3,7 +3,7 @@ BloomAPI
 
 BloomAPI was originally this open source project. While BloomAPI is now a company with a different focus, this project is still actively maintained as set of libraries and executables to translate existing datasources into performant APIs. A public deployment of BloomAPI as well as more information can be found at https://www.bloomapi.com/documentation/public-data.
 
-To get a locally running copy of BloomAPI (only prerequisite Docker with 4GB+ of memory):
+To get a locally running copy of BloomAPI (only prerequisite is Docker with 4GB+ of memory -- if you are on a mac, you have to set this under docker preferences->advanced):
 
 1. Download https://raw.githubusercontent.com/untoldone/bloomapi/master/docker-compose.yml
 2. Run `docker-compose up -d` from the same directory
@@ -12,7 +12,7 @@ Data loading will happen automatically. You can view the progress of the initial
 
 Code is also available for the current publically hosted datasources at https://github.com/bloomapi/datasources. This includes the NPI, ICD9, ICD10, PECOS and others.
 
-Today, BloomAPI is focused on simplifying the way medical data are shared through technical and non-technical means. For more information about BloomAPI, see https://www.bloomapi.com.
+Today, BloomAPI is focused on simplifying the way medical data is shared through technical and non-technical means. For more information about BloomAPI the company, see https://www.bloomapi.com.
 
 ### Questions?
 
