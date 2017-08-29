@@ -60,7 +60,10 @@ CREATE TABLE search_types
 CREATE TABLE api_keys
 (
   id uuid,
+  account_id uuid,
   key character varying(32),
+  deactivated boolean DEFAULT false,
+  updated_at timestamp,
   created_at timestamp,
   CONSTRAINT api_keys_id_key UNIQUE (id)
 );
@@ -72,4 +75,32 @@ CREATE TABLE keys_to_search_types
   search_type_id uuid,
   created_at timestamp,
   CONSTRAINT keys_to_search_types_id_key UNIQUE (id)
-);`
+);
+
+CREATE TABLE yourchart_keys
+(
+  id uuid,
+  api_key_id uuid,
+  created_at timestamp,
+  CONSTRAINT yourchart_keys_id_key UNIQUE (id)
+);
+
+CREATE TABLE yourchart_job_authorizations
+(
+  id uuid,
+  api_key_id uuid,
+  job_id int,
+  created_at timestamp,
+  CONSTRAINT yourchart_job_authorizations_id_key UNIQUE (id)
+);
+
+ALTER TABLE yourchart_job_authorizations
+  RENAME COLUMN job_id TO upstream_job_id;
+
+ALTER TABLE yourchart_job_authorizations
+  ALTER COLUMN upstream_job_id TYPE varchar(64),
+  ADD COLUMN job_id varchar(64),
+  ADD COLUMN upstream_lab_job_id varchar(64);
+
+UPDATE yourchart_job_authorizations SET job_id = upstream_job_id;
+`
