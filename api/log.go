@@ -18,7 +18,11 @@ func StatsLogger() *log.Logger {
 		logStyle := viper.GetString("statsLogger")
 		switch logStyle {
 		case "syslog":
-			statsWriter, _ = syslog.New(syslog.LOG_NOTICE, "bloomapi-stats")
+			var err error
+			statsWriter, err = syslog.New(syslog.LOG_NOTICE, "bloomapi-stats")
+			if err != nil {
+				log.Fatal("Error sending logs to syslog, check BloomAPI configuration")
+			}
 		case "stdout":
 			statsWriter = os.Stdout
 		default:

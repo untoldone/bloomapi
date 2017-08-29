@@ -17,6 +17,7 @@ func (s *RecordFeatures) ServeHTTP(rw http.ResponseWriter, r *http.Request, next
 	features := api.GetFeatures(r)
 	j, _ := json.Marshal(features)
 	featureJson := string(j)
-	api.StatsLogger().Println(featureJson)
+	stats := api.StatsLogger()
+	stats.Println(featureJson)
 	next(rw, r)
 }
