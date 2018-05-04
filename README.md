@@ -1,7 +1,7 @@
 BloomAPI
 ========
 
-BloomAPI was originally this open source project. While BloomAPI is now a company with a different focus, this project is still actively maintained as set of libraries and executables to translate existing datasources into performant APIs. A public deployment of BloomAPI as well as more information can be found at https://www.bloomapi.com/documentation/public-data.
+BloomAPI was originally this open source project. While BloomAPI is now a company with a different focus, this project is still actively maintained as set of libraries and executables to translate existing datasources into performant APIs. More information can be found at https://github.com/untoldone/bloomapi/blob/master/DOCUMENTATION.md.
 
 To get a locally running copy of BloomAPI (only prerequisite is Docker with 4GB+ of memory -- if you are on a mac, you have to set this under docker preferences->advanced). We'd recommend running in production with at least 16GB of memory -- that said, it might work fine with less:
 
