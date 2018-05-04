@@ -12,12 +12,12 @@ API Usage
 Calling
 ---------------
 
-BloomAPI is a http-based API. It can be queried at <http://localhost:3001/api/> or at the url of your own deployment.
+BloomAPI is a http-based API. It can be queried at <http://localhost:3005/api/> or at the url of your own deployment.
 
 ``` javascript
  Example 200 Response
 
- curl -XGET http://localhost:3001/api/search/usgov.hhs.npi
+ curl -XGET http://localhost:3005/api/search/usgov.hhs.npi
  ```
 Experimental JSONP is currently supported by providing a `callback` method through the parameter callback.
 
@@ -80,7 +80,7 @@ Example 400 Response
 API Key
 ---------------
 
-Development access at <http://localhost:3001/api> is available without an API key, however, for production access, for https access, or for access to private data sources — an API key is required. Some of the current private datasources include:
+Development access at <http://localhost:3005/api> is available without an API key, however, for production access, for https access, or for access to private data sources — an API key is required. Some of the current private datasources include:
 
 * Federal Sanctions List
 * PECOS
@@ -99,7 +99,7 @@ Once you have an API key, it can be added to any request by adding the parameter
 ``` javascript
 Example Usage of API Key
 
-http://localhost:3001/api/search/usgov.hhs.npi?secret=:api_key_here&key1=practice_address.zip&op1=eq&value1=98101
+http://localhost:3005/api/search/usgov.hhs.npi?secret=:api_key_here&key1=practice_address.zip&op1=eq&value1=98101
 ```
 
 Programatic Clients
@@ -149,11 +149,11 @@ Returns search results given a datasource. `:source` should be replaced by the d
 ``` javascript
   Query for all clinicians that practice in the zipcode ‘98101’
 
-  GET http://localhost:3001/api/search/usgov.hhs.npi?limit=10&offset=0&key1=practice_address.zip&op1=eq&value1=98101
+  GET http://localhost:3005/api/search/usgov.hhs.npi?limit=10&offset=0&key1=practice_address.zip&op1=eq&value1=98101
 
   Query for all clinicians that have a last name of 'Dennis’ and practice in the zipcode '943012302’
 
-  GET http://localhost:3001/api/search/usgov.hhs.npi?limit=10&offset=0&key1=last_name&op1=eq&value1=DENNIS&key2=practice_address.zip&op2=eq&value2=943012302
+  GET http://localhost:3005/api/search/usgov.hhs.npi?limit=10&offset=0&key1=last_name&op1=eq&value1=DENNIS&key2=practice_address.zip&op2=eq&value2=943012302
 
 ```
 
@@ -193,7 +193,7 @@ Returns a specific element of a particular source. For example, the NPI’s :id 
 ```
 
 ``` javascript
-  GET http://localhost:3001/api/sources/usgov.hhs.npi/1376954206
+  GET http://localhost:3005/api/sources/usgov.hhs.npi/1376954206
 ```
 
 DATA SOURCES
